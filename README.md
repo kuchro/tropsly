@@ -1,2 +1,0 @@
-# tropsly
-Internet Shop App
