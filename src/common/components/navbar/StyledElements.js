@@ -9,8 +9,6 @@ export const StyledAppBar = styled(AppBar)`
 export const StyledDiv = styled.div`
   display: flex;
   margin-left: auto;
-  padding-right: 100px;
-  
 `;
 
 export const StyledA = styled.a`
