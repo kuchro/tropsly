@@ -1,4 +1,4 @@
-const Mens = () => {
+const MensComponent = () => {
   return (
     <div>
       <h1>Hello from Mens page</h1>
@@ -6,4 +6,4 @@ const Mens = () => {
   );
 };
 
-export default Mens;
+export default MensComponent;
