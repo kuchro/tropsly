@@ -1,0 +1,73 @@
+export const PRODUCT_DATA = [
+  {
+    id: "1",
+    title: "Product 1",
+    price: "100",
+    image: "https://picsum.photos/200/300",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sec pre urna aliquet nun",
+    quantity: "25",
+    category: "1",
+    material: "2",
+    brand: "1",
+    product_type: "1",
+    size: ["XS", "S", "M", "L"],
+  },
+  {
+    id: "2",
+    title: "Product 2",
+    price: "200",
+    image: "https://picsum.photos/200/300",
+    description:
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sec pre urna aliquet nun",
+    quantity: "15",
+    category: "2",
+    material: "1",
+    brand: "1",
+    product_type: "1",
+    size: ["XS", "S", "M", "L"],
+  },
+  {
+    id: "3",
+    title: "Product 3",
+    price: "200",
+    image: "https://picsum.photos/200/300",
+
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sec pre urna aliquet nun",
+    quantity: "10",
+    category: "3",
+    material: "1",
+    brand: "3",
+    product_type: "1",
+    size: ["XS", "S", "M", "L"],
+  },
+  {
+    id: "4",
+    title: "Product 4",
+    price: "200",
+    image: "https://picsum.photos/200/300",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sec pre urna aliquet nun",
+    quantity: "10",
+    category: "4",
+    material: "3",
+    brand: "4",
+    product_type: "4",
+    size: ["S", "M", "L"],
+  },
+  {
+    id: "5",
+    title: "Product 5",
+    price: "100",
+    image: "https://picsum.photos/200/300",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sec pre urna aliquet nun",
+    quantity: "15",
+    category: "1",
+    material: "5",
+    brand: "3",
+    product_type: "2",
+    size: ["M", "L"],
+  },
+];
