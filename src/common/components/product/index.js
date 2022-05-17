@@ -1,29 +1,38 @@
 import React from "react";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import {StyledCard} from "./StyledElements";
+import { Col, Card } from "antd";
+import {
+  StyledImage,
+  StyledCard,
+  StyledButton,
+  StyledDivider,
+} from "./StyledElements";
+import { ShoppingCartOutlined, InfoCircleTwoTone } from "@ant-design/icons";
 
+const { Meta } = Card;
 const ProductCard = ({ product }) => {
   return (
-    <StyledCard sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image={product.image}
-        alt={product.title}
-      />
-
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {product.title}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {product.description}
-        </Typography>
-      </CardContent>
-    </StyledCard>
+    <Col lg={6} key={product.id}>
+      <StyledCard
+        hoverable
+        style={{ width: 340 }}
+        cover={<StyledImage alt="example" src={product.image} />}
+      >
+        <Meta title={product.title} />
+        <StyledDivider/> 
+        <StyledButton
+          type="primary"
+          shape="circle"
+          size={"large"}
+          icon={<ShoppingCartOutlined />}
+        />
+        <StyledButton
+          type="primary"
+          shape="circle"
+          size={"large"}
+          icon={<InfoCircleTwoTone />}
+        />
+      </StyledCard>
+    </Col>
   );
 };
 

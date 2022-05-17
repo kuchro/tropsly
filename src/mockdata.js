@@ -70,4 +70,46 @@ export const PRODUCT_DATA = [
     product_type: "2",
     size: ["M", "L"],
   },
+  {
+    id: "6",
+    title: "Product 6",
+    price: "100",
+    image: "https://picsum.photos/200/300",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sec pre urna aliquet nun",
+    quantity: "15",
+    category: "1",
+    material: "5",
+    brand: "3",
+    product_type: "2",
+    size: ["M", "L"],
+  },
+  {
+    id: "7",
+    title: "Product 7",
+    price: "100",
+    image: "https://picsum.photos/200/300",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sec pre urna aliquet nun",
+    quantity: "15",
+    category: "1",
+    material: "5",
+    brand: "3",
+    product_type: "2",
+    size: ["M", "L"],
+  },
+  {
+    id: "8",
+    title: "Product 8",
+    price: "100",
+    image: "https://picsum.photos/200/300",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sec pre urna aliquet nun",
+    quantity: "15",
+    category: "1",
+    material: "5",
+    brand: "3",
+    product_type: "2",
+    size: ["M", "L"],
+  }
 ];

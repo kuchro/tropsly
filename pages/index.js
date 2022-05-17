@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import MainView from 'common/components/mainview/index.js'
+import "antd/dist/antd.css";
 
 
 export default function Home() {
@@ -13,7 +14,6 @@ export default function Home() {
       </Head>
 
       <main >
-
         <MainView/>
       </main>
 

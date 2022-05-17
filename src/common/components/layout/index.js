@@ -1,12 +1,15 @@
 import NavigationBar from "../navbar/index.js";
+import { Layout as Nav } from "antd";
 
-const Layout =({ children }) => {
+const Layout = ({ children }) => {
   return (
     <>
-      <NavigationBar />
+      <Nav>
+        <NavigationBar />
+      </Nav>
       <main>{children}</main>
     </>
   );
-}
+};
 
 export default Layout;

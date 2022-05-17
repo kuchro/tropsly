@@ -1,28 +1,30 @@
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-
-import { MainBox, ChildrenBox } from "./StyledComponents";
-import {PRODUCT_DATA as mockdata} from 'mockdata'
+import { MainBox, StyledGrid } from "./StyledComponents";
+import { PRODUCT_DATA as mockdata } from "mockdata";
 import ProductCard from "common/components/product/index.js";
 
 const MainView = () => {
   return (
- 
     <MainBox>
-      <ChildrenBox sx={{ backgroundColor: "#aaa" }}>
-          {mockdata.map(product => <ProductCard product={product}/>)}
-      </ChildrenBox>
-      <ChildrenBox sx={{ backgroundColor: "#bbb" }}>
-      {mockdata.map(product => <ProductCard product={product}/>)}
-      </ChildrenBox>
-      <ChildrenBox sx={{ backgroundColor: "#ccc" }}>
-      {mockdata.map(product => <ProductCard product={product}/>)}
-      </ChildrenBox>
-      <ChildrenBox sx={{ backgroundColor: "#ddd" }}>
-          {mockdata.map(product => <ProductCard product={product}/>)}
-      </ChildrenBox>
+      <h1>Mens</h1>
+      <StyledGrid gutter={[16, 24]} >
+        {mockdata.slice(0, 4).map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </StyledGrid>
+
+      <h1>Womens</h1>
+      <StyledGrid gutter={[16, 24]} >
+        {mockdata.slice(0, 4).map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </StyledGrid>
+      <h1>Kids</h1>
+      <StyledGrid gutter={[16, 24]} >
+        {mockdata.slice(0, 4).map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </StyledGrid>
     </MainBox>
-   
   );
 };
 export default MainView;

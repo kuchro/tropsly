@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { Box } from "@mui/material";
-
-export const MainBox = styled(Box)`
-    margin: 25px;
-
+import { Row } from 'antd';
+export const MainBox = styled.div`
+  margin: 25px;
+  align-items: center;
+  padding-left: 10;
 `;
 
-export const ChildrenBox = styled(Box)`
-    align-items: center;
-    display: flex;
-    margin: 15px;
-    justify-content: center;
+export const StyledGrid = styled(Row)`
+  padding: 20;
+  flex-direction: table;
+  display: flex;
+  justify-content: center;
 `;
