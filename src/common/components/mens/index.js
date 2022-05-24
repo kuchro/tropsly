@@ -1,8 +1,24 @@
+import React, { useState, useEffect } from "react";
+import { Row } from "antd";
+import { PRODUCT_DATA as mockdata } from "mockdata";
+import { MainBox, StyledGrid } from "common/styles/CommonStyledComponents";
+import MainProductCard from "../product/MainProductCard";
+
 const MensComponent = () => {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    setProducts(mockdata.filter((product) => product.category === "1"));
+  }, []);
+
   return (
-    <div>
-      <h1>Hello from Mens page</h1>
-    </div>
+    <MainBox>
+      <StyledGrid gutter={[16, 16]}>
+          {products.map((product) => {
+            return <MainProductCard key={product.id} product={product} path={"mens"}/>;
+          })}
+
+      </StyledGrid>
+    </MainBox>
   );
 };
 

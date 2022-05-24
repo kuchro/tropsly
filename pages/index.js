@@ -3,6 +3,7 @@ import Image from 'next/image'
 import MainView from 'common/components/mainview/index.js'
 
 
+
 export default function Home() {
   return (
     <div>
@@ -13,7 +14,6 @@ export default function Home() {
       </Head>
 
       <main >
-
         <MainView/>
       </main>
 

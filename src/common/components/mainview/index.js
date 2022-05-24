@@ -1,28 +1,39 @@
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 
-import { MainBox, ChildrenBox } from "./StyledComponents";
-import {PRODUCT_DATA as mockdata} from 'mockdata'
-import ProductCard from "common/components/product/index.js";
+import { useState } from "react";
+
+import { MainBox, StyledGrid } from "common/styles/CommonStyledComponents";
+
+import { PRODUCT_DATA as mockdata } from "mockdata";
+import { CAT_MOCK as category } from "categorymock";
+import MainProductCard from "common/components/product/MainProductCard.js";
 
 const MainView = () => {
+
+  const [mensProduct, setMensProducts] = useState(mockdata.filter((product) => product.category === "1"));
+  const [womensProduct, setWomensProducts] = useState(mockdata.filter((product) => product.category === "2"));
+  const [kidsProduct, setKidsProducts] = useState(mockdata.filter((product) => product.category === "3"));
   return (
- 
     <MainBox>
-      <ChildrenBox sx={{ backgroundColor: "#aaa" }}>
-          {mockdata.map(product => <ProductCard product={product}/>)}
-      </ChildrenBox>
-      <ChildrenBox sx={{ backgroundColor: "#bbb" }}>
-      {mockdata.map(product => <ProductCard product={product}/>)}
-      </ChildrenBox>
-      <ChildrenBox sx={{ backgroundColor: "#ccc" }}>
-      {mockdata.map(product => <ProductCard product={product}/>)}
-      </ChildrenBox>
-      <ChildrenBox sx={{ backgroundColor: "#ddd" }}>
-          {mockdata.map(product => <ProductCard product={product}/>)}
-      </ChildrenBox>
+      <h1>Mens</h1>
+      <StyledGrid gutter={[16, 24]} >
+        {mensProduct.slice(0, 4).map((product) => (
+          <MainProductCard key={product.id} product={product} path={"mens"} />
+        ))}
+      </StyledGrid>
+
+      <h1>Womens</h1>
+      <StyledGrid gutter={[16, 24]} >
+        {womensProduct.slice(0, 4).map((product) => (
+          <MainProductCard key={product.id} product={product} path={"womens"} />
+        ))}
+      </StyledGrid>
+      <h1>Kids</h1>
+      <StyledGrid gutter={[16, 24]} >
+        {kidsProduct.slice(0, 4).map((product) => (
+          <MainProductCard key={product.id} product={product} path={"kids"} />
+        ))}
+      </StyledGrid>
     </MainBox>
-   
   );
 };
 export default MainView;

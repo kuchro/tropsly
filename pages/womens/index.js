@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
+import WonensComponent from 'common/components/womens/index.js'
 const WomensPage = () => {
   return (
     <div>
-      <h1>The Womens page</h1>
+      <WonensComponent/>
     </div>
   );
 };
