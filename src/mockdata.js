@@ -1,7 +1,7 @@
 export const PRODUCT_DATA = [
   {
     id: "1",
-    title: "Product 1",
+    title: "Product Mens 1",
     price: "100",
     image: "https://picsum.photos/200/300",
     description:
@@ -15,7 +15,7 @@ export const PRODUCT_DATA = [
   },
   {
     id: "2",
-    title: "Product 2",
+    title: "Product Womens 2",
     price: "200",
     image: "https://picsum.photos/200/300",
     description:
@@ -29,7 +29,7 @@ export const PRODUCT_DATA = [
   },
   {
     id: "3",
-    title: "Product 3",
+    title: "Product Kids 3",
     price: "200",
     image: "https://picsum.photos/200/300",
 
@@ -58,7 +58,7 @@ export const PRODUCT_DATA = [
   },
   {
     id: "5",
-    title: "Product 5",
+    title: "Product Mens 5",
     price: "100",
     image: "https://picsum.photos/200/300",
     description:
@@ -72,7 +72,7 @@ export const PRODUCT_DATA = [
   },
   {
     id: "6",
-    title: "Product 6",
+    title: "Product Mens 6",
     price: "100",
     image: "https://picsum.photos/200/300",
     description:
@@ -86,7 +86,7 @@ export const PRODUCT_DATA = [
   },
   {
     id: "7",
-    title: "Product 7",
+    title: "Product Mens 7",
     price: "100",
     image: "https://picsum.photos/200/300",
     description:
@@ -100,13 +100,27 @@ export const PRODUCT_DATA = [
   },
   {
     id: "8",
-    title: "Product 8",
+    title: "Product Womens 8",
     price: "100",
     image: "https://picsum.photos/200/300",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sec pre urna aliquet nun",
     quantity: "15",
-    category: "1",
+    category: "2",
+    material: "5",
+    brand: "3",
+    product_type: "2",
+    size: ["M", "L"],
+  },
+  {
+    id: "9",
+    title: "Product Kids 8",
+    price: "100",
+    image: "https://picsum.photos/200/300",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sec pre urna aliquet nun",
+    quantity: "15",
+    category: "3",
     material: "5",
     brand: "3",
     product_type: "2",

@@ -6,7 +6,6 @@ const ClothesMensTypePage = () => {
   const { type } = router.query;
   return (
     <div>
-      <Mens />
       <p>Type is:{type}</p>
     </div>
   );

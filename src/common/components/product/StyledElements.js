@@ -7,32 +7,9 @@ export const StyledImage = styled.img`
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 60%;
+  width: 80%;
   object-fit: cover;
+  padding: 20px
   max-width: 220px;
   border-radius: 5px;
-`;
-
-export const StyledCard = styled(Card)``;
-
-export const StyledDivider = styled(Divider)`
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
-  display: none;
-  ${StyledCard}:hover & {
-    visibility: visible;
-    opacity: 1;
-  }
-`;
-
-export const StyledButton = styled(Button)`
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0.5s, opacity 1s linear;
-  margin: 10px;
-  ${StyledCard}:hover & {
-    visibility: visible;
-    opacity: 1;
-  }
 `;
