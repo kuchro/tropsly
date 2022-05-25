@@ -5,7 +5,7 @@ import { MainBox, StyledGrid } from "common/styles/CommonStyledComponents";
 
 import { PRODUCT_DATA as mockdata } from "mockdata";
 import { CAT_MOCK as category } from "categorymock";
-import MainProductCard from "common/components/product/MainProductCard.js";
+import MainProductCard from "common/components/product/ViewProductCard.js";
 
 const MainView = () => {
 

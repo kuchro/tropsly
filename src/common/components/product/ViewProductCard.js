@@ -13,7 +13,7 @@ import { Info } from "../modals/ModalComponent";
 const { Meta } = Card;
 const MainProductCard = ({ product, path }) => {
   return (
-    <Col lg={6} md={8} xs={24}  key={product.id}>
+    <Col lg={6} md={8} xs={16}  key={product.id}>
       <StyledCard
         hoverable
         style={{ width: 340 }}
@@ -27,12 +27,6 @@ const MainProductCard = ({ product, path }) => {
           <Meta title={product.title} />
         </Link>
         <StyledDivider />
-        <StyledButton
-          type="primary"
-          shape="circle"
-          size={"large"}
-          icon={<ShoppingCartOutlined />}
-        />
         <StyledButton
           onClick={() => {
             Info(product);

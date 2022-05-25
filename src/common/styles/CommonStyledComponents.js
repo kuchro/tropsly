@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Card, Divider, Row } from "antd";
+import { Button, Card, Divider, Row, Select } from "antd";
 
 
 
@@ -9,7 +9,7 @@ export const MainBox = styled.div`
 `;
 
 export const StyledGrid = styled(Row)`
-  padding: 20px;
+  padding: 10px;
   flex-direction: table;
   display: flex;
 `;
@@ -40,4 +40,9 @@ export const StyledButton = styled(Button)`
     visibility: visible;
     opacity: 1;
   }
+`;
+
+export const StyledSelect = styled(Select)`
+  margin: 10px;
+  width: 30%;
 `;
