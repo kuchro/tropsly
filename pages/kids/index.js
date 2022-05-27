@@ -1,11 +1,21 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import KidsComponent from 'common/components/kids/index.js'
+import { PRODUCT_DATA as mockdata } from "mockdata";
 
-const KidsPage = () => {
+export const getServerSideProps = async () => {
+  const kidsProducts = mockdata.filter((product) => product.category === "3");
+  return {
+    props: {data: kidsProducts}
+  }
+
+};
+const KidsPage = ({data}) => {
+
+
   return (
     <div>
-      <KidsComponent/>  
+      <KidsComponent data={data}/>  
     </div>
   );
 };
