@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Row } from "antd";
 import { PRODUCT_DATA as mockdata } from "mockdata";
 import { MainBox, StyledGrid } from "common/styles/CommonStyledComponents";
-import MainProductCard from "../product/MainProductCard";
+import MainProductCard from "../product/ViewProductCard";
 
-const KidsComponent = () => {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    setProducts(mockdata.filter((product) => product.category === "3"));
-  }, []);
+const KidsComponent = ({data}) => {
+  const [products, setProducts] = useState(data);
 
   return (
     <MainBox>

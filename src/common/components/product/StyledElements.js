@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Card, Divider } from "antd";
+import { Button, Card, Descriptions } from "antd";
 const { Meta } = Card;
 
 export const StyledImage = styled.img`
