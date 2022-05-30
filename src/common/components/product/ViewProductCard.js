@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
-import { Col, Card } from "antd";
+import { Col, Typography } from "antd";
+const { Title } = Typography;
+
+import { StyledImage } from "./StyledElements";
 
 import {
-  StyledImage,
-} from "./StyledElements";
-
-import { StyledCard, StyledDivider, StyledButton } from "common/styles/CommonStyledComponents";
-import { ShoppingCartOutlined, InfoCircleTwoTone } from "@ant-design/icons";
+  StyledCard,
+  StyledDivider,
+  StyledButton,
+} from "common/styles/CommonStyledComponents";
+import { InfoCircleTwoTone } from "@ant-design/icons";
 import { Info } from "../modals/ModalComponent";
+import FavoritesActions from "common/components/favorites/FavoritesActions";
 
-const { Meta } = Card;
-const MainProductCard = ({ product, path }) => {
+const ViewProductCard = ({ product, path }) => {
   return (
-    <Col lg={6} md={8} xs={16}  key={product.id}>
+    <Col lg={6} md={8} xs={16} key={product.id}>
       <StyledCard
         hoverable
         style={{ width: 340 }}
@@ -24,13 +27,12 @@ const MainProductCard = ({ product, path }) => {
         }
       >
         <Link href={`/${path}/${product.id}`}>
-          <Meta title={product.title} />
+          <Title level={3}>{product.title}</Title>
         </Link>
         <StyledDivider />
+        <FavoritesActions product={product} />
         <StyledButton
-          onClick={() => {
-            Info(product);
-          }}
+          onClick={() => Info(product)}
           type="primary"
           shape="circle"
           size={"large"}
@@ -41,4 +43,4 @@ const MainProductCard = ({ product, path }) => {
   );
 };
 
-export default MainProductCard;
+export default ViewProductCard;

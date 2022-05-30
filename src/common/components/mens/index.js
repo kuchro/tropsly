@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Row } from "antd";
 import { MainBox, StyledGrid } from "common/styles/CommonStyledComponents";
 import MainProductCard from "../product/ViewProductCard";
 

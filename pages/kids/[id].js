@@ -37,9 +37,7 @@ const KidsProductDetailPage = ({data}) => {
   const [productData] = useState(data);
 
   return (
-    <div>
-      <div>{productData.title}</div>
-    </div>
+    <ProductDetailsPage product={productData}/>
   );
 };
 

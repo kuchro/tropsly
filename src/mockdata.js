@@ -114,7 +114,7 @@ export const PRODUCT_DATA = [
   },
   {
     id: "9",
-    title: "Product Kids 8",
+    title: "Product Kids 9",
     price: "100",
     image: "https://picsum.photos/200/300",
     description:

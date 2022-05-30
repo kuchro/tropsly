@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import { Descriptions, Button, Divider } from "antd";
+import { Descriptions, Divider } from "antd";
 import { StyledSelect } from "common/styles/CommonStyledComponents";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+
+import { MaterialMapper } from "common/util/DataTransformer";
+
+
+
 const { Option } = StyledSelect;
 
 const MiniProductDetails = ({ product }) => {
   const [productSize, setProductSize] = useState(product.size);
-  const [selectedSize, setSelectedSize] = useState([]);
 
   useEffect(() => {
     const elements = [];
@@ -16,17 +19,6 @@ const MiniProductDetails = ({ product }) => {
     setProductSize(elements);
   }, []);
 
-  const handleChange = (value) => {
-    setSelectedSize(value);
-  };
-
-  const mapMaterialInfo = (material) => {
-    return Object.entries(material).map(([k, v]) => (
-      <span>
-     {k}:{v} 
-      </span>
-    ));
-  };
 
   return (
     <div>
@@ -36,24 +28,14 @@ const MiniProductDetails = ({ product }) => {
       <Descriptions>
         <Descriptions.Item label="Size">
           {product.size.map((size) => (
-            <span>{size}, </span>
+            <span key={size}>{size}, </span>
           ))}
         </Descriptions.Item>
-        <Descriptions.Item label="Material" >
-          {mapMaterialInfo(product.material)}
+        <Descriptions.Item label="Material">
+          {MaterialMapper(product.material)}
         </Descriptions.Item>
       </Descriptions>
       <Divider />
-      <Button
-        disabled={selectedSize.length === 0}
-        type="primary"
-        shape="circle"
-        size={"large"}
-        icon={<ShoppingCartOutlined />}
-      />
-      <StyledSelect mode="tags" onChange={handleChange} tokenSeparators={[","]}>
-        {productSize}
-      </StyledSelect>
     </div>
   );
 };

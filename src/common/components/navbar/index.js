@@ -9,6 +9,7 @@ import {
 } from "./StyledElements";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { HeartTwoTone } from "@ant-design/icons";
 
 const NavigationBar = () => {
   const router = useRouter();
@@ -37,6 +38,16 @@ const NavigationBar = () => {
             <NavLink href="/kids">
               <StyledA className={router.pathname == "/kids" ? "active" : ""}>
                 Kids
+              </StyledA>
+            </NavLink>
+            <NavLink href="/wardrobe">
+              <StyledA
+                className={router.pathname == "/wardrobe" ? "active" : ""}
+              >
+                <HeartTwoTone
+                  style={{ fontSize: "25px" }}
+                  twoToneColor="#eb2f96"
+                />
               </StyledA>
             </NavLink>
           </NavMenu>

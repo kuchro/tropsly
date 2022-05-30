@@ -1,8 +1,9 @@
 import {useState} from 'react';
+
 import { useRouter } from "next/router";
-import Mens from "common/components/mens/index.js";
-import { PRODUCT_DATA as mockdata } from "mockdata";
 import ProductDetailsPage from "common/components/product-details/ProductDetailsPage.js";
+
+import { PRODUCT_DATA as mockdata } from "mockdata";
 
 
 export const getServerSideProps = async ( context ) => {
@@ -18,12 +19,11 @@ export const getServerSideProps = async ( context ) => {
   };
 };
 
-const ClothesMensTypePage = ({data}) => {
+const ClothesWomensTypePage = ({data}) => {
   const [productData] = useState(data);
-
   return (
     <ProductDetailsPage product={productData}/>
   );
 };
 
-export default ClothesMensTypePage;
+export default ClothesWomensTypePage;
