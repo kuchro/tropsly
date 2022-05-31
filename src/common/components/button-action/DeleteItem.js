@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DeleteOutlined } from "@ant-design/icons";
+import { HeartFilled } from "@ant-design/icons";
 import { Button } from "antd";
 
 const DeleteItem = ({operation}) => {
@@ -10,7 +10,7 @@ const DeleteItem = ({operation}) => {
       shape="circle"
       size={"large"}
       onClick={operation}
-      icon={<DeleteOutlined />}
+      icon={<HeartFilled color='red'/>}
       style={{ marginLeft: "15px",  color: 'red' }}
     />
   );

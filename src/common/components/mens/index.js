@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { MainBox, StyledGrid } from "common/styles/CommonStyledComponents";
-import MainProductCard from "../product/ViewProductCard";
+import ViewProductCard from "../product/ViewProductCard";
+import ProductList from "common/components/product/ProductList";
 
-const MensComponent = ({data}) => {
-  const [products, setProducts] = useState(data);
-
-
-  return (
-    <MainBox>
-      <StyledGrid gutter={[16, 16]}>
-          {products.map((product) => {
-            return <MainProductCard key={product.id} product={product} path={"mens"}/>;
-          })}
-
-      </StyledGrid>
-    </MainBox>
-  );
+const MensComponent = ({ data }) => {
+  return <ProductList products={data} path="mens" />;
 };
 
 export default MensComponent;

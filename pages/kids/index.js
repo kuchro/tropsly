@@ -15,7 +15,7 @@ const KidsPage = ({data}) => {
 
   return (
     <div>
-      <KidsComponent data={data}/>  
+    <KidsComponent data={data}/>  
     </div>
   );
 };

@@ -5,7 +5,7 @@ import AddOrRemoveButton from "common/components/button-action/AddOrRemoveButton
 import AddToFavButton from "common/components/button-action/AddToFavButton";
 import DeleteItem from "common/components/button-action/DeleteItem";
 
-const FavoritesActions = ({product}) => {
+const FavoritesActions = ({ product }) => {
   const userCtx = useContext(UserContext);
 
   const addToFavItems = (product) => {
@@ -25,7 +25,7 @@ const FavoritesActions = ({product}) => {
         buttonDelete={
           <DeleteItem operation={() => removeFromFav(product.id)} />
         }
-        buttonAdd={<AddToFavButton onAddToFav={() => addToFavItems(product)} />}
+        buttonAdd={<AddToFavButton onAddToFav={() => addToFavItems(product)} color="#eb2f96" />}
       />
     </>
   );

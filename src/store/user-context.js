@@ -1,9 +1,18 @@
 import { createContext, useState } from "react";
-import { success,deleted_success,warning } from "common/components/modals/ModalComponent";
+import {
+  success,
+  deleted_success,
+} from "common/components/modals/ModalComponent";
 
 const UserContext = createContext({
-  addToCart: [],
-  addToFav: [],
+    cartProducts: [],
+    favoriteProducts: [],
+    addToCartProduct: (product) => {},
+    addToFavProduct: (product) => {},
+    checkIfAlreadyInCart: (id) => {},
+    checkIfAlreadyFav: (id) => {},
+    removeFromCart: (id) => {},
+    removeFromFav: (id) => {},
 });
 
 export const UserContextProvider = ({ children }) => {
@@ -11,11 +20,11 @@ export const UserContextProvider = ({ children }) => {
   const [fav, setFav] = useState([]);
 
   const addToCartProduct = (product) => {
-    success('cart');
+    success("cart");
     setCart([...cart, product]);
   };
   const addToFavProduct = (product) => {
-    success('favorite list');
+    success("favorite list");
     console.log("fav here", product);
     setFav([...fav, product]);
   };
@@ -41,22 +50,19 @@ export const UserContextProvider = ({ children }) => {
     setCart(cart.filter((item) => item.id !== id));
   };
   const removeFromFav = (id) => {
-    deleted_success('favorites list');
+    deleted_success("favorites list");
     setFav(fav.filter((item) => item.id !== id));
   };
 
-  const favoriteProducts = () => {
-    return fav;
-  };
-
   const context = {
+    cartProducts: cart,
     addToCart: addToCartProduct,
     addToFav: addToFavProduct,
-    favoriteProducts: favoriteProducts,
+    favoriteProducts: fav,
     removeFromFav: removeFromFav,
     removeFromCart: removeFromCart,
     checkIfAlreadyInCart: checkIfAlreadyInCart,
-    checkIfAlreadyFav: checkIfAlreadyFav
+    checkIfAlreadyFav: checkIfAlreadyFav,
   };
 
   return (

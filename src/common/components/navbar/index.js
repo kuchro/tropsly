@@ -40,7 +40,7 @@ const NavigationBar = () => {
                 Kids
               </StyledA>
             </NavLink>
-            <NavLink href="/wardrobe">
+            <NavLink href="/likes">
               <StyledA
                 className={router.pathname == "/wardrobe" ? "active" : ""}
               >

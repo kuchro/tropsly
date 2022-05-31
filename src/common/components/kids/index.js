@@ -2,17 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Row } from "antd";
 import { PRODUCT_DATA as mockdata } from "mockdata";
 import { MainBox, StyledGrid } from "common/styles/CommonStyledComponents";
-import MainProductCard from "../product/ViewProductCard";
+import ViewProductCard from "../product/ViewProductCard";
 
-const KidsComponent = ({data}) => {
-  const [products, setProducts] = useState(data);
+const KidsComponent = ({ data }) => {
 
   return (
+      
     <MainBox>
       <StyledGrid gutter={[16, 16]}>
-          {products.map((product) => {
-            return <MainProductCard key={product.id} product={product} path={"kids"} />;
-          })}
+          {data.map((product) => (<ViewProductCard key={product.id} product={product} path={"kids"} />))}
       </StyledGrid>
     </MainBox>
   );

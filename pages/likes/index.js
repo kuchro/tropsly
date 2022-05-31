@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import WardrobeComponent from 'common/components/wardrobe/WardrobeComponent'
+import FavoritesComponent from 'common/components/favorites-component/FavoritesComponent'
 
 
 export const getServerSideProps = async () => {
@@ -11,12 +11,12 @@ export const getServerSideProps = async () => {
   
   };
 
-const WardrobePage = ({data}) => {
+const FavoritePage = ({data}) => {
   return (
     <div>
-      <WardrobeComponent product={data} />
+      <FavoritesComponent product={data} />
     </div>
   );
 };
 
-export default WardrobePage;
+export default FavoritePage;

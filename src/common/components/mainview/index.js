@@ -1,15 +1,13 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 
-import { MainBox, StyledGrid } from "common/styles/CommonStyledComponents";
+import { MainBox } from "common/styles/CommonStyledComponents";
 
 import { PRODUCT_DATA as mockdata } from "mockdata";
 import { CAT_MOCK as category } from "categorymock";
-import ViewProductCard from "common/components/product/ViewProductCard.js";
 
+import ProductList from "common/components/product/ProductList.js";
 
 const MainView = () => {
-
-
   const [mensProduct, setMensProducts] = useState(
     mockdata.filter((product) => product.category === "1")
   );
@@ -20,40 +18,14 @@ const MainView = () => {
     mockdata.filter((product) => product.category === "3")
   );
 
-
   return (
     <MainBox>
       <h1>Mens</h1>
-      <StyledGrid gutter={[16, 24]}>
-        {mensProduct.slice(0, 4).map((product) => (
-          <ViewProductCard
-            key={product.id}
-            product={product}
-            path={"mens"}
-          />
-        ))}
-      </StyledGrid>
-
+      <ProductList products={mensProduct.slice(0, 4)} path="mens" />
       <h1>Womens</h1>
-      <StyledGrid gutter={[16, 24]}>
-        {womensProduct.slice(0, 4).map((product) => (
-          <ViewProductCard
-            key={product.id}
-            product={product}
-            path={"womens"}
-          />
-        ))}
-      </StyledGrid>
+      <ProductList products={womensProduct.slice(0, 4)} path="womens" />
       <h1>Kids</h1>
-      <StyledGrid gutter={[16, 24]}>
-        {kidsProduct.slice(0, 4).map((product) => (
-          <ViewProductCard
-            key={product.id}
-            product={product}
-            path={"kids"}
-          />
-        ))}
-      </StyledGrid>
+      <ProductList products={kidsProduct.slice(0, 4)} path="kids" />
     </MainBox>
   );
 };

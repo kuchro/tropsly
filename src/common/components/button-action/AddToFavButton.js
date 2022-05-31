@@ -1,8 +1,8 @@
 import React from "react";
-import { HeartTwoTone } from "@ant-design/icons";
+import Icon,{ HeartTwoTone } from "@ant-design/icons";
 import { Button } from "antd";
 
-const AddToFavButton = ({onAddToFav}) => {
+const AddToFavButton = ({onAddToFav, color}) => {
 
   return (
     <Button
@@ -10,7 +10,7 @@ const AddToFavButton = ({onAddToFav}) => {
       onClick={()=>onAddToFav()}
       shape="circle"
       size={"large"}
-      icon={<HeartTwoTone />}
+      icon={<HeartTwoTone twoToneColor={color} />}
       style={{ marginLeft: "15px"}}
     />
   );
