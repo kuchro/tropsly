@@ -16,7 +16,7 @@ import AddToCartButton from "common/components/button-action/AddToCartButton";
 import CommentSection from "common/components/comment-section/CommentSection";
 import RatingComponent from "common/components/rating-component/RatingComponent";
 import ActionableButtons from "common/components/button-action/ActionableButtons";
-import FavoritesActions from "common/components/favorites-button/FavoritesActions";
+import FavoritesActions from "common/components/favorites/FavoritesActions";
 
 import UserContext from "store/user-context";
 

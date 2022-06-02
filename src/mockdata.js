@@ -109,7 +109,7 @@ export const PRODUCT_DATA = [
     category: "2",
     material: {"cotton": "80%", "polyester": "20%"},
     brand: "3",
-    product_type: "2",
+    product_type: "1",
     size: ["M", "L"],
   },
   {
@@ -125,5 +125,20 @@ export const PRODUCT_DATA = [
     brand: "3",
     product_type: "2",
     size: ["M", "L"],
+  },
+  {
+    id: "10",
+    title: "Product Kids 10",
+    price: "100",
+    image: "https://picsum.photos/200/300",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sec pre urna aliquet nun",
+    quantity: "15",
+    category: "3",
+    material: {"cotton": "90%", "polyester": "10%"},
+    brand: "4",
+    product_type: "4",
+    size: ["M", "L","XL"],
   }
+
 ];
