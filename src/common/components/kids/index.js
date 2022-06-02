@@ -8,10 +8,16 @@ import ViewProductCard from "../product/ViewProductCard";
 
 const KidsComponent = ({ data }) => {
   const [kidsProducts, setKidsProducts] = useState(data);
+  const [Filters, setFilters] = useState({
+      productType: []
+  });
 
-  const handleFilterType = (data) => {
-      console.log(data)
-  };
+  const handleFilterType = (filters, category) => {
+    const newFilters = { ...Filters };
+    newFilters[category] = filters;
+    setFilters(newFilters);
+  }
+};
 
   return (
     <MainBox>
