@@ -22,8 +22,8 @@ const ProductFilter = ({ handleFilterType, productTypes }) => {
       <Collapse defaultActiveKey={["1"]} style={{width: "350px" }}>
         <Panel header="Category" >
           {productTypes.map((value) => (
-            <>
-              <Checkbox
+            <React.Fragment key={value.id}>
+              <Checkbox key={value.id}
                 style={{ margin: "10px"}}
                 onChange={() => handleToggle(value.id)}
                 type="checkbox"
@@ -37,7 +37,7 @@ const ProductFilter = ({ handleFilterType, productTypes }) => {
               >
                 {value.name}
               </span>
-            </>
+            </React.Fragment>
           ))}
         </Panel>
       </Collapse>
