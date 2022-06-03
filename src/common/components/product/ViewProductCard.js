@@ -38,6 +38,7 @@ const ViewProductCard = ({ product, path }) => {
           size={"large"}
           icon={<InfoCircleTwoTone />}
         />
+        <Typography title="Price" type="numerical">{`Price: $${product.price} PLN`}</Typography>
       </StyledCard>
     </Col>
   );

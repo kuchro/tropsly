@@ -3,7 +3,7 @@ import { Checkbox, Collapse } from "antd";
 
 const { Panel } = Collapse;
 
-const ProductFilter = ({ handleFilterType, productTypes }) => {
+const ProductFilter = ({ filterType,handleFilterType, productTypes }) => {
   const [Checked, setChecked] = useState([]);
 
   const handleToggle = (id) => {
@@ -20,7 +20,7 @@ const ProductFilter = ({ handleFilterType, productTypes }) => {
   return (
     <div>
       <Collapse defaultActiveKey={["1"]} style={{width: "350px" }}>
-        <Panel header="Category" >
+        <Panel header={filterType} >
           {productTypes.map((value) => (
             <React.Fragment key={value.id}>
               <Checkbox key={value.id}
