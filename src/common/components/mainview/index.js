@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { MainBox } from "common/styles/CommonStyledComponents";
+import { MainBox, StyledGrid } from "common/styles/CommonStyledComponents";
 
 import { PRODUCT_DATA as mockdata } from "mockdata";
 import { CAT_MOCK as category } from "categorymock";
@@ -20,12 +20,14 @@ const MainView = () => {
 
   return (
     <MainBox>
-      <h1>Mens</h1>
-      <ProductList products={mensProduct.slice(0, 4)} path="mens" />
-      <h1>Womens</h1>
-      <ProductList products={womensProduct.slice(0, 4)} path="womens" />
-      <h1>Kids</h1>
-      <ProductList products={kidsProduct.slice(0, 4)} path="kids" />
+
+        <h1>Mens</h1>
+        <ProductList products={mensProduct.slice(0, 4)} path="mens" />
+        <h1>Womens</h1>
+        <ProductList products={womensProduct.slice(0, 4)} path="womens" />
+        <h1>Kids</h1>
+        <ProductList products={kidsProduct.slice(0, 4)} path="kids" />
+
     </MainBox>
   );
 };

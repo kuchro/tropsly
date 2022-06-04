@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Checkbox, Collapse } from "antd";
+import { Checkbox, Collapse, Menu, Dropdown, Button } from "antd";
 
 const { Panel } = Collapse;
 
@@ -18,7 +18,7 @@ const ProductFilter = ({ filterType,handleFilterType, productTypes }) => {
   };
 
   return (
-    <div>
+ 
       <Collapse defaultActiveKey={["1"]} style={{width: "350px" }}>
         <Panel header={filterType} >
           {productTypes.map((value) => (
@@ -41,7 +41,7 @@ const ProductFilter = ({ filterType,handleFilterType, productTypes }) => {
           ))}
         </Panel>
       </Collapse>
-    </div>
+  
   );
 };
 

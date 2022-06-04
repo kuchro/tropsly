@@ -1,3 +1,4 @@
+import {useContext} from 'react'
 import {
   Nav,
   NavLink,
@@ -10,9 +11,12 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { HeartTwoTone } from "@ant-design/icons";
+import UserContext from "store/user-context";
+
 
 const NavigationBar = () => {
   const router = useRouter();
+  const userCtx = useContext(UserContext);
 
   return (
     <>
@@ -44,10 +48,12 @@ const NavigationBar = () => {
               <StyledA
                 className={router.pathname == "/wardrobe" ? "active" : ""}
               >
+                {userCtx.favoriteProducts.length > 0 ? 
                 <HeartTwoTone
                   style={{ fontSize: "25px" }}
                   twoToneColor="#eb2f96"
-                />
+                /> : null
+              }
               </StyledA>
             </NavLink>
           </NavMenu>
