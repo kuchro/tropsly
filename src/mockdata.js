@@ -9,8 +9,8 @@ export const PRODUCT_DATA = [
     quantity: "25",
     category: "1",
     material: {"cotton": "95%", "elastan": "5%"},
-    brand: "1",
-    product_type: "1",
+    brand: 1,
+    product_type: 1,
     size: ["XS", "S", "M", "L"],
   },
   {
@@ -23,8 +23,8 @@ export const PRODUCT_DATA = [
     quantity: "15",
     category: "2",
     material: { "cotton": "80%", "polyester": "20%"},
-    brand: "1",
-    product_type: "1",
+    brand: 1,
+    product_type: 1,
     size: ["XS", "S", "M", "L"],
   },
   {
@@ -38,8 +38,8 @@ export const PRODUCT_DATA = [
     quantity: "10",
     category: "3",
     material:  {"cotton": "100%"},
-    brand: "3",
-    product_type: "1",
+    brand: 1,
+    product_type: 1,
     size: ["XS", "S", "M", "L"],
   },
   {
@@ -52,8 +52,8 @@ export const PRODUCT_DATA = [
     quantity: "10",
     category: "4",
     material: {"silk": "60%", "polyester": "40%"},
-    brand: "4",
-    product_type: "4",
+    brand: 4,
+    product_type: 4,
     size: ["S", "M", "L"],
   },
   {
@@ -66,8 +66,8 @@ export const PRODUCT_DATA = [
     quantity: "15",
     category: "1",
     material: {"polyester": "80%", "cotton": "20%"},
-    brand: "3",
-    product_type: "2",
+    brand: 3,
+    product_type: 2,
     size: ["M", "L"],
   },
   {
@@ -80,8 +80,8 @@ export const PRODUCT_DATA = [
     quantity: "15",
     category: "1",
     material: {"cotton": "70%", "polyester": "30%"},
-    brand: "3",
-    product_type: "2",
+    brand: 3,
+    product_type: 2,
     size: ["M", "L"],
   },
   {
@@ -94,8 +94,8 @@ export const PRODUCT_DATA = [
     quantity: "15",
     category: "1",
     material: [{"cotton": "90%"}, {"elastan": "10%"}],
-    brand: "3",
-    product_type: "2",
+    brand: 3,
+    product_type: 2,
     size: ["M", "L"],
   },
   {
@@ -108,8 +108,8 @@ export const PRODUCT_DATA = [
     quantity: "15",
     category: "2",
     material: {"cotton": "80%", "polyester": "20%"},
-    brand: "3",
-    product_type: "2",
+    brand: 3,
+    product_type: 1,
     size: ["M", "L"],
   },
   {
@@ -122,8 +122,23 @@ export const PRODUCT_DATA = [
     quantity: "15",
     category: "3",
     material: {"cotton": "90%", "polyester": "10%"},
-    brand: "3",
-    product_type: "2",
+    brand: 3,
+    product_type: 2,
     size: ["M", "L"],
+  },
+  {
+    id: "10",
+    title: "Product Kids 10",
+    price: "100",
+    image: "https://picsum.photos/200/300",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sec pre urna aliquet nun",
+    quantity: "15",
+    category: "3",
+    material: {"cotton": "90%", "polyester": "10%"},
+    brand: 4,
+    product_type: 3,
+    size: ["M", "L","XL"],
   }
+
 ];

@@ -5,7 +5,7 @@ import DeleteItem from "common/components/button-action/DeleteItem";
 
 import ViewProductCard from "common/components/product/ViewProductCard.js";
 
-const WardrobeComponent = () => {
+const FavoritesComponent = () => {
   const userCtx = useContext(UserContext);
 
   const removeFromFav = (id) => {
@@ -15,7 +15,7 @@ const WardrobeComponent = () => {
   return (
     <>
       <StyledGrid gutter={[16, 24]}>
-        {userCtx.favoriteProducts().map((product) => (
+        {userCtx.favoriteProducts.map((product) => (
           <ViewProductCard
             key={product.id}
             product={product}
@@ -30,4 +30,4 @@ const WardrobeComponent = () => {
   );
 };
 
-export default WardrobeComponent;
+export default FavoritesComponent;

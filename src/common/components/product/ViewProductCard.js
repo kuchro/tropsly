@@ -12,7 +12,7 @@ import {
 } from "common/styles/CommonStyledComponents";
 import { InfoCircleTwoTone } from "@ant-design/icons";
 import { Info } from "../modals/ModalComponent";
-import FavoritesActions from "common/components/favorites/FavoritesActions";
+import FavoritesActions from "common/components/favorites-button/FavoritesActions";
 
 const ViewProductCard = ({ product, path }) => {
   return (
@@ -38,6 +38,7 @@ const ViewProductCard = ({ product, path }) => {
           size={"large"}
           icon={<InfoCircleTwoTone />}
         />
+        <Typography title="Price" type="numerical">{`Price: $${product.price} PLN`}</Typography>
       </StyledCard>
     </Col>
   );

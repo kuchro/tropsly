@@ -1,12 +1,20 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import WonensComponent from 'common/components/womens/index.js'
-import { PRODUCT_DATA as mockdata } from "mockdata";
 
-export const getServerSideProps = async () => {
-    const womensProducts = mockdata.filter((product) => product.category === "3");
+import { HOST_DATA } from "hostdata";
+import axios from "axios";
+export const getServerSideProps = async ({ req, res, resolvedUrl }) => {
+
+  console.log('PathName!!',resolvedUrl.replace('/',''))
+
+  let catResponse = await axios.get(`${HOST_DATA.API_URL}${HOST_DATA.CATEGORY}`);
+  let categoryId = catResponse.data.find(x=>x.name==resolvedUrl.replace('/','')).id;
+  let productDataResponse = await axios.get(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT_BY_CAT}${categoryId}`);
+  let productData = productDataResponse.data;
     return {
-      props: {data: womensProducts}
+      props: {data: productData
+             }
     }
   
   };

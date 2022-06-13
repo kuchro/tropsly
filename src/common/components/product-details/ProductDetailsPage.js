@@ -16,7 +16,7 @@ import AddToCartButton from "common/components/button-action/AddToCartButton";
 import CommentSection from "common/components/comment-section/CommentSection";
 import RatingComponent from "common/components/rating-component/RatingComponent";
 import ActionableButtons from "common/components/button-action/ActionableButtons";
-import FavoritesActions from "common/components/favorites/FavoritesActions";
+import FavoritesActions from "common/components/favorites-button/FavoritesActions";
 
 import UserContext from "store/user-context";
 
@@ -28,10 +28,6 @@ const ProductDetailsPage = ({ product }) => {
 
   const addToCart = (product) => {
     userCtx.addToCart({ ...product, size: selectedSize });
-  };
-
-  const onChangeSelectSize = (data) => {
-    setSelectedSize(data);
   };
 
   return (
@@ -51,7 +47,7 @@ const ProductDetailsPage = ({ product }) => {
             <Divider />
             <SelectSizeComponent
               data={product.size}
-              onChangeSelectData={(data) => onChangeSelectSize(data)}
+              onChangeSelectData={(data) => setSelectedSize(data)}
             />
             <ActionableButtons
               actions={

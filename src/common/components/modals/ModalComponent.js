@@ -2,6 +2,7 @@ import { Modal, message } from 'antd'
 import MiniProductDetails from '../product/MiniProductDetail'
 
 
+
 export const Info = (product) => {
     return (
         Modal.info({
@@ -15,6 +16,17 @@ export const success = (text) => {
 
     message.success({
         content: `Product added to ${text}.`,
+        duration: 2,
+        style: {
+            marginTop: '10vh',
+        },
+    });
+};
+
+export const successCustomMessage = (text) => {
+
+    message.success({
+        content: `${text}.`,
         duration: 2,
         style: {
             marginTop: '10vh',
@@ -41,3 +53,7 @@ export const warning = () => {
         },
     });
 };
+
+export const confirmation = ()=>{
+    
+}
