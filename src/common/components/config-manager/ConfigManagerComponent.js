@@ -1,26 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { ConfigContainer, Label } from "./StyledComponents";
+import { ConfigContainer } from "./StyledComponents";
 import { Space, Table, Tag, message, Button } from "antd";
-const { Column, ColumnGroup } = Table;
-import ActionableAddModal from "common/components/modals/ActionableAddModal";
-import ActionableDeleteModal from "common/components/modals/ActionableDeleteModal";
-import AddCategory from "common/components/config-manager/AddCategory";
-import DeleteCategory from "common/components/config-manager/DeleteCategory";
+const { Column } = Table;
+import ActionableModal from "common/components/modals/ActionableModal";
+import CategorySelect from "common/components/config-manager/CategorySelect";
 import BackdropEffect from "common/components/modals/BackdropEffect";
 import PopConfirmation from "common/components/modals/PopConfirmation";
-
-import { Submit } from "./StyledComponents";
 import { HOST_DATA } from "hostdata";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const ConfigManagerComponent = ({ configuration }) => {
-  const [configData, setConfigData] = useState(configuration);
-  const [reloadData, setReloadData] = useState(false);
+  const router = useRouter();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [configData, setConfigData] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false);
   const [pathRoute, setPathRoute] = useState();
-  const [elementToDeleteByKey, setElementsToDeleteByKey] = useState(new Set())
-  const [selectCatToDelete, setSelectCatToDelete] = useState([]);
+  const [selectedCat, setSelectCat] = useState([]);
+
+  useEffect(() => {
+    setIsRefreshing(false);
+    setConfigData(configuration);
+  }, [configuration]);
+
+  const refreshData = () => {
+    router.replace(router.asPath);
+    setIsRefreshing(true);
+  };
 
   const showAddModal = (path) => {
     setPathRoute(path);
@@ -28,11 +35,8 @@ const ConfigManagerComponent = ({ configuration }) => {
   };
 
   const showDeleteModal = (path) => {
-    console.log('Element:',elementToDeleteByKey)
     setPathRoute(path);
     setModalDeleteIsOpen(true);
-    setReloadData(false);
-    
   };
 
   const closeModal = () => {
@@ -41,65 +45,35 @@ const ConfigManagerComponent = ({ configuration }) => {
   };
 
   const onDelete = (path) => {
-    console.log(selectCatToDelete);
     axios
       .delete(`${HOST_DATA.API_URL}${HOST_DATA.CONFIGURE}${path}/remove`, {
-        data: selectCatToDelete,
+        data: selectedCat,
       })
       .then(function (response) {
-        console.log(response);
+        refreshData();
+        message.success("Category removed properly.");
+        setModalDeleteIsOpen(false);
       })
       .catch(function (error) {
-        console.log(error);
+        message.error("Something went wrong, try again later.");
       });
   };
 
-  const cancel = (e) => {
-    console.log(e);
-    message.error("Click on No");
-  };
-
-  const confirmModal = () => {
-    setReloadData(true);
-    setModalIsOpen(false);
-    setModalDeleteIsOpen(false);
-  };
-
-
-  const dataSet = (data)=>{
-    console.log('this',data);
-    let cate = new Set(data.catName);
-    setElementsToDeleteByKey(cate);
-  }
-
-  useEffect(() => {
-    (async () => {
-      let configDataResponse = await axios.get(
-        `${HOST_DATA.API_URL}${HOST_DATA.CONFIG_ALL}`
-      );
-      let configData = await configDataResponse.data;
-      const configAllData = Object.entries(configData).map(([k, v]) => {
-        return {
-          key: k,
-          catName: k,
-          data: v,
-        };
-      });
-      console.log("State changed", configAllData);
-      setConfigData(configAllData);
-      console.log(configAllData);
-      Object.entries(configAllData).map(([k,v])=>{
-
-      // setElementsToDeleteByKey(v.catName,v.data)
-
+  const onSubmit = () => {
+    axios
+      .post(`${HOST_DATA.API_URL}${HOST_DATA.CONFIGURE}${pathRoute}`, {
+        names: selectedCat,
       })
-     
-    })();
-
-    return () => {
-      console.log("This will be logged on unmount");
-    };
-  }, [reloadData]);
+      .then(function (response) {
+        refreshData();
+        setModalIsOpen(false);
+        setModalDeleteIsOpen(false);
+        message.success("Category added properly.");
+      })
+      .catch(function (error) {
+        message.error("Something went wrong...");
+      });
+  };
 
   return (
     <ConfigContainer>
@@ -113,7 +87,6 @@ const ConfigManagerComponent = ({ configuration }) => {
             <>
               {tags.map((tag) => (
                 <Tag color="blue" key={tag}>
-                  
                   {tag}
                 </Tag>
               ))}
@@ -124,37 +97,37 @@ const ConfigManagerComponent = ({ configuration }) => {
           title="Action"
           key="action"
           render={(data) => (
-            
             <Space size="middle">
               <>
-             
-              {console.log("cat:",elementToDeleteByKey)}
                 <a onClick={() => showAddModal(data.catName)}>
                   Add {data.catName}
-                 
                 </a>
                 {modalIsOpen && (
                   <>
-                    <ActionableAddModal
+                    <ActionableModal
                       key={data.catName}
                       onCancel={() => closeModal()}
-                      onConfirm={() => confirmModal()}
+                      onConfirm={() => onSubmit()}
                       actionType={
-                        <AddCategory
+                        <CategorySelect
                           path={pathRoute}
-                          actionButton={
-                            <Submit type="submit" value="Add Category" />
+                          categories={
+                            configData.find((x) => x.key === pathRoute).data
                           }
-                          buttons={
-                            <>
-                              <Button onClick={() => closeModal()}>
-                                Close
-                              </Button>
-                              <Button type="submit">Test</Button>
-                            </>
-                          }
+                          catToDelete={(data) => setSelectCat(data)}
                         />
                       }
+                      buttons={
+                        <>
+                          <Button onClick={() => closeModal()}>Close</Button>
+                          <PopConfirmation
+                            onConfirm={() => onSubmit()}
+                            onCancel={() => {}}
+                            text={"Add"}
+                          />
+                        </>
+                      }
+                      text="Add To Category"
                     />
                     <BackdropEffect />
                   </>
@@ -165,27 +138,29 @@ const ConfigManagerComponent = ({ configuration }) => {
 
                 {modalDeleteIsOpen && (
                   <>
-                    <ActionableDeleteModal
+                    <ActionableModal
                       key={data.catName}
                       onCancel={() => closeModal()}
-                      onConfirm={() => onConfirm()}
                       buttons={
                         <>
                           <Button onClick={() => closeModal()}>Close</Button>
                           <PopConfirmation
-                            onConfirm={() => onDelete(data.catName)}
-                            onCancel={() => cancel()}
+                            onConfirm={() => onDelete(pathRoute)}
+                            onCancel={() => {}}
+                            text={"Delete"}
                           />
                         </>
                       }
                       actionType={
-                        
-                        <DeleteCategory
+                        <CategorySelect
                           path={pathRoute}
-                          categories={configData.find(x=>x.key===pathRoute).data}
-                          catToDelete={(data) => setSelectCatToDelete(data)}
+                          categories={
+                            configData.find((x) => x.key === pathRoute).data
+                          }
+                          catToDelete={(data) => setSelectCat(data)}
                         />
                       }
+                      text="Delete From Category"
                     />
                     <BackdropEffect />
                   </>

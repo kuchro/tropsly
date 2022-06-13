@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Select, Tag } from "antd";
 
-const DeleteCategory = ({ path, categories, catToDelete }) => {
+const CategorySelect = ({ path, categories, catToDelete }) => {
   const [pathRoute, setPathRoute] = useState(path);
   const [catOptions, setCatOptions] = useState([]);
   //const { label, value, closable, onClose } = props;
@@ -14,12 +14,12 @@ const DeleteCategory = ({ path, categories, catToDelete }) => {
     <>
       <Select
         mode="tags"
-        color="red"
-        showArrow
+        status="vertical"
+        showSearch
         onChange={handleChange}
         placeholder='Choose categories to delete'
         style={{
-          width: "100%",
+          width: "60%",
         }}
         options={categories.map(option=>{
            return {
@@ -32,4 +32,4 @@ const DeleteCategory = ({ path, categories, catToDelete }) => {
   );
 };
 
-export default DeleteCategory;
+export default CategorySelect;

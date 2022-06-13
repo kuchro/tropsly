@@ -1,13 +1,16 @@
 import { useRouter } from "next/router";
-import Link from "next/link";
-import MensComponent from 'common/components/mens/index.js'
-import { PRODUCT_DATA as mockdata } from "mockdata";
 
+import MensComponent from 'common/components/mens/index.js'
+import { HOST_DATA } from "hostdata";
+import axios from "axios";
 
 export const getServerSideProps = async () => {
-    const mensProducts = mockdata.filter((product) => product.category === "1");
+  let catResponse = await axios.get(`${HOST_DATA.API_URL}${HOST_DATA.CATEGORY}`);
+  let categoryId = catResponse.data.find(x=>x.name=="mens").id;
+  let productDataResponse = await axios.get(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT_BY_CAT}${categoryId}`);
+  let productData = productDataResponse.data;
     return {
-      props: {data: mensProducts}
+      props: {data: productData}
     }
   
   };

@@ -5,3 +5,8 @@ export const MaterialMapper = (material) => {
       </span>
   ));
 };
+
+
+export const selectCategoryData = (name,catData) =>{
+  return Object.entries(catData).find(([k,v]) => v.catName===name)[1].data;
+}

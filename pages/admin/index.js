@@ -12,20 +12,28 @@ export const getServerSideProps = async () => {
         return {
             key: k,
             catName: k,
-            data: v
+            data: v.map(x=>x.name)
         }
     })
+    const configDataWithId = Object.entries(configData).map(([k,v])=>{
+      return {
+          key: k,
+          catName: k,
+          data: v
+      }
+  })
 
       return {
         props: {
             data: configAllData,
+            dataWithId: configDataWithId,
         }
       }
     }
 
-const AdminPage = ({data}) => {
+const AdminPage = ({data,dataWithId}) => {
   return (
-    <AdminComponent data={data}/>
+    <AdminComponent data={data} dataWithId={dataWithId}/>
   )
 }
 

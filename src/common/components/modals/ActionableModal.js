@@ -2,24 +2,22 @@ import { Button, Modal } from "antd";
 import React, { useState } from "react";
 
 
-const ActionableAddModal = ({
-  onConfirm,
+const ActionableModal = ({
   onCancel,
  actionType,
- buttons
+ buttons,
+ text
 }) => {
   const [visible] = useState(true);
 
   return (
     <>
       <Modal
-        title="Action"
+        title={`Action ${text}`}
         centered
         visible={visible}
-        onOk={() => onConfirm()}
         onCancel={() => onCancel()}
-        okText='Add Category'
-        cancelText='Close'
+        okText={`${text}`}
         width={1000}
         footer={buttons}
       >
@@ -30,4 +28,4 @@ const ActionableAddModal = ({
   );
 };
 
-export default ActionableAddModal;
+export default ActionableModal;

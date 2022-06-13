@@ -10,14 +10,14 @@ import {
 
 import AddProduct from "common/components/add-product/AddProduct";
 import ConfigManagerComponent from "common/components/config-manager/ConfigManagerComponent"
+import ManageProduct from 'common/components/manage-product/ManageProduct'
 
 
-
-export const AdminComponent = ({data}) => {
+export const AdminComponent = ({data,dataWithId}) => {
   const [selectedItem, setSelectedItem] = useState();
   const components = {
-    AddProduct: <AddProduct />,
-    RemoveProduct: <span>Menu 2</span>,
+    AddProduct: <AddProduct configurationData={dataWithId} />,
+    ManageProduct: <ManageProduct categoryData={dataWithId}/>,
     CurrentOrders: <span>Menu 3</span>,
     ConfigurationManager: <ConfigManagerComponent configuration={data}/>,
   };
@@ -33,8 +33,8 @@ export const AdminComponent = ({data}) => {
       children: [
         { label: "Add Product", key: "AddProduct" },
         {
-          label: "Remove products",
-          key: "RemoveProduct",
+          label: "Manage products",
+          key: "ManageProduct",
         },
         {
             label: "Manage Configuration",

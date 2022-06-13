@@ -2,27 +2,30 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   ProductContainer,
-  ProductHeader,
   Select,
   Input,
   Label,
   TextArea,
   Submit
 } from "./StyledComponents";
-import { Divider, Typography, Checkbox } from "antd";
+import { Divider, message, Checkbox } from "antd";
 const CheckboxGroup = Checkbox.Group;
 import { CAT_MOCK, BRAND_MOCK, MATERIAL_MOCK } from "categorymock";
 import axios from "axios";
 import { HOST_DATA } from "hostdata";
-const AddProduct = () => {
+import { selectCategoryData } from "common/util/DataTransformer";
+
+
+
+
+const AddProduct = ({configurationData}) => {
   const plainOptions = ["XS", "S", "M", "L", "XL", "XXL"];
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
-
+  const [categoryData, setCategoryData] = useState(configurationData);
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
   const [CheckedList, setCheckedList] = useState([]);
@@ -39,14 +42,19 @@ const AddProduct = () => {
     setCheckAll(e.target.checked);
   };
 
-  const onSubmit = (data) => {
+
+  const onSubmit = (data, e) => {
       data.size = CheckedList;
       axios.post(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}`,data).then(function (response) {
         console.log(response);
+        e.target.reset();
+        message.success("Product Added to database.");
       })
       .catch(function (error) {
-        console.log(error);
+        message.error("Something went wrong...");
       });
+     
+     
   }
 
   return (
@@ -58,36 +66,30 @@ const AddProduct = () => {
         <Label>Title</Label>
         <Input placeholder="Title" {...register("title", {required: true})} />
         {errors.Title && <span>Title is required.</span>}
+        <Label>Material</Label>
+        <Input placeholder="Material" {...register("material", {required: true})} />
+        {errors.Material && <span>Material is required.</span>}
         <Label>Description</Label>
         <TextArea
           placeholder="Please fill description"
           {...register("description", {required: true})}
         />
         {errors.Description && <span>Description is required.</span>}
+    
         <Divider />
         <Label>Category</Label>
         <Select type='number' {...register("category", { required: true })}>
-          {CAT_MOCK.map((item) => (
-            <option key={item.key} value={item.name}>
+          {selectCategoryData('category',configurationData).map((item) => (
+            <option key={item.id} value={item.name}>
               {item.name}
             </option>
           ))}
           {errors.Section && <span>Section is required.</span>}
         </Select>
-
-        <Label>Material</Label>
-        <Select {...register("material", { required: true })}>
-          {MATERIAL_MOCK.map((item) => (
-            <option key={item.key} value={item.name}>
-              {item.name}
-            </option>
-          ))}
-      
-        </Select>
-        {errors.Material && <span>Material is required.</span>}
+        
         <Label>Brand</Label>
         <Select {...register("brand", { required: true })}>
-          {BRAND_MOCK.map((item) => (
+          {selectCategoryData('brand',configurationData).map((item) => (
             <option key={item.id} value={item.name}>
               {item.name}
             </option>
