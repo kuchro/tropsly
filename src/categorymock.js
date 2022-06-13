@@ -1,8 +1,8 @@
 export const CAT_MOCK = [
-  { key: 1, value: "sports" },
-  { key: 2, value: "mens" },
-  { key: 3, value: "womens" },
-  { key: 4, value: "kids" },
+  { key: 1, name: "sports" },
+  { key: 2, name: "mens" },
+  { key: 3, name: "womens" },
+  { key: 4, name: "kids" },
 ];
 
 export const BRAND_MOCK = [
@@ -15,12 +15,12 @@ export const BRAND_MOCK = [
 ];
 
 export const MATERIAL_MOCK = [
-  { key: 1, value: "cotton" },
-  { key: 2, value: "polyester" },
-  { key: 3, value: "silk" },
-  { key: 4, value: "denim" },
-  { key: 5, value: "leather" },
-  { key: 6, value: "suede" },
+  { key: 1, name: "cotton" },
+  { key: 2, name: "polyester" },
+  { key: 3, name: "silk" },
+  { key: 4, name: "denim" },
+  { key: 5, name: "leather" },
+  { key: 6, name: "suede" },
 ];
 
 export const PRODUCT_TYPE_KIDS = [

@@ -30,10 +30,6 @@ const ProductDetailsPage = ({ product }) => {
     userCtx.addToCart({ ...product, size: selectedSize });
   };
 
-  const onChangeSelectSize = (data) => {
-    setSelectedSize(data);
-  };
-
   return (
     <>
       <StyledLayout>
@@ -51,7 +47,7 @@ const ProductDetailsPage = ({ product }) => {
             <Divider />
             <SelectSizeComponent
               data={product.size}
-              onChangeSelectData={(data) => onChangeSelectSize(data)}
+              onChangeSelectData={(data) => setSelectedSize(data)}
             />
             <ActionableButtons
               actions={
