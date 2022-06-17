@@ -39,17 +39,6 @@ export const TextArea = styled.textarea`
   max-width: 60%;
 `;
 
-export const Select = styled.select`
-  display: block;
-  font-size: 0.8rem;
-  margin: 20px;
-  font-family: sans-serif;
-  font-weight: 700;
-  color: #444;
-  line-height: 0.8rem;
-  padding: 0.6em 1.4em 0.5em 0.8em;
-  width: 150px;
-`;
 
 export const Submit = styled.input`
 

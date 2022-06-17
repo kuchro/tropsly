@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   ProductContainer,
-  Select,
   Input,
   Label,
   TextArea,
@@ -14,6 +13,7 @@ import { CAT_MOCK, BRAND_MOCK, MATERIAL_MOCK } from "categorymock";
 import axios from "axios";
 import { HOST_DATA } from "hostdata";
 import { selectCategoryData } from "common/util/DataTransformer";
+import SelectCategory from 'common/components/select-size/SelectCategory'
 
 
 
@@ -45,6 +45,8 @@ const AddProduct = ({configurationData}) => {
 
   const onSubmit = (data, e) => {
       data.size = CheckedList;
+      //need to be modyfied
+      data.userId = 3;
       axios.post(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}`,data).then(function (response) {
         console.log(response);
         e.target.reset();
@@ -65,36 +67,23 @@ const AddProduct = ({configurationData}) => {
         <Input placeholder="Image" {...register("image")} />
         <Label>Title</Label>
         <Input placeholder="Title" {...register("title", {required: true})} />
-        {errors.Title && <span>Title is required.</span>}
+        {errors.title && <span>Title is required.</span>}
         <Label>Material</Label>
         <Input placeholder="Material" {...register("material", {required: true})} />
-        {errors.Material && <span>Material is required.</span>}
+        {errors.material && <span>Material is required.</span>}
         <Label>Description</Label>
         <TextArea
           placeholder="Please fill description"
           {...register("description", {required: true})}
         />
-        {errors.Description && <span>Description is required.</span>}
+        {errors.description && <span>Description is required.</span>}
     
         <Divider />
         <Label>Category</Label>
-        <Select type='number' {...register("category", { required: true })}>
-          {selectCategoryData('category',configurationData).map((item) => (
-            <option key={item.id} value={item.name}>
-              {item.name}
-            </option>
-          ))}
-          {errors.Section && <span>Section is required.</span>}
-        </Select>
+        <SelectCategory category={"category"} categoryData={configurationData} register={register} errors={errors}/>
         
         <Label>Brand</Label>
-        <Select {...register("brand", { required: true })}>
-          {selectCategoryData('brand',configurationData).map((item) => (
-            <option key={item.id} value={item.name}>
-              {item.name}
-            </option>
-          ))}
-        </Select>
+          <SelectCategory category={"brand"} categoryData={configurationData} register={register} errors={errors}/>
         <Divider />
         <Checkbox {...register("size")}
           indeterminate={indeterminate}
@@ -111,9 +100,9 @@ const AddProduct = ({configurationData}) => {
         />
         <Divider />
         <Label>Price($)</Label>
-        <Input type="number" placeholder={errors.Quantity ? 'This field is required' : 'Add Price'} min={0} {...register("price",{ required: true })} />
+        <Input type="number" placeholder={errors.price ? 'Price is required' : 'Add Price'} min={0} {...register("price",{ required: true })} />
         <Label>Quantity</Label>
-        <Input type="number" placeholder={errors.Quantity ? 'This field is required' : 'Add Quantity'} min={0} {...register("quantity", { required: true })} />
+        <Input type="number" placeholder={errors.quantity ? 'Quantity is required' : 'Add Quantity'} min={0} {...register("quantity", { required: true })} />
         <Divider />
         <Submit type="submit" value="Add Product"/>
       </form>

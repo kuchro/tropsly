@@ -74,7 +74,7 @@ const ProductDetailsPage = ({ product }) => {
               <Description>{MaterialMapper(product.material)}</Description>
             </Panel>
             <Panel header="Opinions" key="3">
-              <CommentSection />
+              <CommentSection productId={product.productId} />
             </Panel>
           </Collapse>
         </DetailsLayout>

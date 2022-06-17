@@ -4,6 +4,7 @@ export const HOST_DATA ={
     CATEGORY: '/v1/api/configure/category',
     PRODUCT_BY_CAT: '/v1/api/product/category/',
     PRODUCT: '/v1/api/product/',
+    PRODUCT_COMMENT: `/v1/api/product/comment`,
     CONFIG_ALL: '/v1/api/configure/all',
     CONFIGURE: '/v1/api/configure/',
 }

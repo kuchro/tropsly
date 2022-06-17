@@ -5,59 +5,59 @@ import {
   LikeOutlined,
 } from "@ant-design/icons";
 import { Button, Comment, Form, Input, List } from "antd";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import moment from "moment";
+import CommentList from './CommentList'
+import EditorSection from './EditorSection'
 const { TextArea } = Input;
 
+import axios from "axios";
+import { HOST_DATA } from "hostdata";
 
 
-const CommentList = ({ comments }) => (
-  <List
-    dataSource={comments}
-    header={`${comments.length} ${comments.length > 1 ? "replies" : "reply"}`}
-    itemLayout="horizontal"
-    renderItem={(props) => <Comment {...props} />}
-  />
-);
-
-const Editor = ({ onChange, onSubmit, submitting, value }) => (
-  <>
-    <Form.Item>
-      <TextArea rows={4} onChange={onChange} value={value} />
-    </Form.Item>
-    <Form.Item>
-      <Button
-        htmlType="submit"
-        loading={submitting}
-        onClick={onSubmit}
-        type="primary"
-      >
-        Add Comment
-      </Button>
-    </Form.Item>
-  </>
-);
-
-export const CommentSection = () => {
+export const CommentSection = ({productId}) => {
+  const [reloadData, setReloadData] = useState(false);
   const [comments, setComments] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState("");
+
+
+  const fetchData = async () => {
+    let getAllComments = await axios.get(
+      `${HOST_DATA.API_URL}${HOST_DATA.PRODUCT_COMMENT}/${productId}`
+    );
+    let allComments = await getAllComments.data;
+    let data = allComments.map(x=> {
+      return {
+        author: 'A some user',
+        content: x.comment,
+        datetime: x.dateTime
+      }
+    })
+   setComments(data);
+  };
+  useEffect(() => {
+    fetchData();
+    setReloadData(false);
+  }, [reloadData]);
 
   const handleSubmit = () => {
     if (!value) return;
     setSubmitting(true);
     setTimeout(() => {
+      let payload = {
+        comment: value,
+        productId: productId
+      }
       setSubmitting(false);
       setValue("");
-      setComments([
-        ...comments,
-        {
-          author: "Han Solo",
-          avatar: "https://joeschmoe.io/api/v1/random",
-          content: <p>{value}</p>,
-          datetime: moment().fromNow(),
-        },
-      ]);
+      axios.post(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT_COMMENT}`,payload).then(function (response) {
+        setReloadData(true);
+      })
+      .catch(function (error) {
+        message.error("Something went wrong...");
+      });
+
     }, 1000);
   };
 
@@ -67,9 +67,8 @@ export const CommentSection = () => {
   return (
     <>
       <Comment
-
         content={
-          <Editor
+          <EditorSection
             onChange={handleChange}
             onSubmit={handleSubmit}
             submitting={submitting}
@@ -77,7 +76,7 @@ export const CommentSection = () => {
           />
         }
       />
-      {comments.length > 0 && <CommentList comments={comments} />}
+      {comments.length > 0 && <CommentList commentsList={comments} />}
     </>
   );
 };

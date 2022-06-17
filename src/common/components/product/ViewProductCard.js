@@ -21,7 +21,7 @@ const ViewProductCard = ({ product, path }) => {
         hoverable
         style={{ width: 340 }}
         cover={
-          <Link href={`/${path}/${product.id}`}>
+          <Link href={`/${path}/${product.productId}`}>
             <StyledImage alt="example" src={product.image} />
           </Link>
         }

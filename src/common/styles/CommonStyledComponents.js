@@ -45,3 +45,15 @@ export const StyledButton = styled(Button)`
 export const StyledSelect = styled(Select)`
   width: 40%;
 `;
+
+export const SelectOptions = styled.select`
+  display: block;
+  font-size: 0.8rem;
+  margin: 20px;
+  font-family: sans-serif;
+  font-weight: 700;
+  color: #444;
+  line-height: 0.8rem;
+  padding: 0.6em 1.4em 0.5em 0.8em;
+  width: 150px;
+`;
