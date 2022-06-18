@@ -30,7 +30,7 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const checkIfAlreadyInCart = (id) => {
-    const productExist = cart.find((item) => item.id === id);
+    const productExist = cart.find((item) => item.productId === id);
     if (productExist) {
       return true;
     }
@@ -39,7 +39,7 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const checkIfAlreadyFav = (id) => {
-    const productExist = fav.find((item) => item.id === id);
+    const productExist = fav.find((item) => item.productId === id);
     if (productExist) {
       return true;
     }
@@ -47,11 +47,11 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const removeFromCart = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
+    setCart(cart.filter((item) => item.productId !== id));
   };
   const removeFromFav = (id) => {
     deleted_success("favorites list");
-    setFav(fav.filter((item) => item.id !== id));
+    setFav(fav.filter((item) => item.productId !== id));
   };
 
   const context = {

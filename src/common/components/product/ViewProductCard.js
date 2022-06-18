@@ -16,8 +16,9 @@ import FavoritesActions from "common/components/favorites-button/FavoritesAction
 
 const ViewProductCard = ({ product, path }) => {
   return (
-    <Col lg={6} md={8} xs={16} key={product.id}>
+    <Col lg={6} md={8} xs={16} key={product.productId}>
       <StyledCard
+        key={product.productId}
         hoverable
         style={{ width: 340 }}
         cover={
@@ -26,7 +27,7 @@ const ViewProductCard = ({ product, path }) => {
           </Link>
         }
       >
-        <Link href={`/${path}/${product.id}`}>
+        <Link href={`/${path}/${product.productId}`}>
           <Title level={3}>{product.title}</Title>
         </Link>
         <StyledDivider />

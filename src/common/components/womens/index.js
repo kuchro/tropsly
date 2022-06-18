@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Row } from "antd";
 import { MainBox, StyledGrid } from "common/styles/CommonStyledComponents";
-import ViewProductCard from "../product/ViewProductCard";
+import ProductList from "common/components/product/ProductList";
 
 const WomensComponent = ({ data }) => {
 
-  return (
-    <MainBox>
-      <StyledGrid>
-      {data.map((product) => (<ViewProductCard key={product.id} product={product} path={"womens"} />))}
-      </StyledGrid>
-    </MainBox>
-  );
-};
-
+   return <ProductList products={data} path="womens" />;
+}
 export default WomensComponent;

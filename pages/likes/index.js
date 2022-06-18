@@ -1,20 +1,22 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import FavoritesComponent from 'common/components/favorites-component/FavoritesComponent'
-
+import { HOST_DATA } from "hostdata";
+import axios from "axios";
 
 export const getServerSideProps = async () => {
-    const mensProducts = [];
-    return {
-      props: {data: mensProducts}
-    }
+  let categoryDataResponse = await axios.get(`${HOST_DATA.API_URL}${HOST_DATA.CATEGORY}`);
+  let catData = categoryDataResponse.data;
+  return {
+    props: {data: catData}
+  }
   
   };
 
 const FavoritePage = ({data}) => {
   return (
     <div>
-      <FavoritesComponent product={data} />
+      <FavoritesComponent data={data} />
     </div>
   );
 };

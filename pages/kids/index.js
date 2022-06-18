@@ -9,7 +9,7 @@ export const getServerSideProps = async () => {
 
   let catResponse = await  axios.get(`${HOST_DATA.API_URL}${HOST_DATA.CATEGORY}`);
   let categoryId = catResponse.data.find(x=>x.name=="kids").id;
-  let productDataResponse = await axios.get(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT_BY_CAT}${categoryId}`);
+  let productDataResponse = await axios.get(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT_CATEGORY}${categoryId}`);
   let productData = productDataResponse.data;
   return {
     props: {data: productData}

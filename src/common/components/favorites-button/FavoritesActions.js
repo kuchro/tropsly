@@ -21,9 +21,9 @@ const FavoritesActions = ({ product }) => {
   return (
     <>
       <AddOrRemoveButton
-        exist={userCtx.checkIfAlreadyFav(product.id)}
+        exist={userCtx.checkIfAlreadyFav(product.productId)}
         buttonDelete={
-          <DeleteItem operation={() => removeFromFav(product.id)} />
+          <DeleteItem operation={() => removeFromFav(product.productId)} />
         }
         buttonAdd={<AddToFavButton onAddToFav={() => addToFavItems(product)} color="#eb2f96" />}
       />

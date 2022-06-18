@@ -9,11 +9,13 @@ import {
 } from "./StyledElements";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { HeartTwoTone } from "@ant-design/icons";
+import { HeartTwoTone,ShoppingCartOutlined } from "@ant-design/icons";
+import React, { useContext } from "react";
+import UserContext from "store/user-context";
 
 const NavigationBar = () => {
   const router = useRouter();
-
+  const userCtx = useContext(UserContext);
   return (
     <>
       <Nav>
@@ -40,16 +42,30 @@ const NavigationBar = () => {
                 Kids
               </StyledA>
             </NavLink>
-            <NavLink href="/likes">
-              <StyledA
-                className={router.pathname == "/wardrobe" ? "active" : ""}
-              >
-                <HeartTwoTone
-                  style={{ fontSize: "25px" }}
-                  twoToneColor="#eb2f96"
-                />
-              </StyledA>
-            </NavLink>
+            {userCtx.favoriteProducts.length != 0 ? (
+              <NavLink href="/likes">
+                <StyledA
+                  className={router.pathname == "/likes" ? "active" : ""}
+                >
+                  <HeartTwoTone
+                    style={{ fontSize: "25px" }}
+                    twoToneColor="#eb2f96"
+                  />
+                </StyledA>
+              </NavLink>
+            ) : null}
+
+            {userCtx.cartProducts.length != 0 ? (
+              <NavLink href="/cart">
+                <StyledA
+                  className={router.pathname == "/cart" ? "active" : ""}
+                >
+                  <ShoppingCartOutlined
+                    style={{ fontSize: "25px" }}
+                  />
+                </StyledA>
+              </NavLink>
+            ) : null}
           </NavMenu>
         </NavBarContainer>
       </Nav>

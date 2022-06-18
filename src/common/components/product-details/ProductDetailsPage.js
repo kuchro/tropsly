@@ -61,7 +61,7 @@ const ProductDetailsPage = ({ product }) => {
               }
             />
             <Divider />
-            <RatingComponent />
+            <RatingComponent productId={product.productId} />
           </StyledContent>
         </Space>
 
