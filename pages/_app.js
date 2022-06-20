@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import Layout from "common/components/layout/index.js";
+import Layout from "common/components/functional-components/layout/LayoutComponent.js";
 import "antd/dist/antd.css";
 import { UserContextProvider } from "store/user-context";
 export default function MyApp({ Component, pageProps }) {

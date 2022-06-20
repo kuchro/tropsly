@@ -1,8 +1,6 @@
 import {useState} from 'react';
 import { useRouter } from "next/router";
-import Mens from "common/components/mens/index.js";
-import { PRODUCT_DATA as mockdata } from "mockdata";
-import ProductDetailsPage from "common/components/product-details/ProductDetailsPage.js";
+import ProductDetailsPage from "common/components/product/product-details/ProductDetailsPage.js";
 import axios from "axios";
 import { HOST_DATA } from "hostdata";
 

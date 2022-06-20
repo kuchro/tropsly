@@ -8,9 +8,9 @@ import {
   SkinOutlined,
 } from "@ant-design/icons";
 
-import AddProduct from "common/components/add-product/AddProduct";
-import ConfigManagerComponent from "common/components/config-manager/ConfigManagerComponent"
-import ManageProduct from 'common/components/manage-product/ManageProduct'
+import AddProduct from "common/components/admin/add-product/AddProduct";
+import ConfigManagerComponent from "common/components/admin/config-manager/ConfigManagerComponent"
+import ManageProduct from 'common/components/admin/manage-product/ManageProduct'
 
 
 export const AdminComponent = ({data,dataWithId}) => {

@@ -13,8 +13,8 @@ import {
 } from "./StyledComponents";
 import SelectSizeComponent from "common/components/functional-components/select-size/SelectSizeComponent";
 import AddToCartButton from "common/components/functional-components/button-action/AddToCartButton";
-import CommentSection from "common/components/comment-section/CommentSection";
-import RatingComponent from "common/components/rating-component/RatingComponent";
+import CommentSection from "common/components/product/product-comment-section/CommentSection";
+import RatingComponent from "common/components/product/rate-product/RatingComponent";
 import ActionableButtons from "common/components/functional-components/button-action/ActionableButtons";
 import FavoritesActions from "common/components/functional-components/favorites-button/FavoritesActions";
 

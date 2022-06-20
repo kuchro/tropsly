@@ -5,7 +5,7 @@ import { MainBox } from "common/styles/CommonStyledComponents";
 import { PRODUCT_DATA as mockdata } from "mockdata";
 import { CAT_MOCK as category } from "categorymock";
 
-import ProductList from "common/components/product/ProductList.js";
+import ProductList from "common/components/product/product-info/ProductList.js";
 
 const MainView = () => {
   const [mensProduct, setMensProducts] = useState(

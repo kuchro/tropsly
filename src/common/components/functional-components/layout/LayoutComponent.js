@@ -1,7 +1,7 @@
-import NavigationBar from "../functional-components/navbar/index.js";
+import NavigationBar from "../navbar/index.js";
 import { Layout as Nav } from "antd";
 
-const Layout = ({ children }) => {
+const LayoutComponent = ({ children }) => {
   return (
     <>
       <Nav>
@@ -12,4 +12,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+export default LayoutComponent;

@@ -1,5 +1,5 @@
 import { Modal, message } from 'antd'
-import MiniProductDetails from '../../product/MiniProductDetail'
+import MiniProductDetails from '../../product/product-details/MiniProductDetail'
 
 
 

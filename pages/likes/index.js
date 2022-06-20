@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import FavoritesComponent from 'common/components/favorites-component/FavoritesComponent'
+import FavoritesComponent from 'common/components/user-action/favorites-component/FavoritesComponent'
 import { HOST_DATA } from "hostdata";
 import axios from "axios";
 

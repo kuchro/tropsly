@@ -11,10 +11,10 @@ import {
   StyledButton,
 } from "common/styles/CommonStyledComponents";
 import { InfoCircleTwoTone } from "@ant-design/icons";
-import { Info } from "../functional-components/modals/ModalComponent";
+import { Info } from "../../functional-components/modals/ModalComponent";
 import FavoritesActions from "common/components/functional-components/favorites-button/FavoritesActions";
 
-const ViewProductCard = ({ product, path }) => {
+const ProductCardView = ({ product, path }) => {
   return (
     <Col lg={6} md={8} xs={16} key={product.productId}>
       <StyledCard
@@ -45,4 +45,4 @@ const ViewProductCard = ({ product, path }) => {
   );
 };
 
-export default ViewProductCard;
+export default ProductCardView;

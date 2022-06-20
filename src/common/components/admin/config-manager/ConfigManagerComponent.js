@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ConfigContainer } from "./StyledComponents";
 import { Space, Tag, message, Button } from "antd";
 import ActionableModal from "common/components/functional-components/modals/ActionableModal";
-import CategorySelect from "common/components/config-manager/CategorySelect";
+import CategorySelect from "common/components/admin/config-manager/CategorySelect";
 import BackdropEffect from "common/components/functional-components/modals/BackdropEffect";
 import PopConfirmation from "common/components/functional-components/modals/PopConfirmation";
 import DataTableComponent from "common/components/functional-components/data-table/DataTableComponent";
