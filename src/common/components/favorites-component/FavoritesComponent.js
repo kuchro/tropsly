@@ -1,7 +1,7 @@
 import React, {useContext, useState } from "react";
 import {  StyledGrid } from "common/styles/CommonStyledComponents";
 import UserContext from "store/user-context";
-import DeleteItem from "common/components/button-action/DeleteItem";
+import DeleteItem from "common/components/functional-components/button-action/DeleteItem";
 
 import ViewProductCard from "common/components/product/ViewProductCard.js";
 

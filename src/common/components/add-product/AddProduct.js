@@ -13,7 +13,7 @@ import { CAT_MOCK, BRAND_MOCK, MATERIAL_MOCK } from "categorymock";
 import axios from "axios";
 import { HOST_DATA } from "hostdata";
 import { selectCategoryData } from "common/util/DataTransformer";
-import SelectCategory from 'common/components/select-size/SelectCategory'
+import SelectCategory from 'common/components/functional-components/select-size/SelectCategory'
 
 
 
@@ -46,7 +46,7 @@ const AddProduct = ({configurationData}) => {
   const onSubmit = (data, e) => {
       data.size = CheckedList;
       //need to be modyfied
-      data.userId = 3;
+      //data.userId = 3;
       axios.post(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}`,data).then(function (response) {
         console.log(response);
         e.target.reset();
@@ -61,7 +61,6 @@ const AddProduct = ({configurationData}) => {
 
   return (
     <ProductContainer>
-      <Divider />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Label>Photo</Label>
         <Input placeholder="Image" {...register("image")} />

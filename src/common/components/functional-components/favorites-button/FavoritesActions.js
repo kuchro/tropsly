@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import UserContext from "store/user-context";
 
-import AddOrRemoveButton from "common/components/button-action/AddOrRemoveButton";
-import AddToFavButton from "common/components/button-action/AddToFavButton";
-import DeleteItem from "common/components/button-action/DeleteItem";
+import AddOrRemoveButton from "common/components/functional-components/button-action/AddOrRemoveButton";
+import AddToFavButton from "common/components/functional-components/button-action/AddToFavButton";
+import DeleteItem from "common/components/functional-components/button-action/DeleteItem";
 
 const FavoritesActions = ({ product }) => {
   const userCtx = useContext(UserContext);

@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import {
   success,
   deleted_success,
-} from "common/components/modals/ModalComponent";
+} from "common/components/functional-components/modals/ModalComponent";
 
 const UserContext = createContext({
     cartProducts: [],

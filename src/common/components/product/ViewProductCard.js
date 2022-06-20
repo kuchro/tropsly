@@ -11,8 +11,8 @@ import {
   StyledButton,
 } from "common/styles/CommonStyledComponents";
 import { InfoCircleTwoTone } from "@ant-design/icons";
-import { Info } from "../modals/ModalComponent";
-import FavoritesActions from "common/components/favorites-button/FavoritesActions";
+import { Info } from "../functional-components/modals/ModalComponent";
+import FavoritesActions from "common/components/functional-components/favorites-button/FavoritesActions";
 
 const ViewProductCard = ({ product, path }) => {
   return (

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ConfigContainer } from "./StyledComponents";
-import { Space, Table, Tag, message, Button } from "antd";
-const { Column } = Table;
-import ActionableModal from "common/components/modals/ActionableModal";
+import { Space, Tag, message, Button } from "antd";
+import ActionableModal from "common/components/functional-components/modals/ActionableModal";
 import CategorySelect from "common/components/config-manager/CategorySelect";
-import BackdropEffect from "common/components/modals/BackdropEffect";
-import PopConfirmation from "common/components/modals/PopConfirmation";
+import BackdropEffect from "common/components/functional-components/modals/BackdropEffect";
+import PopConfirmation from "common/components/functional-components/modals/PopConfirmation";
+import DataTableComponent from "common/components/functional-components/data-table/DataTableComponent";
 import { HOST_DATA } from "hostdata";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -75,101 +75,110 @@ const ConfigManagerComponent = ({ configuration }) => {
       });
   };
 
+  const columnData = [
+    {
+      title: "Category name",
+      dataIndex: "catName",
+      key: "catName",
+    },
+    {
+      title: "Current Data List",
+      dataIndex: "data",
+      key: "data",
+      render: (tags) => (
+        <>
+          {tags.map((tag) => (
+            <Tag color="blue" key={tag}>
+              {tag}
+            </Tag>
+          ))}
+        </>
+      ),
+    },
+    {
+      title: "Action",
+      key: "data",
+      render: (data) => (
+        <Space size="middle">
+          <>
+            <a onClick={() => showAddModal(data.catName)}>Add {data.catName}</a>
+            {modalIsOpen && (
+              <>
+                <ActionableModal
+                  key={data.catName}
+                  onCancel={() => closeModal()}
+                  onConfirm={() => onSubmit()}
+                  actionType={
+                    <CategorySelect
+                      path={pathRoute}
+                      categories={
+                        configData.find((x) => x.key === pathRoute).data
+                      }
+                      catToDelete={(data) => setSelectCat(data)}
+                    />
+                  }
+                  buttons={
+                    <>
+                      <Button onClick={() => closeModal()}>Close</Button>
+                      <PopConfirmation
+                        onConfirm={() => onSubmit()}
+                        onCancel={() => {}}
+                        text={"Add"}
+                      />
+                    </>
+                  }
+                  text="Add To Category"
+                />
+                <BackdropEffect />
+              </>
+            )}
+            <a onClick={() => showDeleteModal(data.catName, data.data)}>
+              Delete {data.catName}
+            </a>
+
+            {modalDeleteIsOpen && (
+              <>
+                <ActionableModal
+                  key={data.catName}
+                  onCancel={() => closeModal()}
+                  buttons={
+                    <>
+                      <Button onClick={() => closeModal()}>Close</Button>
+                      <PopConfirmation
+                        onConfirm={() => onDelete(pathRoute)}
+                        onCancel={() => {}}
+                        text={"Delete"}
+                      />
+                    </>
+                  }
+                  actionType={
+                    <CategorySelect
+                      path={pathRoute}
+                      categories={
+                        configData.find((x) => x.key === pathRoute).data
+                      }
+                      catToDelete={(data) => setSelectCat(data)}
+                    />
+                  }
+                  text="Delete From Category"
+                />
+                <BackdropEffect />
+              </>
+            )}
+          </>
+        </Space>
+      ),
+    },
+  ];
+
   return (
     <ConfigContainer>
-      <Table dataSource={configData}>
-        <Column title="Category Name" dataIndex="catName" key="catName" />
-        <Column
-          title="Current Data List"
-          dataIndex="data"
-          key="data"
-          render={(tags) => (
-            <>
-              {tags.map((tag) => (
-                <Tag color="blue" key={tag}>
-                  {tag}
-                </Tag>
-              ))}
-            </>
-          )}
-        />
-        <Column
-          title="Action"
-          key="action"
-          render={(data) => (
-            <Space size="middle">
-              <>
-                <a onClick={() => showAddModal(data.catName)}>
-                  Add {data.catName}
-                </a>
-                {modalIsOpen && (
-                  <>
-                    <ActionableModal
-                      key={data.catName}
-                      onCancel={() => closeModal()}
-                      onConfirm={() => onSubmit()}
-                      actionType={
-                        <CategorySelect
-                          path={pathRoute}
-                          categories={
-                            configData.find((x) => x.key === pathRoute).data
-                          }
-                          catToDelete={(data) => setSelectCat(data)}
-                        />
-                      }
-                      buttons={
-                        <>
-                          <Button onClick={() => closeModal()}>Close</Button>
-                          <PopConfirmation
-                            onConfirm={() => onSubmit()}
-                            onCancel={() => {}}
-                            text={"Add"}
-                          />
-                        </>
-                      }
-                      text="Add To Category"
-                    />
-                    <BackdropEffect />
-                  </>
-                )}
-                <a onClick={() => showDeleteModal(data.catName, data.data)}>
-                  Delete {data.catName}
-                </a>
-
-                {modalDeleteIsOpen && (
-                  <>
-                    <ActionableModal
-                      key={data.catName}
-                      onCancel={() => closeModal()}
-                      buttons={
-                        <>
-                          <Button onClick={() => closeModal()}>Close</Button>
-                          <PopConfirmation
-                            onConfirm={() => onDelete(pathRoute)}
-                            onCancel={() => {}}
-                            text={"Delete"}
-                          />
-                        </>
-                      }
-                      actionType={
-                        <CategorySelect
-                          path={pathRoute}
-                          categories={
-                            configData.find((x) => x.key === pathRoute).data
-                          }
-                          catToDelete={(data) => setSelectCat(data)}
-                        />
-                      }
-                      text="Delete From Category"
-                    />
-                    <BackdropEffect />
-                  </>
-                )}
-              </>
-            </Space>
-          )}
-        />
-      </Table>
+       <DataTableComponent
+      form={null}
+      dataSource={configData}
+      columnsData={columnData}
+      onCancel={() => null}
+    />
     </ConfigContainer>
   );
 };

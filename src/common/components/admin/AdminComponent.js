@@ -14,7 +14,7 @@ import ManageProduct from 'common/components/manage-product/ManageProduct'
 
 
 export const AdminComponent = ({data,dataWithId}) => {
-  const [selectedItem, setSelectedItem] = useState();
+  const [selectedItem, setSelectedItem] = useState("AddProduct");
   const components = {
     AddProduct: <AddProduct configurationData={dataWithId} />,
     ManageProduct: <ManageProduct categoryData={dataWithId}/>,
@@ -93,7 +93,7 @@ export const AdminComponent = ({data,dataWithId}) => {
             <Menu
               mode="inline"
               defaultSelectedKeys={["1"]}
-              defaultOpenKeys={["sub1"]}
+              defaultOpenKeys={["AddProduct"]}
               style={{
                 background: "inherit",
               }}

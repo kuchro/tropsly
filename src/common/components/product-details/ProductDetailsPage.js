@@ -11,12 +11,12 @@ import {
   StyledText,
   DetailsLayout,
 } from "./StyledComponents";
-import SelectSizeComponent from "common/components/select-size/SelectSizeComponent";
-import AddToCartButton from "common/components/button-action/AddToCartButton";
+import SelectSizeComponent from "common/components/functional-components/select-size/SelectSizeComponent";
+import AddToCartButton from "common/components/functional-components/button-action/AddToCartButton";
 import CommentSection from "common/components/comment-section/CommentSection";
 import RatingComponent from "common/components/rating-component/RatingComponent";
-import ActionableButtons from "common/components/button-action/ActionableButtons";
-import FavoritesActions from "common/components/favorites-button/FavoritesActions";
+import ActionableButtons from "common/components/functional-components/button-action/ActionableButtons";
+import FavoritesActions from "common/components/functional-components/favorites-button/FavoritesActions";
 
 import UserContext from "store/user-context";
 

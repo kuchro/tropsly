@@ -2,20 +2,17 @@ import {
   message,
   Typography,
   Popconfirm,
-  Table,
   Tag,
-  Column,
-  Input,
-  InputNumber,
   Space,
   Form,
 } from "antd";
 import React, { useState, useEffect } from "react";
-import EditableCell from "./EditableCell";
 import { HOST_DATA } from "hostdata";
+import { CONFIG_COLUMNS } from "mockdata";
 import axios from "axios";
-import PopConfirmation from "common/components/modals/PopConfirmation";
 import { selectCategoryData } from "common/util/DataTransformer";
+import DataTableComponent from "common/components/functional-components/data-table/DataTableComponent";
+
 
 const ManageProduct = ({ categoryData }) => {
   const [form] = Form.useForm();
@@ -32,6 +29,7 @@ const ManageProduct = ({ categoryData }) => {
     setData(allProducts);
     console.log(allProducts);
   };
+
   useEffect(() => {
     fetchData();
     setReloadData(false);
@@ -49,9 +47,7 @@ const ManageProduct = ({ categoryData }) => {
       });
   };
 
-
-
-  const edit = (record) => {
+  const onEdit = (record) => {
     form.setFieldsValue({
       image: "",
       title: "",
@@ -64,23 +60,19 @@ const ManageProduct = ({ categoryData }) => {
     setEditingKey(record.productId);
   };
 
-  const cancel = () => {
+  const onCancel = () => {
     setEditingKey("");
   };
 
-  const save = async (key, record) => {
+  const onSave = async (key, record) => {
     try {
-       
       const row = await form.validateFields();
-    //   const newData = [...data];
-    //   const index = newData.findIndex((item) => key === item.id);
-    //   const item = newData[index];
       axios
         .put(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}${key}`, row)
         .then(function (response) {
           message.success("Product successfully updated.");
           setReloadData(true);
-          setEditingKey('');
+          setEditingKey("");
         })
         .catch(function (error) {
           message.error("Something went wrong, try again later.");
@@ -92,42 +84,7 @@ const ManageProduct = ({ categoryData }) => {
 
   const columns = [
     {
-      title: "Id",
-      dataIndex: "productId",
-      width: "5%",
-    },
-    {
-      title: "image",
-      dataIndex: "image",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "title",
-      dataIndex: "title",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "description",
-      dataIndex: "description",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "material",
-      dataIndex: "material",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "size",
-      dataIndex: "size",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "ategory",
+      title: "Category",
       dataIndex: "category",
       render: (_, record) => {
         return (
@@ -169,18 +126,6 @@ const ManageProduct = ({ categoryData }) => {
       editable: false,
     },
     {
-      title: "Price",
-      dataIndex: "price",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "Quantity",
-      dataIndex: "quantity",
-      width: "10%",
-      editable: true,
-    },
-    {
       title: "Actions",
       dataIndex: "actions",
       width: "10%",
@@ -190,42 +135,48 @@ const ManageProduct = ({ categoryData }) => {
         return editable ? (
           <span>
             <Typography.Link
-              onClick={()=>cancel()}
+              onClick={() => onCancel()}
               style={{
                 marginRight: 8,
               }}
             >
               Cancel
             </Typography.Link>
-            <Popconfirm title="Do you want to save?" onConfirm={() => save(record.productId, record)}>
+            <Popconfirm
+              title="Do you want to save?"
+              onConfirm={() => onSave(record.productId, record)}
+            >
               <Typography.Link>Save</Typography.Link>
             </Popconfirm>
           </span>
         ) : (
           <>
-          <Typography.Link
-            disabled={editingKey !== ""}
-            onClick={() => edit(record)}
-          >
-            Edit
-          </Typography.Link>
-          <span>
-            <br/>
-            <Popconfirm title="Are you sure?" onConfirm={()=>onConfirmDelete(record.productId)}>
-            <Typography.Link> Delete</Typography.Link>
-            </Popconfirm>
-          </span>
+            <Typography.Link
+              disabled={editingKey !== ""}
+              onClick={() => onEdit(record)}
+            >
+              Edit
+            </Typography.Link>
+            <span>
+              <br />
+              <Popconfirm
+                title="Are you sure?"
+                onConfirm={() => onConfirmDelete(record.productId)}
+              >
+                <Typography.Link> Delete</Typography.Link>
+              </Popconfirm>
+            </span>
           </>
         );
       },
     },
   ];
 
-  const mergedColumns = columns.map((col) => {
+
+  const mergedColumns = CONFIG_COLUMNS.concat(columns).map((col) => {
     if (!col.editable) {
       return col;
     }
-
     return {
       ...col,
       onCell: (record) => ({
@@ -238,25 +189,15 @@ const ManageProduct = ({ categoryData }) => {
     };
   });
   return (
-    <Form form={form} component={false}>
-      <Table
-        components={{
-          body: {
-            cell: EditableCell,
-          },
-        }}
-        bordered
-        dataSource={data}
-        scroll={{
-          x: 1500,
-        }}
-        columns={mergedColumns}
-        rowClassName="editable-row"
-        pagination={{
-          onChange: cancel,
-        }}
-      />
-    </Form>
+    <DataTableComponent
+      form={form}
+      dataSource={data}
+      columnsData={mergedColumns}
+      onCancel={() => onCancel()}
+      scrollData={{
+        x: 1500,
+      }}
+    />
   );
 };
 
