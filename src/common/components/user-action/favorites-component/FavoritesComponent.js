@@ -1,38 +1,47 @@
-import React, {useContext, useState } from "react";
-import {  StyledGrid } from "common/styles/CommonStyledComponents";
-import UserContext from "store/user-context";
-import DeleteItem from "common/components/functional-components/button-action/DeleteItem";
+import React, { useContext, useState, useEffect } from "react";
+import Router from "next/router";
 
+import { StyledGrid } from "common/styles/CommonStyledComponents";
+import UserContext from "store/user-context";
+
+import { getRoutePath } from "common/util/UtilsFunctions";
 import ProductCardView from "common/components/product/product-info/ProductCardView.js";
 
-const FavoritesComponent = ({data}) => {
-  const [catData, setCatData] = useState(data)
+const FavoritesComponent = ({ data }) => {
+  const [favProducts, setFavProducsts] = useState([]);
+
+  useEffect(() => {
+    const favProducts = JSON.parse(localStorage.getItem("fav"));
+    setFavProducsts(favProducts);
+  }, []);
   const userCtx = useContext(UserContext);
 
-  const removeFromFav = (id) => {
+  const onRemoveFravProduct = (id) => {
     userCtx.removeFromFav(id);
+    setFavProducsts(JSON.parse(localStorage.getItem("fav")));
   };
-
-  const getRoutePath = (productCatId) =>{
-    console.log(productCatId)
-    return catData.find(x=>x.id==productCatId).name;
-  }
-  
 
   return (
     <>
-      <StyledGrid gutter={[16, 24]}>
-        {userCtx.favoriteProducts.map((product) => (
-          <ProductCardView
-            key={product.productId}
-            product={product}
-            path={getRoutePath(product.categoryId)}
-            operation={
-              <DeleteItem operation={() => removeFromFav(product.productId)} />
-            }
-          />
-        ))}
-      </StyledGrid>
+      {favProducts.length == 0 ? (
+        <>
+          <>
+            <h1>No products in shooping cart</h1>
+            <button onClick={() => Router.push("/")}>Go to home page</button>
+          </>
+        </>
+      ) : (
+        <StyledGrid gutter={[16, 24]}>
+          {favProducts.map((product) => (
+            <ProductCardView
+              key={product.productId}
+              product={product}
+              path={getRoutePath(product.categoryId, data)}
+              action={() => onRemoveFravProduct(product.productId)}
+            />
+          ))}{" "}
+        </StyledGrid>
+      )}
     </>
   );
 };

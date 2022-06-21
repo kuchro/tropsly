@@ -43,7 +43,7 @@ export const StyledButton = styled(Button)`
 `;
 
 export const StyledSelect = styled(Select)`
-  width: 40%;
+  width: 55%;
 `;
 
 export const SelectOptions = styled.select`

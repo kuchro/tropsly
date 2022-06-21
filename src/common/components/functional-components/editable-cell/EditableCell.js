@@ -10,7 +10,7 @@ const EditableCell = ({
   children,
   ...restProps
 }) => {
-  const inputNode = <Input />;
+  const inputNode = inputType === 'number' ? <InputNumber min={0} /> : <Input />;
   return (
     <td {...restProps}>
       {editing ? (

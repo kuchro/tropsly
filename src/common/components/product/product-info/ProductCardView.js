@@ -14,7 +14,7 @@ import { InfoCircleTwoTone } from "@ant-design/icons";
 import { Info } from "../../functional-components/modals/ModalComponent";
 import FavoritesActions from "common/components/functional-components/favorites-button/FavoritesActions";
 
-const ProductCardView = ({ product, path }) => {
+const ProductCardView = ({ product, path, action }) => {
   return (
     <Col lg={6} md={8} xs={16} key={product.productId}>
       <StyledCard
@@ -31,7 +31,7 @@ const ProductCardView = ({ product, path }) => {
           <Title level={3}>{product.title}</Title>
         </Link>
         <StyledDivider />
-        <FavoritesActions product={product} />
+        <FavoritesActions product={product} onFavRemove={action} />
         <StyledButton
           onClick={() => Info(product)}
           type="primary"

@@ -10,6 +10,7 @@ import {
   Description,
   StyledText,
   DetailsLayout,
+  Input,
 } from "./StyledComponents";
 import SelectSizeComponent from "common/components/functional-components/select-size/SelectSizeComponent";
 import AddToCartButton from "common/components/functional-components/button-action/AddToCartButton";
@@ -23,17 +24,24 @@ import UserContext from "store/user-context";
 import { MaterialMapper } from "common/util/DataTransformer";
 
 const ProductDetailsPage = ({ product }) => {
+  const [quantity,setQuantity] = useState(0);
   const [selectedSize, setSelectedSize] = useState([]);
   const userCtx = useContext(UserContext);
 
   const addToCart = (product) => {
-    userCtx.addToCart({ ...product, size: selectedSize });
+    let qua = parseInt(quantity);
+    console.log(qua)
+    userCtx.addToCart({ ...product,uId: Date.now(), size: selectedSize, quantity: parseInt(quantity)});
   };
+
+  const onChangeQuanityty = (e) =>{
+    setQuantity(e.target.value)
+  }
 
   return (
     <>
       <StyledLayout>
-        <Space size={40}>
+        <Space size={50}>
           <StyledImage src={product.image} />
           <StyledContent>
             <Title>{product.title}</Title>
@@ -45,6 +53,10 @@ const ProductDetailsPage = ({ product }) => {
 
             <StyledText>On stock {product.quantity}</StyledText>
             <Divider />
+            <StyledText>Select number of items</StyledText>
+            <br/>
+            <Input value={quantity} onChange={(e)=> onChangeQuanityty(e)} type="number" min="0"/>
+            <Divider />
             <SelectSizeComponent
               data={product.size}
               onChangeSelectData={(data) => setSelectedSize(data)}
@@ -55,6 +67,7 @@ const ProductDetailsPage = ({ product }) => {
                   <AddToCartButton
                     sizes={selectedSize}
                     onAddToCart={() => addToCart(product)}
+                    numOfItems={quantity}
                   />
                   <FavoritesActions product={product} />
                 </>

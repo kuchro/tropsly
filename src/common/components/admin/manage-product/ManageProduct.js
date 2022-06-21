@@ -86,6 +86,7 @@ const ManageProduct = ({ categoryData }) => {
     {
       title: "Category",
       dataIndex: "category",
+      key: "category",
       render: (_, record) => {
         return (
           <Space>
@@ -107,6 +108,7 @@ const ManageProduct = ({ categoryData }) => {
     {
       title: "Brand",
       dataIndex: "brand",
+      key:'brand',
       render: (_, record) => {
         return (
           <Space>
@@ -128,6 +130,7 @@ const ManageProduct = ({ categoryData }) => {
     {
       title: "Actions",
       dataIndex: "actions",
+      key: 'actions',
       width: "10%",
       fixed: "right",
       render: (_, record) => {
@@ -181,7 +184,7 @@ const ManageProduct = ({ categoryData }) => {
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.dataIndex === "price" || "quantity" ? "number" : "text",
+        inputType: col.dataIndex === "quantity" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
@@ -197,6 +200,7 @@ const ManageProduct = ({ categoryData }) => {
       scrollData={{
         x: 1500,
       }}
+      pageSize={6}
     />
   );
 };
