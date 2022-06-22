@@ -2,7 +2,12 @@ import React, { useContext, useState } from "react";
 import Router from "next/router";
 import Link from "next/link";
 import { Form, Typography, Popconfirm } from "antd";
-import { StyledImage, CartContainer, TableContainer, InfoContainer } from "./StyledComponents";
+import {
+  StyledImage,
+  CartContainer,
+  TableContainer,
+  InfoContainer,
+} from "./StyledComponents";
 import DataTableComponent from "common/components/functional-components/data-table/DataTableComponent";
 import UserContext from "store/user-context";
 
@@ -83,6 +88,8 @@ const ShoppingCart = ({ data }) => {
       key: "uId",
       editable: false,
       width: "30px",
+      render: price => <p>{`$${price}`}</p>
+         
     },
     {
       title: "Actions",
@@ -158,28 +165,29 @@ const ShoppingCart = ({ data }) => {
   };
 
   return (
-    <CartContainer>
+    <>
       {userCtx.cartProducts.length == 0 ? (
         <>
           <h1>No products in shooping cart</h1>
           <button onClick={() => Router.push("/")}>Go to home page</button>
         </>
       ) : (
-        <TableContainer>
-          <DataTableComponent
-            form={form}
-            dataSource={userCtx.cartProducts}
-            columnsData={mergedColumns}
-            onCancel={() => onCancel()}
-            pageSize={5}
-          />
-        </TableContainer>
+        <CartContainer>
+          <TableContainer>
+            <DataTableComponent
+              form={form}
+              dataSource={userCtx.cartProducts}
+              columnsData={mergedColumns}
+              onCancel={() => onCancel()}
+              pageSize={5}
+            />
+          </TableContainer>
+          <InfoContainer>
+            <h1>Potential total price: {`$${calculateTotalPrice()}`}</h1>
+          </InfoContainer>
+        </CartContainer>
       )}
-
-      <InfoContainer>
-        <h1>Potential total price: {calculateTotalPrice()}$</h1>
-      </InfoContainer>
-    </CartContainer>
+    </>
   );
 };
 

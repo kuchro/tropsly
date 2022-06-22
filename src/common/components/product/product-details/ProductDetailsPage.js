@@ -29,8 +29,6 @@ const ProductDetailsPage = ({ product }) => {
   const userCtx = useContext(UserContext);
 
   const addToCart = (product) => {
-    let qua = parseInt(quantity);
-    console.log(qua)
     userCtx.addToCart({ ...product,uId: Date.now(), size: selectedSize, quantity: parseInt(quantity)});
   };
 

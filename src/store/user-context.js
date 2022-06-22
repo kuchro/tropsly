@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { message } from "antd";
 import {
   success,
@@ -20,9 +20,22 @@ const UserContext = createContext({
 });
 
 export const UserContextProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const initialState = [];
+  const [cart, setCart] = useState(initialState);
   const [fav, setFav] = useState([]);
 
+  useEffect(() => {
+    const cartData = JSON.parse(localStorage.getItem("cart"));
+    if (cartData) {
+      setCart(cartData);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (cart !== initialState) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart]);
 
 
   const updateQuanitytyProduct = (product,quantity) => {
