@@ -8,7 +8,7 @@ export const StyledImage = styled(Image)`
 export const CartContainer = styled.div`
   height: 90%;
   margin: 10px;
-  width: 70%;
+  width: 80%;
   margin: 4rem;
   display: flex;
   flex-direction: row;

@@ -1,6 +1,6 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
-import { Space, Typography, Divider, Collapse } from "antd";
+import { Space, Typography, Divider, Collapse, Popover, Button } from "antd";
 const { Title } = Typography;
 const { Panel } = Collapse;
 import {
@@ -12,6 +12,8 @@ import {
   DetailsLayout,
   Input,
 } from "./StyledComponents";
+
+import { InfoCircleTwoTone } from "@ant-design/icons";
 import SelectSizeComponent from "common/components/functional-components/select-size/SelectSizeComponent";
 import AddToCartButton from "common/components/functional-components/button-action/AddToCartButton";
 import CommentSection from "common/components/product/product-comment-section/CommentSection";
@@ -23,18 +25,43 @@ import UserContext from "store/user-context";
 
 import { MaterialMapper } from "common/util/DataTransformer";
 
+import { GET_DELIVERY_DATA } from "common/http/RequestHandler.js";
+
 const ProductDetailsPage = ({ product }) => {
-  const [quantity,setQuantity] = useState(0);
+  const [deliveryInfo, setDeliveryInfo] = useState([]);
+  const [quantity, setQuantity] = useState(0);
   const [selectedSize, setSelectedSize] = useState([]);
   const userCtx = useContext(UserContext);
 
-  const addToCart = (product) => {
-    userCtx.addToCart({ ...product,uId: Date.now(), size: selectedSize, quantity: parseInt(quantity)});
+  const fetchData = async () => {
+    let deliveryData = await GET_DELIVERY_DATA();
+    setDeliveryInfo(deliveryData);
   };
 
-  const onChangeQuanityty = (e) =>{
-    setQuantity(e.target.value)
-  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const addToCart = (product) => {
+    userCtx.addToCart({
+      ...product,
+      uId: Date.now(),
+      size: selectedSize,
+      quantity: parseInt(quantity),
+    });
+  };
+
+  const onChangeQuanityty = (e) => {
+    setQuantity(e.target.value);
+  };
+
+  const content = deliveryInfo.map((data) => {
+    return (
+      <div>
+        <StyledText>{`${data.deliveryName}, price $${data.deliveryPrice}, ${data.extraOptions}`}</StyledText>
+      </div>
+    );
+  });
 
   return (
     <>
@@ -44,16 +71,29 @@ const ProductDetailsPage = ({ product }) => {
           <StyledContent>
             <Title>{product.title}</Title>
 
-            <StyledText>{`Price: $${
-              product.price
-            }, with delivery +$${15}`}</StyledText>
+            <StyledText>{`Price: $${product.price}, + delivery costs. More info here `}</StyledText>
+            <Popover
+              overlayStyle={{
+                width: "20vw",
+              }}
+              content={content}
+              title="Delivery Options"
+              trigger="hover"
+            >
+              <InfoCircleTwoTone style={{ fontSize: "20px", color: "#08c" }} />
+            </Popover>
             <br />
 
             <StyledText>On stock {product.quantity}</StyledText>
             <Divider />
             <StyledText>Select number of items</StyledText>
-            <br/>
-            <Input value={quantity} onChange={(e)=> onChangeQuanityty(e)} type="number" min="0"/>
+            <br />
+            <Input
+              value={quantity}
+              onChange={(e) => onChangeQuanityty(e)}
+              type="number"
+              min="0"
+            />
             <Divider />
             <SelectSizeComponent
               data={product.size}
@@ -77,7 +117,7 @@ const ProductDetailsPage = ({ product }) => {
         </Space>
 
         <DetailsLayout>
-          <Collapse>
+          <Collapse ghost>
             <Panel header="About product" key="1">
               <Description>{product.description}</Description>
             </Panel>

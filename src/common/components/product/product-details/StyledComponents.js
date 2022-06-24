@@ -8,6 +8,7 @@ export const StyledLayout = styled(Layout)`
   align-items: center;
   padding: 20px 20px 20px 20px;
   width: 100%;
+  
 `;
 
 export const DetailsLayout = styled(Layout)`
