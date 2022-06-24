@@ -11,6 +11,7 @@ import {
 import AddProduct from "common/components/admin/add-product/AddProduct";
 import ConfigManagerComponent from "common/components/admin/config-manager/ConfigManagerComponent"
 import ManageProduct from 'common/components/admin/manage-product/ManageProduct'
+import DeliveryOption from 'common/components/admin/delivery/DeliveryOption'
 
 
 export const AdminComponent = ({data,dataWithId}) => {
@@ -18,6 +19,7 @@ export const AdminComponent = ({data,dataWithId}) => {
   const components = {
     AddProduct: <AddProduct configurationData={dataWithId} />,
     ManageProduct: <ManageProduct categoryData={dataWithId}/>,
+    DeliveryOption: <DeliveryOption/>,
     CurrentOrders: <span>Menu 3</span>,
     ConfigurationManager: <ConfigManagerComponent configuration={data}/>,
   };
@@ -39,6 +41,10 @@ export const AdminComponent = ({data,dataWithId}) => {
         {
             label: "Manage Configuration",
             key: "ConfigurationManager",
+          },
+          {
+            label: "Delivery Option",
+            key: "DeliveryOption",
           }
       ],
     },

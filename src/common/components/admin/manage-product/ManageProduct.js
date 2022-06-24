@@ -64,7 +64,7 @@ const ManageProduct = ({ categoryData }) => {
     setEditingKey("");
   };
 
-  const onSave = async (key, record) => {
+  const onSave = async (key) => {
     try {
       const row = await form.validateFields();
       axios
@@ -147,7 +147,7 @@ const ManageProduct = ({ categoryData }) => {
             </Typography.Link>
             <Popconfirm
               title="Do you want to save?"
-              onConfirm={() => onSave(record.productId, record)}
+              onConfirm={() => onSave(record.productId)}
             >
               <Typography.Link>Save</Typography.Link>
             </Popconfirm>

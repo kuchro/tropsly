@@ -77,7 +77,7 @@ const ConfigManagerComponent = ({ configuration }) => {
 
   const columnData = [
     {
-      title: "Category name",
+      title: "Data name",
       dataIndex: "catName",
       key: "catName",
     },
@@ -160,7 +160,7 @@ const ConfigManagerComponent = ({ configuration }) => {
                       catToDelete={(data) => setSelectCat(data)}
                     />
                   }
-                  text="Delete From Category"
+                  text="Delete"
                 />
                 <BackdropEffect />
               </>

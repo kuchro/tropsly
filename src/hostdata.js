@@ -8,4 +8,5 @@ export const HOST_DATA ={
     PRODUCT_COMMENT: `/v1/api/product/comment`,
     CONFIG_ALL: '/v1/api/configure/all',
     CONFIGURE: '/v1/api/configure/',
+    DELIVERY: '/v1/api/configure/delivery/',
 }
