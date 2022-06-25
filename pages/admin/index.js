@@ -1,6 +1,6 @@
 import React from 'react'
 
-import AdminComponent from 'common/components/admin/AdminComponent.js'
+import AdminComponent from 'common/components/admin/admin-page/AdminComponent.js'
 
 import { HOST_DATA } from "hostdata";
 import axios from "axios";

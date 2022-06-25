@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import MainView from 'common/components/mainview/index.js'
+import MainView from 'common/components/views/mainview/index.js'
 
 
 

@@ -1,7 +1,7 @@
 
 import { useRouter } from "next/router";
-import { useEffect,useState } from "react";
-import ProductDetailsPage from "common/components/product-details/ProductDetailsPage.js";
+import { useState } from "react";
+import ProductDetailsPage from "common/components/product/product-details/ProductDetailsPage.js";
 import axios from "axios";
 import { HOST_DATA } from "hostdata";
 // export const getStaticPaths = async () => {
