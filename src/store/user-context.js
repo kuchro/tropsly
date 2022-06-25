@@ -68,6 +68,10 @@ export const UserContextProvider = ({ children }) => {
     return index;
   };
 
+  const resetShoppingCart = () =>{
+    setCart([]);
+  }
+
   const updateQuanitytyDetailProduct = (index, quantity) => {
     const newCart = [...cart];
     console.log(index);
@@ -104,6 +108,7 @@ export const UserContextProvider = ({ children }) => {
     favoriteProducts: fav,
     addToCart: addToCartProduct,
     updateQuanitytyProduct: updateQuanitytyProduct,
+    resetShoppingCart: resetShoppingCart,
     updateQuanitytyDetailProduct: updateQuanitytyDetailProduct,
     addToFav: addToFavProduct,
     removeFromFav: removeFromFav,

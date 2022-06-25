@@ -1,7 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
 import Router from "next/router";
 import Link from "next/link";
-import { Form, Typography, Popconfirm, Table, Button, Popover } from "antd";
+import {
+  Form,
+  Typography,
+  Popconfirm,
+  Table,
+  Button,
+  Popover,
+  Result,
+} from "antd";
 import SelectData from "common/components/functional-components/select-size/SelectData";
 const { Text } = Typography;
 import {
@@ -28,7 +36,7 @@ const ShoppingCart = ({ data }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [deliveryInfo, setDeliveryInfo] = useState([]);
   const [deliveryOptionId, setDeliveryOptionId] = useState();
-  const [selectedDeliveryPrice, setSelectedDeliveryPrice] = useState();
+  const [selectedDeliveryPrice, setSelectedDeliveryPrice] = useState(0);
 
   const fetchData = async () => {
     let deliveryData = await GET_DELIVERY_DATA();
@@ -79,7 +87,7 @@ const ShoppingCart = ({ data }) => {
     dataToOrder.products = userCtx.cartProducts;
     console.log(dataToOrder);
     if (!showDataForm) {
-      setButtonText("Hide Data Form");
+      setButtonText("Close order form");
       return;
     }
     setButtonText("Order Products");
@@ -206,7 +214,7 @@ const ShoppingCart = ({ data }) => {
     let totalPriceOfProduct = userCtx.cartProducts
       .reduce(
         (acc, product) =>
-          acc + product.quantity * product.price,
+          acc + product.quantity * product.price + selectedDeliveryPrice,
         0
       )
       .toFixed(2);
@@ -217,10 +225,12 @@ const ShoppingCart = ({ data }) => {
   return (
     <>
       {userCtx.cartProducts.length == 0 ? (
-        <div>
-          <h1>No products in shooping cart</h1>
-          <button onClick={() => Router.push("/")}>Go to home page</button>
-        </div>
+        <Result
+          status="404"
+          title="404"
+          subTitle="Sorry, there is no products in your shopping cart."
+          extra={<Button type="primary" onClick={() => Router.push("/")}>Go to home page</Button>}
+        />
       ) : (
         <CartContainer>
           <TableContainer>
@@ -245,7 +255,9 @@ const ShoppingCart = ({ data }) => {
                   </Table.Summary.Row>
                   <Table.Summary.Row>
                     <Table.Summary.Cell index={0} colSpan={2}>
-                      Total product price
+                      {selectedDeliveryPrice != 0
+                        ? "Total product price with delivery"
+                        : "Total product price without delivery"}
                     </Table.Summary.Cell>
                     <Table.Summary.Cell align="center" index={1} colSpan={4}>
                       <Text type="danger">${calculateTotalPrice()}</Text>
@@ -257,7 +269,7 @@ const ShoppingCart = ({ data }) => {
                           <Text>
                             {" "}
                             {selectedDeliveryPrice
-                              ? `Price does not include selected delivery costs +$${selectedDeliveryPrice}`
+                              ? `Price already does include selected delivery costs +$${selectedDeliveryPrice}`
                               : "Price does not include selected delivery costs. Please select delivery option"}
                           </Text>
                         }

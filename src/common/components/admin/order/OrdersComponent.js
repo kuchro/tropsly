@@ -1,13 +1,13 @@
 import { message, Typography, Popconfirm, Tag, Button, Form } from "antd";
 import React, { useState, useEffect } from "react";
 import { HOST_DATA } from "hostdata";
-import Link from "next/link";
+
 import axios from "axios";
-import {OrderDetailModa} from 'common/components/functional-components/modals/ModalComponent'
-import ActionableModal from "common/components/functional-components/modals/ActionableModal";
+import {OrderDetailModal} from 'common/components/functional-components/modals/ModalComponent'
+
 
 import DataTableComponent from "common/components/functional-components/data-table/DataTableComponent";
-import { getRoutePath } from "common/util/UtilsFunctions";
+
 
 const OrdersComponent = () => {
   const [form] = Form.useForm();
@@ -15,7 +15,7 @@ const OrdersComponent = () => {
   const [reloadData, setReloadData] = useState(false);
   const [editingKey, setEditingKey] = useState("");
   const [categoryData, setCatData] = useState();
-  const isEditing = (record) => record.productId === editingKey;
+  const isEditing = (record) => record.productOrderId === editingKey;
 
   const fetchDataOrders = async () => {
     let getAllProducts = await axios.get(
@@ -38,11 +38,11 @@ const OrdersComponent = () => {
     setReloadData(false);
   }, [reloadData]);
 
-  const onConfirmDelete = (productId) => {
+  const onConfirmDelete = (orderId) => {
     axios
-      .delete(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}${productId}`)
+      .delete(`${HOST_DATA.API_URL}${HOST_DATA.ORDER}${orderId}`)
       .then(function (response) {
-        message.success("Product successfully removed.");
+        message.success("Order successfully removed.");
         setReloadData(true);
       })
       .catch(function (error) {
@@ -60,20 +60,21 @@ const OrdersComponent = () => {
       quantity: "",
       ...record,
     });
-    setEditingKey(record.productId);
+    setEditingKey(record.productOrderId);
   };
 
   const onCancel = () => {
     setEditingKey("");
   };
 
-  const onSave = async (key) => {
+  const onSave = async (orderId) => {
     try {
       const row = await form.validateFields();
+      row.Id=orderId;
       axios
-        .put(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}${key}`, row)
+        .put(`${HOST_DATA.API_URL}${HOST_DATA.ORDER}`, row)
         .then(function (response) {
-          message.success("Product successfully updated.");
+          message.success("Order successfully updated.");
           setReloadData(true);
           setEditingKey("");
         })
@@ -87,6 +88,11 @@ const OrdersComponent = () => {
 
   const columns = [
     {
+        title: "Order Number",
+        dataIndex: "orderNumber",
+        width: "10%",
+      },
+    {
       title: "Total Price",
       dataIndex: "totalPrice",
       width: "5%",
@@ -98,13 +104,13 @@ const OrdersComponent = () => {
       editable: true,
     },
     {
-      title: "Navigate to details",
+      title: "Details",
       dataIndex: "navigate",
       width: "10%",
       editable: false,
       render: (text, record) => (
         <Button
-            onClick={()=> OrderDetailModa(record) }
+            onClick={()=> OrderDetailModal(record) }
         >Details</Button>
       ),
     },
@@ -128,7 +134,7 @@ const OrdersComponent = () => {
             </Typography.Link>
             <Popconfirm
               title="Do you want to save?"
-              onConfirm={() => onSave(record.productId)}
+              onConfirm={() => onSave(record.productOrderId)}
             >
               <Typography.Link>Save</Typography.Link>
             </Popconfirm>
@@ -145,7 +151,7 @@ const OrdersComponent = () => {
               <br />
               <Popconfirm
                 title="Are you sure?"
-                onConfirm={() => onConfirmDelete(record.productId)}
+                onConfirm={() => onConfirmDelete(record.productOrderId)}
               >
                 <Typography.Link> Delete</Typography.Link>
               </Popconfirm>

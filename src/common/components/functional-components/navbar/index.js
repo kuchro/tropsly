@@ -42,6 +42,11 @@ const NavigationBar = () => {
                 Kids
               </StyledA>
             </NavLink>
+            <NavLink href="/admin">
+              <StyledA className={router.pathname == "/admin" ? "active" : ""}>
+                Admin
+              </StyledA>
+            </NavLink>
             {userCtx.favoriteProducts.length != 0 ? (
               <NavLink href="/likes">
                 <StyledA

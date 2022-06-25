@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
+import { Popconfirm, Button } from "antd";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
+import Router from "next/router";
+import {getUUID} from 'common/util/UtilsFunctions'
 import { PersonalData, FormContainer, AddressData } from "./StyledComponents";
 import { ORDER_PRODUCTS } from "common/http/RequestData.js";
+import UserContext from "store/user-context";
+
 const CustomerDataForm = ({ orderData }) => {
   const {
     register,
@@ -11,7 +16,11 @@ const CustomerDataForm = ({ orderData }) => {
     formState: { errors },
   } = useForm();
   const [orderInfo] = useState(orderData);
-  const onSubmit = (data) => {
+  const userCtx = useContext(UserContext);
+
+
+  const onSubmit = async (data) => {
+    data.orderNumber = getUUID();
     data.totalPrice = orderInfo.totalPrice;
     data.deliveryId = orderInfo.deliveryId;
     data.products = orderInfo.products.map(product=>{
@@ -23,30 +32,23 @@ const CustomerDataForm = ({ orderData }) => {
         size: product.size
       }
     });
-    console.log(data);
-
-    let response = ORDER_PRODUCTS(data);
-    console.log(response);
+     await ORDER_PRODUCTS(data).then(res => {
+      if(res.status >= 200 && res.status <=299 ){
+        Router.push('/confirmation/'+data.orderNumber);
+        setTimeout(()=>{
+          userCtx.resetShoppingCart();
+        },1500)
+      
+      }else{
+        //present to error
+      }
+    });
   };
 
-  const isValidEmail = (email) =>
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-      email
-    );
+  const handleOnConfirm = ()=>{
+    return null; 
+  }
 
-  const handleEmailValidation = (email) => {
-    console.log("ValidateEmail was called with", email);
-
-    const isValid = isValidEmail(email);
-
-    const validityChanged =
-      (errors.email && isValid) || (!errors.email && !isValid);
-    if (validityChanged) {
-      console.log("Fire tracker with", isValid ? "Valid" : "Invalid");
-    }
-
-    return isValid;
-  };
 
   return (
     <>
@@ -229,7 +231,13 @@ const CustomerDataForm = ({ orderData }) => {
             </Form.Group>
           </AddressData>
         </FormContainer>
-        <input type="submit" />
+        <Popconfirm type="submit"
+          title="Are you sure you want to order that?"
+          onConfirm={() =>  handleSubmit(onSubmit)()}
+        >
+          <Button>Purchase products</Button>
+        </Popconfirm>
+        
       </form>
     </>
   );

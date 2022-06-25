@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import Router from "next/router";
-
+import { Button, Result } from "antd";
 import { StyledGrid } from "common/styles/CommonStyledComponents";
 import UserContext from "store/user-context";
 
@@ -24,12 +24,16 @@ const FavoritesComponent = ({ data }) => {
   return (
     <>
       {favProducts.length == 0 ? (
-        <>
-          <>
-            <h1>No products in shooping cart</h1>
-            <button onClick={() => Router.push("/")}>Go to home page</button>
-          </>
-        </>
+        <Result
+          status="404"
+          title="404"
+          subTitle="Sorry, no products in your favorite bucket."
+          extra={
+            <Button type="primary" onClick={() => Router.push("/")}>
+              Go to home page
+            </Button>
+          }
+        />
       ) : (
         <StyledGrid gutter={[16, 24]}>
           {favProducts.map((product) => (

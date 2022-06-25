@@ -97,39 +97,39 @@ export const UPDATE_DATA = async (path, data, action) => {
 };
 
 export const SAVE_DATA = async (path, data, action) => {
-    axios
-      .post(`${HOST_DATA.API_URL}${path}`, data)
-      .then(function (response) {
-        message.success("Product successfully updated.");
-        action();
-      })
-      .catch(function (error) {
-        message.error("Something went wrong, try again later.");
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else {
-          console.log("Error", error.message);
-        }
-      });
-  };
+  axios
+    .post(`${HOST_DATA.API_URL}${path}`, data)
+    .then(function (response) {
+      message.success("Product successfully updated.");
+      action();
+    })
+    .catch(function (error) {
+      message.error("Something went wrong, try again later.");
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else {
+        console.log("Error", error.message);
+      }
+    });
+};
 
-
-  export const ORDER_PRODUCTS = async (data) => {
-    axios
-      .post(`${HOST_DATA.API_URL}${HOST_DATA.ORDER}`, data)
-      .then(function (response) {
-        return response;
-      })
-      .catch(function (error) {
-        message.error("Something went wrong, try again later.");
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else {
-          console.log("Error", error.message);
-        }
-      });
-  };
+export const ORDER_PRODUCTS = async (data) => {
+ return axios
+    .post(`${HOST_DATA.API_URL}${HOST_DATA.ORDER}`, data)
+    .then(function (response) {
+      console.log(response);
+      return response;
+    })
+    .catch(function (error) {
+      message.error("Something went wrong, try again later.");
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else {
+        console.log("Error", error.message);
+      }
+    });
+};

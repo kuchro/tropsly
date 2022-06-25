@@ -1,6 +1,7 @@
 import { Modal, message } from 'antd'
 import MiniProductDetails from '../../product/product-details/MiniProductDetail'
 import OrderDetails from 'common/components/admin/order/OrderDetails'
+import PaymentDetailsComponent from 'common/components/payment/PaymentDetailsComponent'
 
 
 
@@ -10,16 +11,28 @@ export const Info = (product) => {
             content: (
             <MiniProductDetails product={product}/>),
             okText: 'Close',
+            maskClosable: true
         }))
 }
 
-export const OrderDetailModa = (orderData) => {
+export const OrderDetailModal = (orderData) => {
     return (
         Modal.info({
             content: (
            <OrderDetails orderData={orderData}/>),
             okText: 'Close',
-            width: '60%'
+            width: '60%',
+            maskClosable: true
+        }))
+  };
+  export const PaymentDetailsModal = (orderData) => {
+    return (
+        Modal.info({
+            content: (
+           <PaymentDetailsComponent/>),
+            okText: 'Close',
+            width: '20%',
+            maskClosable: true
         }))
   };
 

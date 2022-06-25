@@ -54,11 +54,8 @@ export const AdminComponent = ({data,dataWithId}) => {
       label: "Orders",
       icon: ShoppingOutlined,
       children: [
-        { id: 1, label: "Current Orders", key: "CurrentOrders" },
-        {
-          label: "Order In Progress",
-          key: "OrderInProgress",
-        },
+        { id: 1, label: "Current Orders", key: "CurrentOrders" }
+    
       ],
     },
   ];
