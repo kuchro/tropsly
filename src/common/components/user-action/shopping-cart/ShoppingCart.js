@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Router from "next/router";
 import Link from "next/link";
-import { Form, Typography, Popconfirm, Table } from "antd";
+import { Form, Typography, Popconfirm, Table, Button, Popover } from "antd";
+import SelectData from "common/components/functional-components/select-size/SelectData";
 const { Text } = Typography;
 import {
   StyledImage,
@@ -11,21 +12,42 @@ import {
 } from "./StyledComponents";
 import DataTableComponent from "common/components/functional-components/data-table/DataTableComponent";
 import UserContext from "store/user-context";
-
+import { InfoCircleTwoTone } from "@ant-design/icons";
+import CustomerDataForm from "./CustomerDataForm";
+import { GET_DELIVERY_DATA } from "common/http/RequestData.js";
 import { getRoutePath } from "common/util/UtilsFunctions";
 
 const ShoppingCart = ({ data }) => {
-  const [form] = Form.useForm();
+  const [formEdit] = Form.useForm();
   const [editingKey, setEditingKey] = useState("");
   const userCtx = useContext(UserContext);
-  const isEditing = (record) => record.productId === editingKey;
+  const [reloadData, setReloadData] = useState(false);
+  const [dataToOrder, setDataToOrder] = useState([]);
+  const [showDataForm, setShowDataForm] = useState(false);
+  const [buttonText, setButtonText] = useState("Order Products");
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [deliveryInfo, setDeliveryInfo] = useState([]);
+  const [deliveryOptionId, setDeliveryOptionId] = useState();
+  const [selectedDeliveryPrice, setSelectedDeliveryPrice] = useState();
+
+  const fetchData = async () => {
+    let deliveryData = await GET_DELIVERY_DATA();
+    setDeliveryInfo(deliveryData);
+    setDataToOrder(userCtx.cartProducts);
+    setReloadData(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [reloadData]);
+  const isEditing = (record) => record.uId === editingKey;
 
   const onEdit = (record) => {
-    form.setFieldsValue({
-      quantity: "",
+    formEdit.setFieldsValue({
+      quantity: record.quantity,
       ...record,
     });
-    setEditingKey(record.productId);
+    setEditingKey(record.uId);
   };
 
   const onCancel = () => {
@@ -33,12 +55,34 @@ const ShoppingCart = ({ data }) => {
   };
 
   const onSave = (product) => {
-    userCtx.updateQuanitytyProduct(product, form.getFieldsValue().quantity);
+    userCtx.updateQuanitytyProduct(product, formEdit.getFieldsValue().quantity);
+    setReloadData(true);
     setEditingKey("");
   };
 
   const onConfirmDelete = (id) => {
     userCtx.removeFromCart(id);
+  };
+
+  const onSelectChange = (e) => {
+    setDeliveryOptionId(e.target.value);
+    setSelectedDeliveryPrice(
+      deliveryInfo?.find((x) => x.deliveryId == e.target.value).deliveryPrice
+    );
+  };
+
+  const orderProduct = () => {
+    setShowDataForm(!showDataForm);
+    dataToOrder.deliveryId = deliveryOptionId;
+    dataToOrder.totalPrice = totalPrice;
+    dataToOrder.deliveryPrice = selectedDeliveryPrice;
+    dataToOrder.products = userCtx.cartProducts;
+    console.log(dataToOrder);
+    if (!showDataForm) {
+      setButtonText("Hide Data Form");
+      return;
+    }
+    setButtonText("Order Products");
   };
 
   const columnData = [
@@ -55,7 +99,7 @@ const ShoppingCart = ({ data }) => {
       dataIndex: "title",
       key: "uId",
       editable: false,
-      width: "50%",
+      width: "30%",
       render: (text, record) => (
         <>
           <Link
@@ -71,12 +115,12 @@ const ShoppingCart = ({ data }) => {
     {
       title: "Quantity",
       dataIndex: "quantity",
-      key: "uId",
+      key: (Math.random() + 1).toString(36).substring(7),
       editable: true,
-      width: "10%"
+      width: "15%",
     },
     {
-      title: "Size",
+      title: "Sizes",
       dataIndex: "size",
       key: "uId",
       editable: false,
@@ -140,64 +184,129 @@ const ShoppingCart = ({ data }) => {
     },
   ];
 
-  const mergedColumns = columnData.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === "quantity" ? "number" : "text",
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
+  const renderColumnData = () => {
+    return columnData.map((col) => {
+      if (!col.editable) {
+        return col;
+      }
+      return {
+        ...col,
+        onCell: (record) => ({
+          record,
+          inputType: col.dataIndex === "quantity" ? "number" : "text",
+          dataIndex: col.dataIndex,
+          title: col.title,
+          editing: isEditing(record),
+        }),
+      };
+    });
+  };
 
   const calculateTotalPrice = () => {
-    let total = 0;
-    userCtx.cartProducts.forEach((product, index) => {
-      total += parseFloat(product.price) * parseFloat(product.quantity);
-    });
-    console.log(total);
-    return total.toFixed(2);
+    let totalPriceOfProduct = userCtx.cartProducts
+      .reduce(
+        (acc, product) =>
+          acc + product.quantity * product.price,
+        0
+      )
+      .toFixed(2);
+    setTotalPrice(totalPriceOfProduct);
+    return totalPriceOfProduct;
   };
 
   return (
     <>
       {userCtx.cartProducts.length == 0 ? (
-        <>
+        <div>
           <h1>No products in shooping cart</h1>
           <button onClick={() => Router.push("/")}>Go to home page</button>
-        </>
+        </div>
       ) : (
         <CartContainer>
           <TableContainer>
             <DataTableComponent
-              form={form}
-              dataSource={userCtx.cartProducts}
-              columnsData={mergedColumns}
+              form={formEdit}
+              dataSource={[...userCtx.cartProducts]}
+              columnsData={renderColumnData()}
               onCancel={() => onCancel()}
               pageSize={5}
               summaryData={() => (
                 <Table.Summary fixed>
                   <Table.Summary.Row>
                     <Table.Summary.Cell index={0} colSpan={2}>
+                      Select Delivery Option
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell align="center" index={1} colSpan={4}>
+                      <SelectData
+                        data={deliveryInfo}
+                        callbackFunction={(e) => onSelectChange(e)}
+                      />
+                    </Table.Summary.Cell>
+                  </Table.Summary.Row>
+                  <Table.Summary.Row>
+                    <Table.Summary.Cell index={0} colSpan={2}>
                       Total product price
                     </Table.Summary.Cell>
                     <Table.Summary.Cell align="center" index={1} colSpan={4}>
-                      <Text type="danger"> ${calculateTotalPrice()}</Text>
+                      <Text type="danger">${calculateTotalPrice()}</Text>
+                      <Popover
+                        overlayStyle={{
+                          width: "25vw",
+                        }}
+                        content={
+                          <Text>
+                            {" "}
+                            {selectedDeliveryPrice
+                              ? `Price does not include selected delivery costs +$${selectedDeliveryPrice}`
+                              : "Price does not include selected delivery costs. Please select delivery option"}
+                          </Text>
+                        }
+                        title="Price"
+                        trigger="hover"
+                      >
+                        <InfoCircleTwoTone
+                          style={{
+                            margin: "10px",
+                            fontSize: "20px",
+                            color: "#08c",
+                          }}
+                        />
+                      </Popover>
                     </Table.Summary.Cell>
                   </Table.Summary.Row>
                 </Table.Summary>
               )}
             />
+            {selectedDeliveryPrice ? (
+              <Button
+                disabled={selectedDeliveryPrice ? false : true}
+                onClick={() => orderProduct()}
+              >
+                {buttonText}
+              </Button>
+            ) : (
+              <Popover
+                overlayStyle={{
+                  width: "15vw",
+                }}
+                content={<Text>Please select delivery option</Text>}
+                title="Info"
+                trigger="hover"
+              >
+                <Button
+                  disabled={selectedDeliveryPrice ? false : true}
+                  onClick={() => orderProduct()}
+                >
+                  {buttonText}
+                </Button>
+              </Popover>
+            )}
           </TableContainer>
-          <InfoContainer>
-            <h1>Forms:</h1>
-          </InfoContainer>
+          {showDataForm ? (
+            <InfoContainer>
+              <CustomerDataForm orderData={dataToOrder} />
+            </InfoContainer>
+          ) : null}
         </CartContainer>
       )}
     </>

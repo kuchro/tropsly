@@ -4,7 +4,7 @@ import WonensComponent from "common/components/views/womens/index.js";
 import {
   GET_CATEGORY_DATA,
   GET_CATEGORY_BY_ID,
-} from "common/http/RequestHandler.js";
+} from "common/http/RequestData.js";
 
 import { HOST_DATA } from "hostdata";
 import axios from "axios";

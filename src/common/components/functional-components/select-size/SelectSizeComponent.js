@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from "react";
 import { StyledSelect } from "common/styles/CommonStyledComponents";
-
+import Form from "react-bootstrap/Form";
 
 export const SelectSizeComponent = ({data, onChangeSelectData}) => {
   const [productSize, setProductSize] = useState(data);
@@ -22,7 +22,6 @@ export const SelectSizeComponent = ({data, onChangeSelectData}) => {
     <StyledSelect
       placeholder={productSize.length > 0 ? "Select Size" : "Out of stock"}
       disabled={productSize.length === 0}
-      mode="tags"
       onChange={handleChange}
       tokenSeparators={[","]}
     >

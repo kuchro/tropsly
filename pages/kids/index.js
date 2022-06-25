@@ -6,7 +6,7 @@ import axios from "axios";
 import {
   GET_CATEGORY_DATA,
   GET_CATEGORY_BY_ID,
-} from "common/http/RequestHandler.js";
+} from "common/http/RequestData.js";
 
 export const getServerSideProps = async ({resolvedUrl}) => {
   let productData = [];

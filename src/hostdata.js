@@ -9,4 +9,5 @@ export const HOST_DATA ={
     CONFIG_ALL: '/v1/api/configure/all',
     CONFIGURE: '/v1/api/configure/',
     DELIVERY: '/v1/api/configure/delivery/',
+    ORDER: '/v1/api/order/',
 }

@@ -14,6 +14,12 @@ export const CartContainer = styled.div`
   flex-direction: row;
 `;
 
+export const FormContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+`;
+
 export const TableContainer = styled.div`
   width: 90%;
   text-align: right;
@@ -23,4 +29,15 @@ export const InfoContainer = styled.div`
   width: 50%;
   height: 100vh;
   margin: 25px;
+`;
+
+export const PersonalData = styled.div`
+  width: 50%;
+  margin: 10px;
+
+`;
+
+export const AddressData = styled.div`
+  width: 50%;
+  margin: 10px;
 `;

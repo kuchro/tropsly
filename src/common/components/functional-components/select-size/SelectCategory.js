@@ -1,6 +1,7 @@
 import React from "react";
 import { selectCategoryData } from "common/util/DataTransformer";
 import { SelectOptions } from "common/styles/CommonStyledComponents";
+
 const SelectCategory = ({ category, categoryData, register, errors }) => {
   return (
     <SelectOptions {...register(category, { required: true })}>

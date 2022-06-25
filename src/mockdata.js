@@ -173,6 +173,12 @@ export const CONFIG_COLUMNS = [
     editable: true,
   },
   {
+    title: "Serial Number",
+    dataIndex: "serialNumber",
+    width: "10%",
+    editable: true,
+  },
+  {
     title: "size",
     dataIndex: "size",
     width: "10%",

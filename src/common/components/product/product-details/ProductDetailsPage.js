@@ -1,6 +1,13 @@
 import { useState, useContext, useEffect } from "react";
 
-import { Space, Typography, Divider, Collapse, Popover, Button } from "antd";
+import {
+  Space,
+  Typography,
+  Divider,
+  Collapse,
+  Popover,
+  Popconfirm,
+} from "antd";
 const { Title } = Typography;
 const { Panel } = Collapse;
 import {
@@ -25,13 +32,14 @@ import UserContext from "store/user-context";
 
 import { MaterialMapper } from "common/util/DataTransformer";
 
-import { GET_DELIVERY_DATA } from "common/http/RequestHandler.js";
+import { GET_DELIVERY_DATA } from "common/http/RequestData.js";
 
 const ProductDetailsPage = ({ product }) => {
   const [deliveryInfo, setDeliveryInfo] = useState([]);
   const [quantity, setQuantity] = useState(0);
   const [selectedSize, setSelectedSize] = useState([]);
   const userCtx = useContext(UserContext);
+  const [alreadyInCart, setAlreadyInCart] = useState();
 
   const fetchData = async () => {
     let deliveryData = await GET_DELIVERY_DATA();
@@ -42,13 +50,32 @@ const ProductDetailsPage = ({ product }) => {
     fetchData();
   }, []);
 
+  const checkIfAlreadyAdded = (product) => {
+    let productInCartIndex = userCtx.checkIfAlreadyInCart(
+      product.productId,
+      selectedSize
+    );
+    if (productInCartIndex !== -1) {
+      return true;
+    }
+    return false;
+  };
+
   const addToCart = (product) => {
-    userCtx.addToCart({
-      ...product,
-      uId: Date.now(),
-      size: selectedSize,
-      quantity: parseInt(quantity),
-    });
+    let productInCartIndex = userCtx.checkIfAlreadyInCart(
+      product.productId,
+      selectedSize
+    );
+    if (productInCartIndex !== -1) {
+      userCtx.updateQuanitytyDetailProduct(productInCartIndex, quantity);
+    } else {
+      userCtx.addToCart({
+        ...product,
+        uId: Date.now(),
+        size: selectedSize,
+        quantity: parseInt(quantity),
+      });
+    }
   };
 
   const onChangeQuanityty = (e) => {
@@ -106,6 +133,7 @@ const ProductDetailsPage = ({ product }) => {
                     sizes={selectedSize}
                     onAddToCart={() => addToCart(product)}
                     numOfItems={quantity}
+                    alreadyIn={() => checkIfAlreadyAdded(product)}
                   />
                   <FavoritesActions product={product} />
                 </>

@@ -14,7 +14,7 @@ import {
   DELETE_DATA_BY_ID,
   SAVE_DATA,
   UPDATE_DATA,
-} from "common/http/RequestHandler.js";
+} from "common/http/RequestData.js";
 import { HOST_DATA } from "hostdata";
 
 import { Container, TableContainer, AddItemContainer } from "./StyledComponent";

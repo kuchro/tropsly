@@ -1,5 +1,6 @@
 import { Modal, message } from 'antd'
 import MiniProductDetails from '../../product/product-details/MiniProductDetail'
+import OrderDetails from 'common/components/admin/order/OrderDetails'
 
 
 
@@ -11,6 +12,16 @@ export const Info = (product) => {
             okText: 'Close',
         }))
 }
+
+export const OrderDetailModa = (orderData) => {
+    return (
+        Modal.info({
+            content: (
+           <OrderDetails orderData={orderData}/>),
+            okText: 'Close',
+            width: '60%'
+        }))
+  };
 
 export const success = (text) => {
 
