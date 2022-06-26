@@ -26,13 +26,13 @@ const MiniProductDetails = ({ product }) => {
         <Descriptions.Item>{product.description}</Descriptions.Item>
       </Descriptions>
       <Descriptions>
-        <Descriptions.Item label="Size">
-          {product.size.map((size) => (
-            <span key={size}>{size}, </span>
-          ))}
+        <Descriptions.Item label="Available Size">
+          {product.size.join(', ')}
         </Descriptions.Item>
-        <Descriptions.Item label="Material">
-          {MaterialMapper(product.material)}
+      </Descriptions>
+      <Descriptions>
+      <Descriptions.Item label="Material">
+          {product.materialTypeId}
         </Descriptions.Item>
       </Descriptions>
       <Divider />

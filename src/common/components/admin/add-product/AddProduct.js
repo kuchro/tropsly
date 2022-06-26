@@ -61,12 +61,6 @@ const AddProduct = ({ configurationData }) => {
         <Label>Title</Label>
         <Input placeholder="Title" {...register("title", { required: true })} />
         {errors.title && <span>Title is required.</span>}
-        <Label>Material</Label>
-        <Input
-          placeholder="Material"
-          {...register("material", { required: true })}
-        />
-        {errors.material && <span>Material is required.</span>}
         <Label>Serial Number</Label>
         <Input
           placeholder="Serial Number"

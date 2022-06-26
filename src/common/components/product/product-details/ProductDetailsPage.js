@@ -150,7 +150,7 @@ const ProductDetailsPage = ({ product }) => {
               <Description>{product.description}</Description>
             </Panel>
             <Panel header="Material" key="2">
-              <Description>{MaterialMapper(product.material)}</Description>
+              <Description>{product.materialTypeId}</Description>
             </Panel>
             <Panel header="Opinions" key="3">
               <CommentSection productId={product.productId} />
