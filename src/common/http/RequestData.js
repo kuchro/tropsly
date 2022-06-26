@@ -133,3 +133,10 @@ export const ORDER_PRODUCTS = async (data) => {
       }
     });
 };
+
+
+export const GET_ALL_CONFIG = async () =>{
+  let configDataResponse = await axios.get(`${HOST_DATA.API_URL}${HOST_DATA.CONFIG_ALL}`);
+  let configData = await configDataResponse.data;
+  return configData;
+}

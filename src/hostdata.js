@@ -10,4 +10,6 @@ export const HOST_DATA ={
     CONFIGURE: '/v1/api/configure/',
     DELIVERY: '/v1/api/configure/delivery/',
     ORDER: '/v1/api/order/',
+    PRODUCT_TYPE: '/v1/api/configure/product-type/',
+    MATERIAL_TYPE: '/v1/api/configure/material-type/',
 }

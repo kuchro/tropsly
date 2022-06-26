@@ -84,6 +84,50 @@ const ManageProduct = ({ categoryData }) => {
 
   const columns = [
     {
+      title: "Product Type",
+      dataIndex: "productType",
+      key:'productType',
+      render: (_, record) => {
+        return (
+          <Space>
+            <>
+              <Tag>
+                {
+                  selectCategoryData("product-type", categoryData).find(
+                    (x) => x.id === record.productTypeId
+                  )?.name
+                }
+              </Tag>
+            </>
+          </Space>
+        );
+      },
+      width: "10%",
+      editable: false,
+    },
+    {
+      title: "Material Type",
+      dataIndex: "materialType",
+      key:'materialType',
+      render: (_, record) => {
+        return (
+          <Space>
+            <>
+              <Tag>
+                {
+                  selectCategoryData("material-type", categoryData).find(
+                    (x) => x.id === record.materialTypeId
+                  )?.name
+                }
+              </Tag>
+            </>
+          </Space>
+        );
+      },
+      width: "10%",
+      editable: false,
+    },
+    {
       title: "Category",
       dataIndex: "category",
       key: "category",

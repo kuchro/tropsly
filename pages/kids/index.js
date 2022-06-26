@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import KidsComponent from "common/components/views/kids/index.js";
-import { HOST_DATA } from "hostdata";
-import axios from "axios";
 import {
   GET_CATEGORY_DATA,
   GET_CATEGORY_BY_ID,

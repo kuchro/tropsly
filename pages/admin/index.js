@@ -4,17 +4,20 @@ import AdminComponent from 'common/components/admin/admin-page/AdminComponent.js
 
 import { HOST_DATA } from "hostdata";
 import axios from "axios";
+import {
+  GET_ALL_CONFIG,
+} from "common/http/RequestData.js";
 export const getServerSideProps = async () => {
 
-    let configDataResponse = await axios.get(`${HOST_DATA.API_URL}${HOST_DATA.CONFIG_ALL}`);
-    let configData = await configDataResponse.data;
+    const configData = await GET_ALL_CONFIG();
+
     const configAllData = Object.entries(configData).map(([k,v])=>{
-        return {
-            key: k,
-            catName: k,
-            data: v.map(x=>x.name)
-        }
-    })
+      return {
+          key: k,
+          catName: k,
+          data: v.map(x=>x.name)
+      }
+  })
     const configDataWithId = Object.entries(configData).map(([k,v])=>{
       return {
           key: k,

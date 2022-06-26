@@ -2,11 +2,11 @@ import React from "react";
 import { selectCategoryData } from "common/util/DataTransformer";
 import { SelectOptions } from "common/styles/CommonStyledComponents";
 
-const SelectCategory = ({ category, categoryData, register, errors }) => {
+const SelectCategory = ({ category, categoryData, register,registerProp, errors }) => {
   return (
-    <SelectOptions {...register(category, { required: true })}>
+    <SelectOptions {...register(registerProp, { required: true })}>
       {selectCategoryData(category, categoryData).map((item) => (
-        <option key={item.id} value={item.name}>
+        <option key={item.id} value={item.id}>
           {item.name}
         </option>
       ))}

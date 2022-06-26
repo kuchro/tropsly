@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 
 import { MainBox, StyledGrid } from "common/styles/CommonStyledComponents";
@@ -6,71 +5,75 @@ import ProductFilter from "./ProductFilter";
 
 import { PRODUCT_TYPE_KIDS as prodTypes } from "categorymock";
 import { BRAND_MOCK as brands } from "categorymock";
-
+import { GET_ALL_CONFIG } from "common/http/RequestData.js";
 
 const FilterCollection = ({ data, setProducts, name, type }) => {
+    const [categoryConfig, setCategoryConfig] = useState([]);
+    const fetchConfig = async ()=>{
+        let config = await GET_ALL_CONFIG();
+        setCategoryConfig(config);
+    }
+  useEffect(() => {
+    fetchConfig();
+  }, []);
 
-    const [Filters, setFilters] = useState({
-        isEnabled: false,
-        productType: { isEnabled: false, data: [] },
-        brand: { isEnabled: false, data: [] },
-    });
+  const [Filters, setFilters] = useState({
+    isEnabled: false,
+    productType: { isEnabled: false, data: [] },
+    brand: { isEnabled: false, data: [] },
+  });
 
-    const showFilteredResult = (filters) => {
-        const entry = {
-            filters: filters,
-        };
-        getAllProducts(entry);
+  const showFilteredResult = (filters) => {
+    const entry = {
+      filters: filters,
     };
+    getAllProducts(entry);
+  };
 
-    const getAllProducts = (entry) => {
-        if (entry.filters.isEnabled) {
-            let products = {};
-            if (entry.filters.productType.isEnabled) {
-                let filterSet = new Set(entry.filters.productType.data);
-                products = data.filter((product) =>
-                    filterSet.has(product.product_type)
-                );
-                setProducts(products);
-            }
-            if (entry.filters.brand.isEnabled) {
-                let filterSet = new Set(entry.filters.brand.data);
-                products = data.filter((product) =>
-                    filterSet.has(product.brand)
-                );
-                setProducts(products);
-            }
-        }
-        if (!entry.filters.productType.isEnabled && !entry.filters.brand.isEnabled) {
-            setProducts(data);
-        }
-    };
+  const getAllProducts = (entry) => {
+    if (entry.filters.isEnabled) {
+      let products = {};
+      if (entry.filters.productType.isEnabled) {
+        let filterSet = new Set(entry.filters.productType.data);
+        products = data.filter((product) =>
+          filterSet.has(product.product_type)
+        );
+        setProducts(products);
+      }
+      if (entry.filters.brand.isEnabled) {
+        let filterSet = new Set(entry.filters.brand.data);
+        products = data.filter((product) => filterSet.has(product.brand));
+        setProducts(products);
+      }
+    }
+    if (
+      !entry.filters.productType.isEnabled &&
+      !entry.filters.brand.isEnabled
+    ) {
+      setProducts(data);
+    }
+  };
 
-    const handleFilterType = (filters, category) => {
-        const newFilters = { ...Filters };
+  const handleFilterType = (filters, category) => {
+    const newFilters = { ...Filters };
 
-        newFilters[category].data = filters;
-        newFilters.isEnabled = true;
-        newFilters[category].isEnabled = filters.length > 0 ? true : false;
+    newFilters[category].data = filters;
+    newFilters.isEnabled = true;
+    newFilters[category].isEnabled = filters.length > 0 ? true : false;
 
-        setFilters(newFilters);
-        showFilteredResult(newFilters);
-    };
+    setFilters(newFilters);
+    showFilteredResult(newFilters);
+  };
 
-
-    return (
-        <div style={{display: 'flex'}}>
-
-
-            <ProductFilter filterType={name}
-                handleFilterType={(filters) =>
-                    handleFilterType(filters, type)
-                }
-                productTypes={prodTypes}
-            />
-
-        </div>
-    );
-}
+  return (
+    <div style={{ display: "flex" }}>
+      <ProductFilter
+        filterType={name}
+        handleFilterType={(filters) => handleFilterType(filters, type)}
+        productTypes={categoryConfig['category']}
+      />
+    </div>
+  );
+};
 
 export default FilterCollection;

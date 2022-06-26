@@ -61,9 +61,7 @@ const ConfigManagerComponent = ({ configuration }) => {
 
   const onSubmit = () => {
     axios
-      .post(`${HOST_DATA.API_URL}${HOST_DATA.CONFIGURE}${pathRoute}`, {
-        names: selectedCat,
-      })
+      .post(`${HOST_DATA.API_URL}${HOST_DATA.CONFIGURE}${pathRoute}`, selectedCat)
       .then(function (response) {
         refreshData();
         setModalIsOpen(false);

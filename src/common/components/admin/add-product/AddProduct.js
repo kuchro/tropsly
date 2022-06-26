@@ -5,7 +5,7 @@ import {
   Input,
   Label,
   TextArea,
-  Submit
+  Submit,
 } from "./StyledComponents";
 import { Divider, message, Checkbox } from "antd";
 const CheckboxGroup = Checkbox.Group;
@@ -13,12 +13,9 @@ import { CAT_MOCK, BRAND_MOCK, MATERIAL_MOCK } from "categorymock";
 import axios from "axios";
 import { HOST_DATA } from "hostdata";
 import { selectCategoryData } from "common/util/DataTransformer";
-import SelectCategory from 'common/components/functional-components/select-size/SelectCategory'
+import SelectCategory from "common/components/functional-components/select-size/SelectCategory";
 
-
-
-
-const AddProduct = ({configurationData}) => {
+const AddProduct = ({ configurationData }) => {
   const plainOptions = ["XS", "S", "M", "L", "XL", "XXL"];
   const {
     register,
@@ -42,12 +39,11 @@ const AddProduct = ({configurationData}) => {
     setCheckAll(e.target.checked);
   };
 
-
   const onSubmit = (data, e) => {
-      data.size = CheckedList;
-      //need to be modyfied
-      //data.userId = 3;
-      axios.post(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}`,data).then(function (response) {
+    data.size = CheckedList;
+    axios
+      .post(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}`, data)
+      .then(function (response) {
         console.log(response);
         e.target.reset();
         message.success("Product Added to database.");
@@ -55,9 +51,7 @@ const AddProduct = ({configurationData}) => {
       .catch(function (error) {
         message.error("Something went wrong...");
       });
-     
-     
-  }
+  };
 
   return (
     <ProductContainer>
@@ -65,29 +59,65 @@ const AddProduct = ({configurationData}) => {
         <Label>Photo</Label>
         <Input placeholder="Image" {...register("image")} />
         <Label>Title</Label>
-        <Input placeholder="Title" {...register("title", {required: true})} />
+        <Input placeholder="Title" {...register("title", { required: true })} />
         {errors.title && <span>Title is required.</span>}
         <Label>Material</Label>
-        <Input placeholder="Material" {...register("material", {required: true})} />
+        <Input
+          placeholder="Material"
+          {...register("material", { required: true })}
+        />
         {errors.material && <span>Material is required.</span>}
         <Label>Serial Number</Label>
-        <Input placeholder="Serial Number" {...register("serialNumber", {required: true})} />
+        <Input
+          placeholder="Serial Number"
+          {...register("serialNumber", { required: true })}
+        />
         {errors.serialNumber && <span>Serial Number is required.</span>}
         <Label>Description</Label>
         <TextArea
           placeholder="Please fill description"
-          {...register("description", {required: true})}
+          {...register("description", { required: true })}
         />
         {errors.description && <span>Description is required.</span>}
-    
+
         <Divider />
         <Label>Category</Label>
-        <SelectCategory category={"category"} categoryData={configurationData} register={register} errors={errors}/>
-        
+        <SelectCategory
+          category={"category"}
+          categoryData={configurationData}
+          register={register}
+          registerProp="categoryId"
+          errors={errors}
+        />
+
         <Label>Brand</Label>
-          <SelectCategory category={"brand"} categoryData={configurationData} register={register} errors={errors}/>
+        <SelectCategory
+          category={"brand"}
+          categoryData={configurationData}
+          register={register}
+          registerProp="brandId"
+          errors={errors}
+        />
+
+        <Label>Product Type</Label>
+        <SelectCategory
+          category={"product-type"}
+          categoryData={configurationData}
+          register={register}
+          registerProp="productTypeId"
+          errors={errors}
+        />
+         <Label>Material Type</Label>
+        <SelectCategory
+          category={"material-type"}
+          categoryData={configurationData}
+          register={register}
+          registerProp="materialTypeId"
+          errors={errors}
+        />
         <Divider />
-        <Checkbox {...register("size")}
+        <Checkbox
+          {...register("size")}
           indeterminate={indeterminate}
           onChange={onCheckAllChange}
           checked={checkAll}
@@ -95,18 +125,30 @@ const AddProduct = ({configurationData}) => {
           Check all
         </Checkbox>
         <br />
-        <CheckboxGroup 
+        <CheckboxGroup
           options={plainOptions}
           value={CheckedList}
           onChange={onChange}
         />
         <Divider />
         <Label>Price($)</Label>
-        <Input type="number" placeholder={errors.price ? 'Price is required' : 'Add Price'} min={0} {...register("price",{ required: true })} />
+        <Input
+          type="number"
+          placeholder={errors.price ? "Price is required" : "Add Price"}
+          min={0}
+          {...register("price", { required: true })}
+        />
         <Label>Quantity</Label>
-        <Input type="number" placeholder={errors.quantity ? 'Quantity is required' : 'Add Quantity'} min={0} {...register("quantity", { required: true })} />
+        <Input
+          type="number"
+          placeholder={
+            errors.quantity ? "Quantity is required" : "Add Quantity"
+          }
+          min={0}
+          {...register("quantity", { required: true })}
+        />
         <Divider />
-        <Submit type="submit" value="Add Product"/>
+        <Submit type="submit" value="Add Product" />
       </form>
     </ProductContainer>
   );

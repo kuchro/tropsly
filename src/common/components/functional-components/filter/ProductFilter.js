@@ -21,7 +21,7 @@ const ProductFilter = ({ filterType, handleFilterType, productTypes }) => {
     <div>
       <Collapse defaultActiveKey={["1"]} style={{ width: "350px" }}>
         <Panel header={filterType}>
-          {productTypes.map((value) => (
+          {productTypes?.map((value) => (
             <React.Fragment key={value.id}>
               <Checkbox
                 key={value.id}
