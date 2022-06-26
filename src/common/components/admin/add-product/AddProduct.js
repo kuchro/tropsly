@@ -7,6 +7,7 @@ import {
   TextArea,
   Submit,
 } from "./StyledComponents";
+
 import { Divider, message, Checkbox } from "antd";
 const CheckboxGroup = Checkbox.Group;
 import { CAT_MOCK, BRAND_MOCK, MATERIAL_MOCK } from "categorymock";
@@ -14,6 +15,7 @@ import axios from "axios";
 import { HOST_DATA } from "hostdata";
 import { selectCategoryData } from "common/util/DataTransformer";
 import SelectCategory from "common/components/functional-components/select-size/SelectCategory";
+import ImageUpload from "./ImageUpload";
 
 const AddProduct = ({ configurationData }) => {
   const plainOptions = ["XS", "S", "M", "L", "XL", "XXL"];
@@ -26,6 +28,8 @@ const AddProduct = ({ configurationData }) => {
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
   const [CheckedList, setCheckedList] = useState([]);
+  const [file, setFile] = useState();
+  const [fileName, setFileName] = useState();
 
   const onChange = (list) => {
     setCheckedList(list);
@@ -39,7 +43,10 @@ const AddProduct = ({ configurationData }) => {
     setCheckAll(e.target.checked);
   };
 
-  const onSubmit = (data, e) => {
+  const onSubmit = async (data, e) => {
+    await uploadImage().then(res=>{
+      data.image=`https://localhost:4566/sportshop.images/${res.data}`;
+    });
     data.size = CheckedList;
     axios
       .post(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}`, data)
@@ -53,11 +60,36 @@ const AddProduct = ({ configurationData }) => {
       });
   };
 
+  const uploadImage = async () => {
+    const formData = new FormData();
+    formData.append("file", file.originFileObj);
+    formData.append("fileName", file.name);
+   return axios
+      .post(`${HOST_DATA.API_URL}${HOST_DATA.IMAGE_UPLOAD}`, formData)
+      .then(function (response) {
+   
+        message.success("Image uploaded to the server.");
+        return response;
+      })
+      .catch(function (error) {
+        console.log(error)
+        message.error("Something went wrong...");
+        return null;
+      });
+  };
+
+  // const checkTest = async ()=>{
+  //   let output;
+  //     await uploadImage().then(res=>{
+  //     output=res;
+  //   });
+  //   console.log(output);
+  // }
   return (
     <ProductContainer>
+      <Label>Photo</Label>
+      <ImageUpload setImageFile={(file)=>setFile(file)} />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Label>Photo</Label>
-        <Input placeholder="Image" {...register("image")} />
         <Label>Title</Label>
         <Input placeholder="Title" {...register("title", { required: true })} />
         {errors.title && <span>Title is required.</span>}
@@ -101,7 +133,7 @@ const AddProduct = ({ configurationData }) => {
           registerProp="productTypeId"
           errors={errors}
         />
-         <Label>Material Type</Label>
+        <Label>Material Type</Label>
         <SelectCategory
           category={"material-type"}
           categoryData={configurationData}

@@ -12,4 +12,5 @@ export const HOST_DATA ={
     ORDER: '/v1/api/order/',
     PRODUCT_TYPE: '/v1/api/configure/product-type/',
     MATERIAL_TYPE: '/v1/api/configure/material-type/',
+    IMAGE_UPLOAD: '/v1/api/image/upload?bucketName=sportshop.images',
 }
