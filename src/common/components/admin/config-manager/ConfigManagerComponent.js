@@ -9,6 +9,10 @@ import DataTableComponent from "common/components/functional-components/data-tab
 import { HOST_DATA } from "hostdata";
 import axios from "axios";
 import { useRouter } from "next/router";
+import {
+  DELETE_PRODUCT_CATEGORY,
+  ADD_NEW_CATEGORY,
+} from "common/http/RequestData";
 
 const ConfigManagerComponent = ({ configuration }) => {
   const router = useRouter();
@@ -44,33 +48,17 @@ const ConfigManagerComponent = ({ configuration }) => {
     setModalDeleteIsOpen(false);
   };
 
-  const onDelete = (path) => {
-    axios
-      .delete(`${HOST_DATA.API_URL}${HOST_DATA.CONFIGURE}${path}/remove`, {
-        data: selectedCat,
-      })
-      .then(function (response) {
-        refreshData();
-        message.success("Category removed properly.");
-        setModalDeleteIsOpen(false);
-      })
-      .catch(function (error) {
-        message.error("Something went wrong, try again later.");
-      });
+  const onDelete = async (path) => {
+    await DELETE_PRODUCT_CATEGORY(path, selectedCat);
+    refreshData();
+    setModalDeleteIsOpen(false);
   };
 
-  const onSubmit = () => {
-    axios
-      .post(`${HOST_DATA.API_URL}${HOST_DATA.CONFIGURE}${pathRoute}`, selectedCat)
-      .then(function (response) {
-        refreshData();
-        setModalIsOpen(false);
-        setModalDeleteIsOpen(false);
-        message.success("Category added properly.");
-      })
-      .catch(function (error) {
-        message.error("Something went wrong...");
-      });
+  const onSubmit = async () => {
+    await ADD_NEW_CATEGORY(pathRoute, selectedCat);
+    refreshData();
+    setModalIsOpen(false);
+    setModalDeleteIsOpen(false);
   };
 
   const columnData = [
@@ -171,12 +159,12 @@ const ConfigManagerComponent = ({ configuration }) => {
 
   return (
     <ConfigContainer>
-       <DataTableComponent
-      form={null}
-      dataSource={configData}
-      columnsData={columnData}
-      onCancel={() => null}
-    />
+      <DataTableComponent
+        form={null}
+        dataSource={configData}
+        columnsData={columnData}
+        onCancel={() => null}
+      />
     </ConfigContainer>
   );
 };

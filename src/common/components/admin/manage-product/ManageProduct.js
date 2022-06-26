@@ -1,18 +1,11 @@
-import {
-  message,
-  Typography,
-  Popconfirm,
-  Tag,
-  Space,
-  Form,
-} from "antd";
+import { message, Typography, Popconfirm, Tag, Space, Form } from "antd";
 import React, { useState, useEffect } from "react";
 import { HOST_DATA } from "hostdata";
 import { CONFIG_COLUMNS } from "mockdata";
 import axios from "axios";
 import { selectCategoryData } from "common/util/DataTransformer";
 import DataTableComponent from "common/components/functional-components/data-table/DataTableComponent";
-
+import { UPDATE_PRODUCT_DATA,DELETE_PRODUCT_BY_ID } from "common/http/RequestData";
 
 const ManageProduct = ({ categoryData }) => {
   const [form] = Form.useForm();
@@ -35,16 +28,9 @@ const ManageProduct = ({ categoryData }) => {
     setReloadData(false);
   }, [reloadData]);
 
-  const onConfirmDelete = (productId) => {
-    axios
-      .delete(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}${productId}`)
-      .then(function (response) {
-        message.success("Product successfully removed.");
-        setReloadData(true);
-      })
-      .catch(function (error) {
-        message.error("Something went wrong, try again later.");
-      });
+  const onConfirmDelete = async (productId) => {
+    await DELETE_PRODUCT_BY_ID(productId);
+    setReloadData(true);
   };
 
   const onEdit = (record) => {
@@ -67,16 +53,9 @@ const ManageProduct = ({ categoryData }) => {
   const onSave = async (key) => {
     try {
       const row = await form.validateFields();
-      axios
-        .put(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}${key}`, row)
-        .then(function (response) {
-          message.success("Product successfully updated.");
-          setReloadData(true);
-          setEditingKey("");
-        })
-        .catch(function (error) {
-          message.error("Something went wrong, try again later.");
-        });
+      await UPDATE_PRODUCT_DATA(row);
+      setReloadData(true);
+      setEditingKey("");
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
     }
@@ -84,9 +63,38 @@ const ManageProduct = ({ categoryData }) => {
 
   const columns = [
     {
+      title: "image",
+      dataIndex: "image",
+      width: "15%",
+      editable: true,
+      render: (image) => (
+        <Typography.Text ellipsis={true} style={{ width: 250 }}>
+          {image}
+        </Typography.Text>
+      ),
+    },
+    {
+      title: "description",
+      dataIndex: "description",
+      width: "30%",
+      editable: true,
+      render: (description) => (
+        <Typography.Text ellipsis={true} style={{ width: 250 }}>
+          {description}
+        </Typography.Text>
+      ),
+    },
+    {
+      title: "size",
+      dataIndex: "size",
+      width: "15%",
+      editable: true,
+      render: (size) => <p>{size.join()}</p>,
+    },
+    {
       title: "Product Type",
       dataIndex: "productType",
-      key:'productType',
+      key: "productType",
       render: (_, record) => {
         return (
           <Space>
@@ -108,7 +116,7 @@ const ManageProduct = ({ categoryData }) => {
     {
       title: "Material Type",
       dataIndex: "materialType",
-      key:'materialType',
+      key: "materialType",
       render: (_, record) => {
         return (
           <Space>
@@ -152,7 +160,7 @@ const ManageProduct = ({ categoryData }) => {
     {
       title: "Brand",
       dataIndex: "brand",
-      key:'brand',
+      key: "brand",
       render: (_, record) => {
         return (
           <Space>
@@ -174,8 +182,8 @@ const ManageProduct = ({ categoryData }) => {
     {
       title: "Actions",
       dataIndex: "actions",
-      key: 'actions',
-      width: "10%",
+      key: "actions",
+      width: "15%",
       fixed: "right",
       render: (_, record) => {
         const editable = isEditing(record);
@@ -218,7 +226,6 @@ const ManageProduct = ({ categoryData }) => {
       },
     },
   ];
-
 
   const mergedColumns = CONFIG_COLUMNS.concat(columns).map((col) => {
     if (!col.editable) {

@@ -8,28 +8,30 @@ import {
   Submit,
 } from "./StyledComponents";
 
-import { Divider, message, Checkbox } from "antd";
+import { Divider, Checkbox } from "antd";
 const CheckboxGroup = Checkbox.Group;
-import { CAT_MOCK, BRAND_MOCK, MATERIAL_MOCK } from "categorymock";
-import axios from "axios";
-import { HOST_DATA } from "hostdata";
-import { selectCategoryData } from "common/util/DataTransformer";
+
 import SelectCategory from "common/components/functional-components/select-size/SelectCategory";
 import ImageUpload from "./ImageUpload";
 
+import { ADD_NEW_PRODUCT,UPLOAD_IMAGE } from "common/http/RequestData";
+
 const AddProduct = ({ configurationData }) => {
   const plainOptions = ["XS", "S", "M", "L", "XL", "XXL"];
+  const plainOptionsShoes = ["37", "38", "39", "40", "41", "42","43","44","45","46","47"];
   const {
     register,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [categoryData, setCategoryData] = useState(configurationData);
+
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
   const [CheckedList, setCheckedList] = useState([]);
   const [file, setFile] = useState();
-  const [fileName, setFileName] = useState();
+  const [checkBoxData, setCheckBoxData] = useState(plainOptions);
+
 
   const onChange = (list) => {
     setCheckedList(list);
@@ -48,43 +50,26 @@ const AddProduct = ({ configurationData }) => {
       data.image=`https://localhost:4566/sportshop.images/${res.data}`;
     });
     data.size = CheckedList;
-    axios
-      .post(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}`, data)
-      .then(function (response) {
-        console.log(response);
-        e.target.reset();
-        message.success("Product Added to database.");
-      })
-      .catch(function (error) {
-        message.error("Something went wrong...");
-      });
+    await ADD_NEW_PRODUCT(data);
+    e.target.reset();
+    setCheckAll(false);
+    setCheckedList([]);
   };
 
   const uploadImage = async () => {
     const formData = new FormData();
     formData.append("file", file.originFileObj);
     formData.append("fileName", file.name);
-   return axios
-      .post(`${HOST_DATA.API_URL}${HOST_DATA.IMAGE_UPLOAD}`, formData)
-      .then(function (response) {
-   
-        message.success("Image uploaded to the server.");
-        return response;
-      })
-      .catch(function (error) {
-        console.log(error)
-        message.error("Something went wrong...");
-        return null;
-      });
+   return UPLOAD_IMAGE(formData);
   };
 
-  // const checkTest = async ()=>{
-  //   let output;
-  //     await uploadImage().then(res=>{
-  //     output=res;
-  //   });
-  //   console.log(output);
+  // const loadProperOptions = () =>{
+  //   let prodId = getValues('product-type')
+  //   let getData = Object.entries(configurationData).find(([k,v]) => v.catName==='product-type')[1].data.filter(x=>x.id==prodId);
+  //   console.log('dataselect',getData);
+  //   setCheckBoxData(plainOptions);
   // }
+
   return (
     <ProductContainer>
       <Label>Photo</Label>
@@ -152,7 +137,7 @@ const AddProduct = ({ configurationData }) => {
         </Checkbox>
         <br />
         <CheckboxGroup
-          options={plainOptions}
+          options={checkBoxData}
           value={CheckedList}
           onChange={onChange}
         />

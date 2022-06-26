@@ -116,7 +116,7 @@ export const SAVE_DATA = async (path, data, action) => {
 };
 
 export const ORDER_PRODUCTS = async (data) => {
- return axios
+  return axios
     .post(`${HOST_DATA.API_URL}${HOST_DATA.ORDER}`, data)
     .then(function (response) {
       console.log(response);
@@ -134,9 +134,88 @@ export const ORDER_PRODUCTS = async (data) => {
     });
 };
 
-
-export const GET_ALL_CONFIG = async () =>{
-  let configDataResponse = await axios.get(`${HOST_DATA.API_URL}${HOST_DATA.CONFIG_ALL}`);
+export const GET_ALL_CONFIG = async () => {
+  let configDataResponse = await axios.get(
+    `${HOST_DATA.API_URL}${HOST_DATA.CONFIG_ALL}`
+  );
   let configData = await configDataResponse.data;
   return configData;
+};
+
+export const ADD_NEW_PRODUCT = async (payload) => {
+  axios
+    .post(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}`, payload)
+    .then(function (response) {
+      console.info(response);
+      message.success("Product Added to database.");
+    })
+    .catch(function (error) {
+      console.error(error);
+      message.error("Something went wrong...");
+    });
+};
+
+export const UPLOAD_IMAGE = async (formData) => {
+  return axios
+    .post(`${HOST_DATA.API_URL}${HOST_DATA.IMAGE_UPLOAD}`, formData)
+    .then(function (response) {
+      message.success("Image uploaded to the server.");
+      return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+      message.error("Something went wrong...");
+      return null;
+    });
+};
+
+export const UPDATE_PRODUCT_DATA = async (payload) => {
+  return axios
+    .put(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}${key}`, payload)
+    .then(function (response) {
+      message.success("Product successfully updated.");
+    })
+    .catch(function (error) {
+      message.error("Something went wrong, try again later.");
+    });
+};
+
+export const DELETE_PRODUCT_BY_ID = async (productId) => {
+  axios
+    .delete(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}${productId}`)
+    .then(function (response) {
+      message.success("Product successfully removed.");
+    
+    })
+    .catch(function (error) {
+      message.error("Something went wrong, try again later.");
+    });
+};
+
+
+export const DELETE_PRODUCT_CATEGORY = async (path,selectedCat)=>{
+  axios
+  .delete(`${HOST_DATA.API_URL}${HOST_DATA.CONFIGURE}${path}/remove`, {
+    data: selectedCat,
+  })
+  .then(function (response) {
+    message.success("Category removed properly.");
+  })
+  .catch(function (error) {
+    message.error("Something went wrong, try again later.");
+  });
+}
+
+export const ADD_NEW_CATEGORY = async (path,payload)=>{
+  axios
+  .post(
+    `${HOST_DATA.API_URL}${HOST_DATA.CONFIGURE}${path}`,
+    payload
+  )
+  .then(function (response) {
+    message.success("Category added properly.");
+  })
+  .catch(function (error) {
+    message.error("Something went wrong...");
+  });
 }

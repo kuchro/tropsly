@@ -149,33 +149,15 @@ export const CONFIG_COLUMNS = [
     width: "5%",
   },
   {
-    title: "image",
-    dataIndex: "image",
-    width: "10%",
-    editable: true,
-  },
-  {
     title: "title",
     dataIndex: "title",
-    width: "10%",
-    editable: true,
-  },
-  {
-    title: "description",
-    dataIndex: "description",
-    width: "10%",
+    width: "15%",
     editable: true,
   },
   {
     title: "Serial Number",
     dataIndex: "serialNumber",
-    width: "10%",
-    editable: true,
-  },
-  {
-    title: "size",
-    dataIndex: "size",
-    width: "10%",
+    width: "15%",
     editable: true,
   },
   {
