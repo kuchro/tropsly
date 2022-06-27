@@ -1,10 +1,35 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import MainView from 'common/components/views/mainview/index.js'
+import MainView from 'common/components/views/mainview/index'
+import {
+  GET_CATEGORY_DATA,
+  GET_PRODUCTS_CATEGORY_BY_ID,
+} from "common/http/RequestData.js";
 
+export const getServerSideProps = async () => {
+  let productData = [];
+  let catResponse = await GET_CATEGORY_DATA();
+  if (catResponse) {
 
+    productData = await Promise.all(catResponse.map(async cat  =>{
+      return {
+        categoryName: cat.name,
+        products: await GET_PRODUCTS_CATEGORY_BY_ID(cat.id).then(res => {return res;})
+      }
+    }))
+    let data = await productData;
+    console.log(data);
+  } else {
+    console.warn(
+      "Application may be not configured - Missing categories. Please check Admin panel."
+    );
+  }
 
-export default function Home() {
+  return {
+    props: { data: productData },
+  };
+};
+export default function Home({data}) {
   return (
     <div>
       <Head>
@@ -14,7 +39,7 @@ export default function Home() {
       </Head>
 
       <main >
-        <MainView/>
+        <MainView products={data}/>
       </main>
 
       <footer >

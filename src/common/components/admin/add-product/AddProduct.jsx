@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   ProductContainer,
-  Input,
+  StyledInput,
+  StyledInputNumber,
   Label,
   TextArea,
   Submit,
+  StyledTextArea
 } from "./StyledComponents";
 
-import { Divider, Checkbox } from "antd";
+import { Divider, Checkbox,InputNumber } from "antd";
 const CheckboxGroup = Checkbox.Group;
 
 import SelectCategory from "common/components/functional-components/select-size/SelectCategory";
@@ -21,6 +23,7 @@ const AddProduct = ({ configurationData }) => {
   const plainOptionsShoes = ["37", "38", "39", "40", "41", "42","43","44","45","46","47"];
   const {
     register,
+    setValue,
     getValues,
     handleSubmit,
     formState: { errors },
@@ -31,6 +34,7 @@ const AddProduct = ({ configurationData }) => {
   const [CheckedList, setCheckedList] = useState([]);
   const [file, setFile] = useState();
   const [checkBoxData, setCheckBoxData] = useState(plainOptions);
+
 
 
   const onChange = (list) => {
@@ -76,16 +80,16 @@ const AddProduct = ({ configurationData }) => {
       <ImageUpload setImageFile={(file)=>setFile(file)} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Label>Title</Label>
-        <Input placeholder="Title" {...register("title", { required: true })} />
+        <StyledInput name="title" placeholder="Title" {...register("title", { required: true })} />
         {errors.title && <span>Title is required.</span>}
         <Label>Serial Number</Label>
-        <Input
+        <StyledInput name="serialNumber"
           placeholder="Serial Number"
           {...register("serialNumber", { required: true })}
         />
         {errors.serialNumber && <span>Serial Number is required.</span>}
         <Label>Description</Label>
-        <TextArea
+        <StyledTextArea
           placeholder="Please fill description"
           {...register("description", { required: true })}
         />
@@ -143,14 +147,16 @@ const AddProduct = ({ configurationData }) => {
         />
         <Divider />
         <Label>Price($)</Label>
-        <Input
-          type="number"
-          placeholder={errors.price ? "Price is required" : "Add Price"}
+        <div>
+        <StyledInput
+          type="number" step="0.01"
+          placeholder={errors?.price ? "Price is required" : "Add Price"}
           min={0}
           {...register("price", { required: true })}
         />
+        </div>
         <Label>Quantity</Label>
-        <Input
+        <StyledInput
           type="number"
           placeholder={
             errors.quantity ? "Quantity is required" : "Add Quantity"

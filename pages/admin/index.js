@@ -1,9 +1,6 @@
 import React from 'react'
 
-import AdminComponent from 'common/components/admin/admin-page/AdminComponent.js'
-
-import { HOST_DATA } from "hostdata";
-import axios from "axios";
+import AdminComponent from 'common/components/admin/admin-page/AdminComponent'
 import {
   GET_ALL_CONFIG,
 } from "common/http/RequestData.js";

@@ -1,13 +1,10 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
-import WonensComponent from "common/components/views/womens/index.js";
+
+import WonensComponent from "common/components/views/womens/index";
 import {
   GET_CATEGORY_DATA,
-  GET_CATEGORY_BY_ID,
+  GET_PRODUCTS_CATEGORY_BY_ID,
 } from "common/http/RequestData.js";
 
-import { HOST_DATA } from "hostdata";
-import axios from "axios";
 export const getServerSideProps = async ({ req, res, resolvedUrl }) => {
   let productData = [];
   let catResponse = await GET_CATEGORY_DATA();
@@ -18,7 +15,7 @@ export const getServerSideProps = async ({ req, res, resolvedUrl }) => {
   
     if (category) {
       console.info("CategoryId successfully found!", category.id);
-      let productDataResponse = await GET_CATEGORY_BY_ID(category.id);
+      let productDataResponse = await GET_PRODUCTS_CATEGORY_BY_ID(category.id);
       console.log(
         `${productDataResponse.length} products successfully fetched!`
       );

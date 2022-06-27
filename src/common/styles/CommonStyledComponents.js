@@ -4,8 +4,7 @@ import { Button, Card, Divider, Row, Select } from "antd";
 
 
 export const MainBox = styled.div`
-  align-items: center;
-  padding: 25px 25px 25px 25px;
+  margin: '4rem auto'
 `;
 
 export const StyledGrid = styled(Row)`
@@ -57,3 +56,33 @@ export const SelectOptions = styled.select`
   padding: 0.6em 1.4em 0.5em 0.8em;
   width: 150px;
 `;
+
+
+export const MainContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  margin: 2rem;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const ProductsContainer = styled.div`
+  width: 100%;
+  text-align: right;
+`;
+
+export const FilterBox = styled.div`
+  width: 20%;
+  height: 100vh;
+`;
+
+export const Label = styled.label`
+  font-weight: bold;
+  margin: 5px;
+`;
+
+export const DivBlock = styled.div`
+ display: block;
+ margin: 5px;
+
+`

@@ -6,7 +6,7 @@ const ProductList = ({products, path}) => {
   return (
     <MainBox>
     <StyledGrid gutter={[16, 16]}>
-        {products.map((product) => (<ProductCardView key={product.productId} product={product} path={path} />))}
+        {products?.map((product) => (<ProductCardView key={product.productId} product={product} path={path} />))}
     </StyledGrid>
   </MainBox>
   )

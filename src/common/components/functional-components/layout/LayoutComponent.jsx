@@ -1,4 +1,4 @@
-import NavigationBar from "../navbar/index.js";
+import NavigationBar from "../navbar/NavBar";
 import { Layout as Nav } from "antd";
 
 const LayoutComponent = ({ children }) => {

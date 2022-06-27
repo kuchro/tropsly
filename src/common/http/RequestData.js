@@ -20,7 +20,7 @@ export const GET_CATEGORY_DATA = async () => {
     });
 };
 
-export const GET_CATEGORY_BY_ID = async (id) => {
+export const GET_PRODUCTS_CATEGORY_BY_ID = async (id) => {
   return await axios
     .get(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT_CATEGORY}${id}`)
     .then((res) => {

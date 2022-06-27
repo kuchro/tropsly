@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Select } from "antd";
 
 const CategorySelect = ({ path, categories, catToDelete }) => {
-  const [pathRoute, setPathRoute] = useState(path);
-  const [catOptions, setCatOptions] = useState([]);
-
   const handleChange = (value) => {
     catToDelete(value);
   };

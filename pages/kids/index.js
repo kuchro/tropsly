@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import KidsComponent from "common/components/views/kids/index.js";
+import KidsComponent from "common/components/views/kids/index";
 import {
   GET_CATEGORY_DATA,
-  GET_CATEGORY_BY_ID,
+  GET_PRODUCTS_CATEGORY_BY_ID,
 } from "common/http/RequestData.js";
 
 export const getServerSideProps = async ({resolvedUrl}) => {
@@ -16,7 +16,7 @@ export const getServerSideProps = async ({resolvedUrl}) => {
   
     if (category) {
       console.info("CategoryId successfully found!", category.id);
-      let productDataResponse = await GET_CATEGORY_BY_ID(category.id);
+      let productDataResponse = await GET_PRODUCTS_CATEGORY_BY_ID(category.id);
       console.log(
         `${productDataResponse.length} products successfully fetched!`
       );

@@ -16,7 +16,7 @@ import FavoritesActions from "common/components/functional-components/favorites-
 
 const ProductCardView = ({ product, path, action }) => {
   return (
-    <Col lg={6} md={8} xs={16} key={product.productId}>
+    <Col lg={6} md={8} xs={24} key={product.productId}>
       <StyledCard
         key={product.productId}
         hoverable

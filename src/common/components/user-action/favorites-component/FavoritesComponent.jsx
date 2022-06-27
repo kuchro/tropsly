@@ -5,7 +5,7 @@ import { StyledGrid } from "common/styles/CommonStyledComponents";
 import UserContext from "store/user-context";
 
 import { getRoutePath } from "common/util/UtilsFunctions";
-import ProductCardView from "common/components/product/product-info/ProductCardView.js";
+import ProductCardView from "common/components/product/product-info/ProductCardView";
 
 const FavoritesComponent = ({ data }) => {
   const [favProducts, setFavProducsts] = useState([]);
