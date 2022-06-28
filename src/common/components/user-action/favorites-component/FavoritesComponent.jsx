@@ -7,7 +7,7 @@ import UserContext from "store/user-context";
 import { getRoutePath } from "common/util/UtilsFunctions";
 import ProductCardView from "common/components/product/product-info/ProductCardView";
 
-const FavoritesComponent = ({ data }) => {
+const FavoritesComponent = ({ data, materialTypes }) => {
   const [favProducts, setFavProducsts] = useState([]);
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const FavoritesComponent = ({ data }) => {
             <ProductCardView
               key={product.productId}
               product={product}
+              materialTypes={materialTypes}
               path={getRoutePath(product.categoryId, data)}
               action={() => onRemoveFravProduct(product.productId)}
             />
