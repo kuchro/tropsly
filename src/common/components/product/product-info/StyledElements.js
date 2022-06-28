@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { Button, Card, Descriptions } from "antd";
-const { Meta } = Card;
 
 export const StyledImage = styled.img`
   margin: 10px;

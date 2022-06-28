@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { InputNumber, Input } from "antd";
-const { TextArea } = Input;
+
+
 export const ProductContainer = styled.div`
   align-items: center;
   height: 100%;

@@ -146,7 +146,7 @@ export const CONFIG_COLUMNS = [
   {
     title: "Id",
     dataIndex: "productId",
-    width: "5%",
+    width: "7%",
   },
   {
     title: "title",
@@ -169,7 +169,7 @@ export const CONFIG_COLUMNS = [
   {
     title: "Quantity",
     dataIndex: "quantity",
-    width: "10%",
+    width: "12%",
     editable: true,
   },
 ];

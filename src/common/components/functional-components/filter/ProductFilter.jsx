@@ -19,7 +19,7 @@ const ProductFilter = ({ filterType, handleFilterType, productTypes }) => {
 
   return (
     <div>
-      <Collapse defaultActiveKey={["1"]} style={{ width: "350px" }}>
+      <Collapse defaultActiveKey={["1"]} style={{ width: "90%" }} ghost>
         <Panel header={filterType}>
           {productTypes?.map((value) => (
             <React.Fragment key={value.id}>

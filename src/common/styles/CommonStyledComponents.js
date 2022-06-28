@@ -1,22 +1,26 @@
 import styled from "styled-components";
 import { Button, Card, Divider, Row, Select } from "antd";
 
-
-
 export const MainBox = styled.div`
-  margin: '4rem auto'
+  padding: 25px 25px 25px 25px;
+  margin: "4rem auto";
 `;
 
 export const StyledGrid = styled(Row)`
   padding: 10px;
-  flex-direction: table;
-  display: flex;
+  
 `;
 
-
 export const StyledCard = styled(Card)`
- float: left;
- display: inline-block;
+  float: left;
+  display: inline-block;
+  width: 260px;
+  @media (min-width: 1300px) {
+    width: 340px;
+  }
+  @media (max-width: 1420px) {
+    width: 240px;
+  }
 `;
 
 export const StyledDivider = styled(Divider)`
@@ -57,7 +61,6 @@ export const SelectOptions = styled.select`
   width: 150px;
 `;
 
-
 export const MainContainer = styled.div`
   height: 100%;
   width: 100%;
@@ -82,7 +85,10 @@ export const Label = styled.label`
 `;
 
 export const DivBlock = styled.div`
- display: block;
- margin: 5px;
+  display: block;
+  margin: 5px;
+`;
 
-`
+export const AlignLeft = styled.div`
+  text-align: left;
+`;

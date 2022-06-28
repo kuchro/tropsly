@@ -154,7 +154,7 @@ const ManageProduct = ({ categoryData }) => {
           </Space>
         );
       },
-      width: "10%",
+      width: "12%",
       editable: false,
     },
     {

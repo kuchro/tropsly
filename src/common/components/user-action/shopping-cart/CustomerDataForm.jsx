@@ -98,7 +98,7 @@ const CustomerDataForm = ({ orderData }) => {
                 placeholder="Phone Number"
                 {...register("customerDataInfo.phoneNumber", {
                   required: true,
-                  maxLength: 9,
+                  maxLength: 12,
                 })}
               />
               {errors.customerDataInfo?.phoneNumber &&
@@ -171,7 +171,7 @@ const CustomerDataForm = ({ orderData }) => {
                 placeholder="House Number"
                 {...register(
                   "customerDataInfo.customerAddressData.houseNumber",
-                  { required: true, maxLength: 5 }
+                  { required: true, maxLength: 10 }
                 )}
               />
               {errors.customerDataInfo?.customerAddressData?.houseNumber &&
