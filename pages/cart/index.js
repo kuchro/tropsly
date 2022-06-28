@@ -1,16 +1,10 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
-import ShoppingCart from "common/components/user-action/shopping-cart/ShoppingCart.js";
-import { HOST_DATA } from "hostdata";
-import axios from "axios";
+import ShoppingCart from "common/components/user-action/shopping-cart/ShoppingCart";
+import { GET_CATEGORY_DATA } from "common/http/RequestData.js";
 
 export const getServerSideProps = async () => {
-  let categoryDataResponse = await axios.get(
-    `${HOST_DATA.API_URL}${HOST_DATA.CATEGORY}`
-  );
-  let catData = categoryDataResponse.data;
+  let categoryDataResponse = await GET_CATEGORY_DATA();
   return {
-    props: { data: catData },
+    props: { data: categoryDataResponse },
   };
 };
 

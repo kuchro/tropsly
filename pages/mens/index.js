@@ -1,11 +1,11 @@
-import { useRouter } from "next/router";
 
-import MensComponent from "common/components/views/mens/index.js";
-import { HOST_DATA } from "hostdata";
-import axios from "axios";
+
+import MensComponent from "common/components/views/mens/index";
+
 import {
   GET_CATEGORY_DATA,
-  GET_CATEGORY_BY_ID,
+  GET_PRODUCTS_CATEGORY_BY_ID,
+  GET_MATERIAL_TYPE,
 } from "common/http/RequestData.js";
 
 export const getServerSideProps = async ({resolvedUrl}) => {
@@ -18,7 +18,7 @@ export const getServerSideProps = async ({resolvedUrl}) => {
   
     if (category) {
       console.info("CategoryId successfully found!", category.id);
-      let productDataResponse = await GET_CATEGORY_BY_ID(category.id);
+      let productDataResponse = await GET_PRODUCTS_CATEGORY_BY_ID(category.id);
       console.log(
         `${productDataResponse.length} products successfully fetched!`
       );
@@ -34,13 +34,19 @@ export const getServerSideProps = async ({resolvedUrl}) => {
     );
   }
 
+  let transferData = [];
+  let materialTypes = await GET_MATERIAL_TYPE();
+  if(materialTypes){
+    transferData = materialTypes;
+  }
+
   return {
-    props: { data: productData },
+    props: { data: productData, material: transferData },
   };
 };
 
-const MensPage = ({ data }) => {
-  return <MensComponent data={data} />;
+const MensPage = ({ data, material }) => {
+  return <MensComponent data={data} materialTypes={material}/>;
 };
 
 export default MensPage;

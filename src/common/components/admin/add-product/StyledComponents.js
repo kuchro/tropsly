@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { InputNumber, Input } from "antd";
+
 
 export const ProductContainer = styled.div`
   align-items: center;
@@ -14,11 +16,14 @@ export const ProductHeader = styled.h1`
   font-family: verdana;
 `;
 
-export const Input = styled.input`
-  font-family: "PT Sans", sans-serif;
-  font-size: 0.8rem;
+export const StyledInputNumber = styled(InputNumber)`
+  width: 20%;
+  padding: 0.1rem 1rem 0 0;
+`;
+
+export const StyledInput = styled.input`
+  width: 20%;
   display: block;
-  margin: 25px;
   padding: 0.1rem 1rem 0 0;
 `;
 
@@ -29,7 +34,7 @@ export const Label = styled.label`
   float: left;
 `;
 
-export const TextArea = styled.textarea`
+export const StyledTextArea = styled.textarea`
   font-family: "PT Sans", sans-serif;
   font-size: 0.8rem;
   display: block;
@@ -39,10 +44,8 @@ export const TextArea = styled.textarea`
   max-width: 60%;
 `;
 
-
 export const Submit = styled.input`
-
-  background: #E32227;
+  background: #7CFC00;
   color: white;
   text-transform: uppercase;
   margin-top: 20px;
@@ -50,5 +53,15 @@ export const Submit = styled.input`
   font-size: 8px;
   font-weight: 100;
   letter-spacing: 5px;
+`;
 
-`
+export const Disabled = styled.input`
+  background: #e32227;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 8px;
+  font-weight: 100;
+  letter-spacing: 5px;
+`;

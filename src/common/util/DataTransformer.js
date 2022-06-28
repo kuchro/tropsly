@@ -10,3 +10,8 @@ export const MaterialMapper = (material) => {
 export const selectCategoryData = (name,catData) =>{
   return Object.entries(catData).find(([k,v]) => v.catName===name)[1].data;
 }
+
+export const capitalizeFirstLetter=(str)=>{
+  const capitalized = str.charAt(0).toUpperCase() + str.slice(1);
+  return capitalized;
+}

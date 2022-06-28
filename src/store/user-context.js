@@ -77,6 +77,7 @@ export const UserContextProvider = ({ children }) => {
     console.log(index);
     newCart[index].quantity += parseInt(quantity);
     setCart(newCart);
+    success("cart");
   };
 
   const checkIfAlreadyFav = (id) => {
