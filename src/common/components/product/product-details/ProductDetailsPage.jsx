@@ -1,12 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 
-import {
-  Space,
-  Typography,
-  Divider,
-  Collapse,
-  Popover,
-} from "antd";
+import { Space, Typography, Divider, Collapse, Popover } from "antd";
 const { Title } = Typography;
 const { Panel } = Collapse;
 import {
@@ -31,7 +25,7 @@ import UserContext from "store/user-context";
 
 import { GET_DELIVERY_DATA } from "common/http/RequestData.js";
 
-const ProductDetailsPage = ({ product }) => {
+const ProductDetailsPage = ({ product, materialTypes }) => {
   const [deliveryInfo, setDeliveryInfo] = useState([]);
   const [quantity, setQuantity] = useState(0);
   const [selectedSize, setSelectedSize] = useState([]);
@@ -146,7 +140,9 @@ const ProductDetailsPage = ({ product }) => {
               <Description>{product.description}</Description>
             </Panel>
             <Panel header="Material" key="2">
-              <Description>{product.materialTypeId}</Description>
+              <Description>
+                {materialTypes.find((x) => x.id == product.materialTypeId).name}
+              </Description>
             </Panel>
             <Panel header="Opinions" key="3">
               <CommentSection productId={product.productId} />
