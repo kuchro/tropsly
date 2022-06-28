@@ -1,26 +1,20 @@
-import {useState} from 'react';
+import { useState } from "react";
 
 import ProductDetailsPage from "common/components/product/product-details/ProductDetailsPage";
 
-import axios from "axios";
-import { HOST_DATA } from "hostdata";
-
-export const getServerSideProps = async ( context ) => {
-  
+import { GET_PRODUCT_BY_ID } from "common/http/RequestData.js";
+export const getServerSideProps = async (context) => {
   const { id } = context.query;
-  
-  let productDataResponse = await axios.get(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}${id}`);
-  let productData = await productDataResponse.data;
+  let productDataResponse = await GET_PRODUCT_BY_ID(id);
+  console.debug("Product:", productDataResponse.data);
   return {
-    props: { data: productData }
+    props: { data: productDataResponse.data },
   };
 };
 
-const ClothesWomensTypePage = ({data}) => {
+const ClothesWomensTypePage = ({ data }) => {
   const [productData] = useState(data);
-  return (
-    <ProductDetailsPage product={productData}/>
-  );
+  return <ProductDetailsPage product={productData} />;
 };
 
 export default ClothesWomensTypePage;

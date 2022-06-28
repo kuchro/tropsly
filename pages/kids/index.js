@@ -4,6 +4,7 @@ import KidsComponent from "common/components/views/kids/index";
 import {
   GET_CATEGORY_DATA,
   GET_PRODUCTS_CATEGORY_BY_ID,
+  GET_MATERIAL_TYPE,
 } from "common/http/RequestData.js";
 
 export const getServerSideProps = async ({resolvedUrl}) => {
@@ -31,12 +32,18 @@ export const getServerSideProps = async ({resolvedUrl}) => {
       "Application may be not configured - Missing categories. Please check Admin panel."
     );
   }
+  let transferData = [];
+  let materialTypes = await GET_MATERIAL_TYPE();
+  if(materialTypes){
+    transferData = materialTypes;
+  }
+
   return {
-    props: { data: productData },
+    props: { data: productData, material: transferData },
   };
 };
-const KidsPage = ({ data }) => {
-  return <KidsComponent data={data} />;
+const KidsPage = ({ data, material }) => {
+  return <KidsComponent data={data} materialTypes={material} />;
 };
 
 export default KidsPage;

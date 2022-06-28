@@ -4,6 +4,7 @@ import MainView from 'common/components/views/mainview/index'
 import {
   GET_CATEGORY_DATA,
   GET_PRODUCTS_CATEGORY_BY_ID,
+  GET_MATERIAL_TYPE,
 } from "common/http/RequestData.js";
 
 export const getServerSideProps = async () => {
@@ -25,11 +26,17 @@ export const getServerSideProps = async () => {
     );
   }
 
+  let transferData = [];
+  let materialTypes = await GET_MATERIAL_TYPE();
+  if(materialTypes){
+    transferData = materialTypes;
+  }
+
   return {
-    props: { data: productData },
+    props: { data: productData, material: transferData },
   };
 };
-export default function Home({data}) {
+export default function Home({data, material}) {
   return (
     <div>
       <Head>
@@ -39,7 +46,7 @@ export default function Home({data}) {
       </Head>
 
       <main >
-        <MainView products={data}/>
+        <MainView products={data} materialTypes={material}/>
       </main>
 
       <footer >

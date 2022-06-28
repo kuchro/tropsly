@@ -1,6 +1,5 @@
 import React,{useEffect,useState} from "react";
 import { StyledSelect } from "common/styles/CommonStyledComponents";
-import Form from "react-bootstrap/Form";
 
 export const SelectSizeComponent = ({data, onChangeSelectData}) => {
   const [productSize, setProductSize] = useState(data);

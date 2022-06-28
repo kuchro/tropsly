@@ -21,7 +21,7 @@ const NavigationBar = () => {
       <Nav>
         <NavBarContainer>
           <NavLogo>
-            <Link href="/">Logo</Link>
+            <Link href="/">SportShop</Link>
             <MobileIcon>X</MobileIcon>
           </NavLogo>
           <NavMenu>

@@ -6,7 +6,9 @@ import {
   Label,
   Submit,
   StyledTextArea,
+  Disabled,
 } from "./StyledComponents";
+
 
 import { Divider, Checkbox, InputNumber } from "antd";
 const CheckboxGroup = Checkbox.Group;
@@ -18,7 +20,7 @@ import { ADD_NEW_PRODUCT, UPLOAD_IMAGE } from "common/http/RequestData";
 
 
 
-const AddProduct = ({ configurationData }) => {
+const AddProduct = ({ configurationData,awshostInfo }) => {
   const plainOptions = ["XS", "S", "M", "L", "XL", "XXL"];
 
   const {
@@ -48,7 +50,7 @@ const AddProduct = ({ configurationData }) => {
 
   const onSubmit = async (data, e) => {
     await uploadImage().then((res) => {
-      data.image = `https://localhost:4566/sportshop.images/${res.data}`;
+      data.image = `${awshostInfo.AWS_HOST}/${awshostInfo.BUCKET}/${res.data}`;
     });
     data.size = CheckedList;
     await ADD_NEW_PRODUCT(data);
@@ -68,7 +70,6 @@ const AddProduct = ({ configurationData }) => {
   return (
     <ProductContainer>
       <Label>Photo</Label>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <ImageUpload setImageFile={(file)=>setFile(file)}/>
         <Label>Title</Label>
@@ -163,7 +164,7 @@ const AddProduct = ({ configurationData }) => {
           {...register("quantity", { required: true })}
         />
         <Divider />
-        <Submit type="submit" value="Add Product" />
+        {file?<Submit type="submit" value="Add Product" /> : <Disabled disabled type="submit" value="Please upload image" />}
       </form>
     </ProductContainer>
   );

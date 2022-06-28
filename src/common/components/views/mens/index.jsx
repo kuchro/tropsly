@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   MainContainer,
   ProductsContainer,
@@ -7,13 +7,13 @@ import FilterCollection from "common/components/functional-components/filter/Fil
 
 import ProductList from "common/components/product/product-info/ProductList";
 
-const MensComponent = ({ data }) => {
+const MensComponent = ({ data,materialTypes }) => {
   const [mensProducts, setMensProducts] = useState(data);
   return (
     <MainContainer>
       <FilterCollection data={data} setProducts={setMensProducts} />
       <ProductsContainer>
-        <ProductList products={mensProducts} path="mens" />
+        <ProductList products={mensProducts} materialTypes={materialTypes} path="mens" />
       </ProductsContainer>
     </MainContainer>
   );

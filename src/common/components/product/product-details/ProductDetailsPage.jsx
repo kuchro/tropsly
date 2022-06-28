@@ -6,7 +6,6 @@ import {
   Divider,
   Collapse,
   Popover,
-  Popconfirm,
 } from "antd";
 const { Title } = Typography;
 const { Panel } = Collapse;
@@ -30,8 +29,6 @@ import FavoritesActions from "common/components/functional-components/favorites-
 
 import UserContext from "store/user-context";
 
-import { MaterialMapper } from "common/util/DataTransformer";
-
 import { GET_DELIVERY_DATA } from "common/http/RequestData.js";
 
 const ProductDetailsPage = ({ product }) => {
@@ -39,7 +36,6 @@ const ProductDetailsPage = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
   const [selectedSize, setSelectedSize] = useState([]);
   const userCtx = useContext(UserContext);
-  const [alreadyInCart, setAlreadyInCart] = useState();
 
   const fetchData = async () => {
     let deliveryData = await GET_DELIVERY_DATA();

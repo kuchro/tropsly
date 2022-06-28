@@ -1,5 +1,5 @@
 import React from "react";
-import Icon,{ HeartTwoTone } from "@ant-design/icons";
+import { HeartTwoTone } from "@ant-design/icons";
 import { Button } from "antd";
 
 const AddToFavButton = ({onAddToFav, color}) => {

@@ -1,10 +1,9 @@
-import { Menu, Layout, Breadcrumb } from "antd";
+import { Menu, Layout } from "antd";
 
 import React, { useState } from "react";
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 import {
   ShoppingOutlined,
-  UserOutlined,
   SkinOutlined,
 } from "@ant-design/icons";
 
@@ -15,10 +14,10 @@ import DeliveryOption from 'common/components/admin/delivery/DeliveryOption'
 import OrdersComponent from 'common/components/admin/order/OrdersComponent'
 
 
-export const AdminComponent = ({data,dataWithId}) => {
+export const AdminComponent = ({data,dataWithId, env}) => {
   const [selectedItem, setSelectedItem] = useState("AddProduct");
   const components = {
-    AddProduct: <AddProduct configurationData={dataWithId} />,
+    AddProduct: <AddProduct configurationData={dataWithId} awshostInfo={env} />,
     ManageProduct: <ManageProduct categoryData={dataWithId}/>,
     DeliveryOption: <DeliveryOption/>,
     CurrentOrders: <OrdersComponent/>,

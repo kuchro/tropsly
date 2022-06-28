@@ -5,11 +5,11 @@ import PaymentDetailsComponent from 'common/components/payment/PaymentDetailsCom
 
 
 
-export const Info = (product) => {
+export const Info = (product, materialTypes) => {
     return (
         Modal.info({
             content: (
-            <MiniProductDetails product={product}/>),
+            <MiniProductDetails product={product} materialTypes={materialTypes}/>),
             okText: 'Close',
             maskClosable: true
         }))

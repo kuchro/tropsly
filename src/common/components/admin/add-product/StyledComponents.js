@@ -45,6 +45,17 @@ export const StyledTextArea = styled.textarea`
 `;
 
 export const Submit = styled.input`
+  background: #7CFC00;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 8px;
+  font-weight: 100;
+  letter-spacing: 5px;
+`;
+
+export const Disabled = styled.input`
   background: #e32227;
   color: white;
   text-transform: uppercase;

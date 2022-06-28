@@ -1,5 +1,5 @@
 import React from 'react'
-
+//TO_DO_ON_ADMIN_PANEL_TO_MANAGE_THIS
 const PaymentDetailsComponent = () => {
   return (
     <div>

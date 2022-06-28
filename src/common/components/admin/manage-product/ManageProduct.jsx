@@ -1,4 +1,4 @@
-import { message, Typography, Popconfirm, Tag, Space, Form } from "antd";
+import { Typography, Popconfirm, Tag, Space, Form } from "antd";
 import React, { useState, useEffect } from "react";
 import { HOST_DATA } from "hostdata";
 import { CONFIG_COLUMNS } from "mockdata";
@@ -7,6 +7,7 @@ import { selectCategoryData } from "common/util/DataTransformer";
 import DataTableComponent from "common/components/functional-components/data-table/DataTableComponent";
 import { UPDATE_PRODUCT_DATA,DELETE_PRODUCT_BY_ID } from "common/http/RequestData";
 
+import {GET_PRODUCTS} from 'common/http/RequestData'
 const ManageProduct = ({ categoryData }) => {
   const [form] = Form.useForm();
   const [data, setData] = useState([]);
@@ -15,12 +16,9 @@ const ManageProduct = ({ categoryData }) => {
   const isEditing = (record) => record.productId === editingKey;
 
   const fetchData = async () => {
-    let getAllProducts = await axios.get(
-      `${HOST_DATA.API_URL}${HOST_DATA.PRODUCT}`
-    );
-    let allProducts = await getAllProducts.data;
-    setData(allProducts);
-    console.log(allProducts);
+    let getAllProducts = await GET_PRODUCTS();
+    setData(getAllProducts);
+    console.debug("All products", getAllProducts);
   };
 
   useEffect(() => {
@@ -53,7 +51,7 @@ const ManageProduct = ({ categoryData }) => {
   const onSave = async (key) => {
     try {
       const row = await form.validateFields();
-      await UPDATE_PRODUCT_DATA(row);
+      await UPDATE_PRODUCT_DATA(key,row);
       setReloadData(true);
       setEditingKey("");
     } catch (errInfo) {

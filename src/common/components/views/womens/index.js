@@ -6,14 +6,14 @@ import {
   MainContainer,
   ProductsContainer,
 } from "common/styles/CommonStyledComponents";
-const WomensComponent = ({ data }) => {
+const WomensComponent = ({ data, materialTypes }) => {
   const [womensProducts, setWomensProducts] = useState(data);
 
   return (
     <MainContainer>
       <FilterCollection data={data} setProducts={setWomensProducts} />
       <ProductsContainer>
-        <ProductList products={womensProducts} path="womens" />
+        <ProductList products={womensProducts} materialTypes={materialTypes} path="womens" />
       </ProductsContainer>
     </MainContainer>
   );

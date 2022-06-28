@@ -1,53 +1,37 @@
-import { message, Typography, Popconfirm, Tag, Button, Form } from "antd";
+import { Typography, Popconfirm, Tag, Button, Form } from "antd";
 import React, { useState, useEffect } from "react";
-import { HOST_DATA } from "hostdata";
 
-import axios from "axios";
-import {OrderDetailModal} from 'common/components/functional-components/modals/ModalComponent'
-
+import { OrderDetailModal } from "common/components/functional-components/modals/ModalComponent";
 
 import DataTableComponent from "common/components/functional-components/data-table/DataTableComponent";
 
+import {
+  GET_ALL_ORDER_DATA,
+  DELETE_ORDER_BY_ID,
+  UPDATE_ORDER,
+} from "common/http/RequestData";
 
 const OrdersComponent = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState([]);
   const [reloadData, setReloadData] = useState(false);
   const [editingKey, setEditingKey] = useState("");
-  const [categoryData, setCatData] = useState();
+
   const isEditing = (record) => record.productOrderId === editingKey;
 
   const fetchDataOrders = async () => {
-    let getAllProducts = await axios.get(
-      `${HOST_DATA.API_URL}${HOST_DATA.ORDER}`
-    );
-    let allProducts = await getAllProducts.data;
-    setData(allProducts);
-    console.log(allProducts);
+    let getAllProducts = await GET_ALL_ORDER_DATA();
+    setData(getAllProducts);
+    console.debug("Orders", getAllProducts);
   };
-  const fetchCat=async()=>{
-    let categoryDataResponse = await axios.get(
-        `${HOST_DATA.API_URL}${HOST_DATA.CATEGORY}`
-      );
-      let catData = categoryDataResponse.data;
-      setCatData(catData);
-  }
 
   useEffect(() => {
     fetchDataOrders();
     setReloadData(false);
   }, [reloadData]);
 
-  const onConfirmDelete = (orderId) => {
-    axios
-      .delete(`${HOST_DATA.API_URL}${HOST_DATA.ORDER}${orderId}`)
-      .then(function (response) {
-        message.success("Order successfully removed.");
-        setReloadData(true);
-      })
-      .catch(function (error) {
-        message.error("Something went wrong, try again later.");
-      });
+  const onConfirmDelete = async (orderId) => {
+    await DELETE_ORDER_BY_ID(orderId, () => setReloadData(true));
   };
 
   const onEdit = (record) => {
@@ -70,17 +54,12 @@ const OrdersComponent = () => {
   const onSave = async (orderId) => {
     try {
       const row = await form.validateFields();
-      row.Id=orderId;
-      axios
-        .put(`${HOST_DATA.API_URL}${HOST_DATA.ORDER}`, row)
-        .then(function (response) {
-          message.success("Order successfully updated.");
-          setReloadData(true);
-          setEditingKey("");
-        })
-        .catch(function (error) {
-          message.error("Something went wrong, try again later.");
-        });
+      row.Id = orderId;
+      await UPDATE_ORDER(
+        row,
+        () => setReloadData(true),
+        () => setEditingKey("")
+      );
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
     }
@@ -88,10 +67,10 @@ const OrdersComponent = () => {
 
   const columns = [
     {
-        title: "Order Number",
-        dataIndex: "orderNumber",
-        width: "10%",
-      },
+      title: "Order Number",
+      dataIndex: "orderNumber",
+      width: "10%",
+    },
     {
       title: "Total Price",
       dataIndex: "totalPrice",
@@ -109,9 +88,7 @@ const OrdersComponent = () => {
       width: "10%",
       editable: false,
       render: (text, record) => (
-        <Button
-            onClick={()=> OrderDetailModal(record) }
-        >Details</Button>
+        <Button onClick={() => OrderDetailModal(record)}>Details</Button>
       ),
     },
     {

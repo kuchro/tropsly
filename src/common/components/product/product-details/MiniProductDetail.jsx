@@ -1,23 +1,7 @@
-import { useState, useEffect } from "react";
+
 import { Descriptions, Divider } from "antd";
-import { StyledSelect } from "common/styles/CommonStyledComponents";
 
-import { MaterialMapper } from "common/util/DataTransformer";
-
-
-
-const { Option } = StyledSelect;
-
-const MiniProductDetails = ({ product }) => {
-  const [productSize, setProductSize] = useState(product.size);
-
-  useEffect(() => {
-    const elements = [];
-    product.size.map((size) =>
-      elements.push(<Option key={size}>{size}</Option>)
-    );
-    setProductSize(elements);
-  }, []);
+const MiniProductDetails = ({ product, materialTypes }) => {
 
 
   return (
@@ -32,7 +16,7 @@ const MiniProductDetails = ({ product }) => {
       </Descriptions>
       <Descriptions>
       <Descriptions.Item label="Material">
-          {product.materialTypeId}
+        {materialTypes.find(x=>x.id==product.materialTypeId).name}
         </Descriptions.Item>
       </Descriptions>
       <Divider />

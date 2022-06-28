@@ -61,7 +61,6 @@ const FilterCollection = ({ data, setProducts }) => {
 
   return (
     <FilterBox>
-      
       <FilterPrice productsData={data} setProductsFromRange={setProducts} />
       {Object.entries(categoryConfig).map(([k, v]) => {
         return k !== "category" ? (

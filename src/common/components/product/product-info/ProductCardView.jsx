@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Link from "next/link";
 import { Col, Typography, Card } from "antd";
 const { Title } = Typography;
@@ -15,13 +15,12 @@ import { InfoCircleTwoTone } from "@ant-design/icons";
 import { Info } from "../../functional-components/modals/ModalComponent";
 import FavoritesActions from "common/components/functional-components/favorites-button/FavoritesActions";
 
-const ProductCardView = ({ product, path, action }) => {
+const ProductCardView = ({ product, path, materialTypes, action }) => {
   return (
     <Col lg={6} md={8} xs={24} key={product.productId}>
       <StyledCard
         key={product.productId}
         hoverable
-    
         cover={
           <Link href={`/${path}/${product.productId}`}>
             <StyledImage alt="example" src={product.image} />
@@ -37,7 +36,7 @@ const ProductCardView = ({ product, path, action }) => {
         <AlignLeft>
           <FavoritesActions product={product} onFavRemove={action} />
           <StyledButton
-            onClick={() => Info(product)}
+            onClick={() => Info(product, materialTypes)}
             type="primary"
             shape="circle"
             size={"large"}

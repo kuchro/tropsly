@@ -6,7 +6,7 @@ import {
   ProductsContainer,
 } from "common/styles/CommonStyledComponents";
 import ProductList from "common/components/product/product-info/ProductList";
-const KidsComponent = ({ data }) => {
+const KidsComponent = ({ data, materialTypes }) => {
   const [kidsProducts, setKidsProducts] = useState(data);
 
   return (
@@ -14,7 +14,7 @@ const KidsComponent = ({ data }) => {
       <FilterCollection data={data} setProducts={setKidsProducts} />
  
       <ProductsContainer>
-        <ProductList products={kidsProducts} path="kids" />
+        <ProductList products={kidsProducts} materialTypes={materialTypes} path="kids" />
       </ProductsContainer>
     </MainContainer>
   );

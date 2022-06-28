@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { Rate, Typography, Space } from "antd";
-import { HOST_DATA } from "hostdata";
-import axios from "axios";
-const { Text } = Typography;
+import {GET_RATE_OF_PRODUCT, ADD_RATE_OF_PRODUCT} from 'common/http/RequestData';
 
 const desc = ["😤", "😥", "🙄", "🙂", "😀"];
 
@@ -10,28 +8,20 @@ const RatingComponent = ({ productId }) => {
   const [rating, setRating] = useState({ratingAvg:0, voteNumber:0});
   const [reloadData, setReloadData] = useState(false);
   const fetchData = async () => {
-    let getRating = await axios.get(
-      `${HOST_DATA.API_URL}${HOST_DATA.PRODUCT_RATE}${productId}`
-    );
-    let ratingData = await getRating.data;
-    setRating(ratingData);
+    let getRating = await GET_RATE_OF_PRODUCT(productId);
+    setRating(getRating);
   };
   useEffect(() => {
     fetchData();
     setReloadData(false);
   }, [reloadData]);
 
-  const onChange = (data) => {
+  const onChange = async (data) => {
     let payload = {
       productId: productId,
       ratingScore: data,
     };
-    axios
-      .post(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT_RATE}`, payload)
-      .then(function (response) {
-        setReloadData(true);
-      })
-      .catch(function (error) {});
+    await ADD_RATE_OF_PRODUCT(payload,()=>setReloadData(true));
   };
   return (
     <span>

@@ -3,11 +3,10 @@ import { Button, Comment, Form, Input, message } from "antd";
 import React, { useState, useEffect } from "react";
 import CommentList from "./CommentList";
 import EditorSection from "./EditorSection";
-const { TextArea } = Input;
-
-import axios from "axios";
-import { HOST_DATA } from "hostdata";
-
+import {
+  GET_ALL_COMMENTS_OF_PRODUCT_BY_ID,
+  ADD_COMMENT,
+} from "common/http/RequestData";
 export const CommentSection = ({ productId }) => {
   const [addComment, setAddComment] = useState(false);
   const [reloadData, setReloadData] = useState(false);
@@ -16,13 +15,10 @@ export const CommentSection = ({ productId }) => {
   const [value, setValue] = useState("");
 
   const fetchData = async () => {
-    let getAllComments = await axios.get(
-      `${HOST_DATA.API_URL}${HOST_DATA.PRODUCT_COMMENT}/${productId}`
-    );
-    let allComments = await getAllComments.data;
-    let data = allComments.map((x) => {
+    let getAllComments = await GET_ALL_COMMENTS_OF_PRODUCT_BY_ID(productId);
+    let data = getAllComments.map((x) => {
       return {
-        author: "A some user",
+        author: "User X",
         content: x.comment,
         datetime: x.dateTime,
       };
@@ -35,27 +31,23 @@ export const CommentSection = ({ productId }) => {
   }, [reloadData]);
 
   const handleSubmit = () => {
-    if (!value){
+    if (!value) {
       message.warning("Comment can't be empty!");
       return;
-    } 
+    }
     setSubmitting(true);
-    setTimeout(() => {
+    setTimeout(async () => {
       let payload = {
         comment: value,
         productId: productId,
       };
       setSubmitting(false);
       setValue("");
-      axios
-        .post(`${HOST_DATA.API_URL}${HOST_DATA.PRODUCT_COMMENT}`, payload)
-        .then(function (response) {
-          setReloadData(true);
-          setAddComment(false);
-        })
-        .catch(function (error) {
-          message.error("Something went wrong...");
-        });
+      await ADD_COMMENT(
+        payload,
+        () => setReloadData(true),
+        () => setAddComment(false)
+      );
     }, 1000);
   };
 
@@ -72,7 +64,7 @@ export const CommentSection = ({ productId }) => {
         <div>
           <span>Add Comment</span>
           <Button
-          onClick={()=>addNewComment()}
+            onClick={() => addNewComment()}
             style={{ margin: "10px" }}
             icon={<PlusCircleOutlined />}
           />{" "}

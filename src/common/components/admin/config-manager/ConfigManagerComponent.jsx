@@ -6,8 +6,6 @@ import CategorySelect from "common/components/admin/config-manager/CategorySelec
 import BackdropEffect from "common/components/functional-components/modals/BackdropEffect";
 import PopConfirmation from "common/components/functional-components/modals/PopConfirmation";
 import DataTableComponent from "common/components/functional-components/data-table/DataTableComponent";
-import { HOST_DATA } from "hostdata";
-import axios from "axios";
 import { useRouter } from "next/router";
 import {
   DELETE_PRODUCT_CATEGORY,
@@ -16,7 +14,6 @@ import {
 
 const ConfigManagerComponent = ({ configuration }) => {
   const router = useRouter();
-  const [isRefreshing, setIsRefreshing] = useState(false);
   const [configData, setConfigData] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false);
@@ -24,13 +21,11 @@ const ConfigManagerComponent = ({ configuration }) => {
   const [selectedCat, setSelectCat] = useState([]);
 
   useEffect(() => {
-    setIsRefreshing(false);
     setConfigData(configuration);
   }, [configuration]);
 
   const refreshData = () => {
     router.replace(router.asPath);
-    setIsRefreshing(true);
   };
 
   const showAddModal = (path) => {
